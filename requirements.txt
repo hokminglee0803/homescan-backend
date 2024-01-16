@@ -1,0 +1,9 @@
+fastapi>=0.68.0,<0.69.0
+pydantic>=1.8.0,<2.0.0
+uvicorn>=0.15.0,<0.16.0
+celery==5.3.6
+redis==5.0.1
+selenium==4.16.0
+fake-useragent==1.4.0
+requests-html==0.10.0
+undetected-chromedriver==2.1.1
