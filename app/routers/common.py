@@ -1,13 +1,18 @@
 from typing import List
-from fastapi import APIRouter
+from fastapi import APIRouter, Request
+from app.schemas.region import RegionsSchema
+
+from app.services.region import RegionService
+
+router = APIRouter()
+region_service = RegionService()
 
 
-router = APIRouter(prefix="/common")
-
-@router.get("/regions",response_model=List[Region])
+@router.get("/regions", response_model=RegionsSchema)
 def get_regions():
+    result = region_service.get_regions()
     return {
-        "regions": []
+        "regions": result
     }
 
 
@@ -17,10 +22,9 @@ def get_regions():
         "districts": []
     }
 
+
 @router.get("/estate")
 def get_regions():
     return {
         "estate": []
     }
-    
-https://camillovisini.com/coding/abstracting-fastapi-services

@@ -7,6 +7,7 @@ class Settings(BaseSettings):
     mongodb_connection_string: str = Field(...,
                                            env='MONGODB_CONNECTION_STRING')
     redis_url: str = Field(..., env="REDIS_URL")
+    db_name: str = Field(..., env="DB_NAME")
 
     class Config:
         env_file = ".env"

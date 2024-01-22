@@ -1,11 +1,14 @@
 from fastapi import FastAPI
-from routers import common
+from pymongo import MongoClient
+from app.routers.common import router as common_router
+import app.config
+import logging
 
-from . import (
-    config
-)
+from app.utils.mongodb import close_mongodb_connection, connect_to_mongodb
 
-settings = config.get_settings()
+settings = app.config.get_settings()
+
+logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
@@ -13,4 +16,16 @@ app = FastAPI()
 # async def custom_app_exception_handler(request, e):
 #     return await app_exception_handler(request, e)
 
-app.include_router(common.router)
+
+@app.on_event("startup")
+def startup_db_client():
+    connect_to_mongodb()
+    logger.info("Connected to the MongoDB database!")
+
+
+@app.on_event("shutdown")
+def shutdown_db_client():
+    close_mongodb_connection()
+
+
+app.include_router(common_router)
