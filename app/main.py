@@ -1,7 +1,5 @@
-from typing import Union
-
 from fastapi import FastAPI
-from pydantic import BaseModel
+from routers import common
 
 from . import (
     config
@@ -11,8 +9,8 @@ settings = config.get_settings()
 
 app = FastAPI()
 
-@app.get("/")
-def read_root():
-    return {
-        "application_name": settings.name
-    }
+# @app.exception_handler(AppExceptionCase)
+# async def custom_app_exception_handler(request, e):
+#     return await app_exception_handler(request, e)
+
+app.include_router(common.router)
