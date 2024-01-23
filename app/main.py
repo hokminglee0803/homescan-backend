@@ -28,4 +28,4 @@ def shutdown_db_client():
     close_mongodb_connection()
 
 
-app.include_router(common_router)
+app.include_router(common_router,tags=['Common'],prefix="/common")

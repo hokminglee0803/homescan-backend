@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import logging
 import time
 from typing import List
 from requests_html import HTML
@@ -9,6 +10,11 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.common.by import By
+from app.services.district import DistrictService
+from app.services.estate import EstateService
+
+from app.services.region import RegionService
+from app.utils.mongodb import close_mongodb_connection, connect_to_mongodb
 
 
 def get_user_agent():
@@ -22,6 +28,9 @@ class House:
         self.estate = estate
 
 
+logger = logging.getLogger(__name__)
+
+
 @dataclass
 class Scraper:
     url: str = "https://www.homepricehk.com/"
@@ -29,6 +38,27 @@ class Scraper:
     html_obj: HTML = None
 
     house = []
+    regions = []
+    districts = []
+    estates = []
+
+    region_service = None
+    district_service = None
+    estate_service = None
+
+    def __init__(self):
+        connect_to_mongodb()
+        logger.info('Connected to Mongo DB.')
+        self.region_service = RegionService()
+        self.district_service = DistrictService()
+        self.estate_service = EstateService()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self):
+        close_mongodb_connection()
+        logger.info('Close connection to Mongo DB.')
 
     def get_driver(self):
         if self.driver is None:
@@ -62,11 +92,12 @@ class Scraper:
                 temp_region_select = Select(
                     self.driver.find_element(by=By.ID, value="region"))
                 temp_option = temp_region_select.options[idx]
+                self.regions.append(temp_option.text)
                 print(f'Region: {temp_option.text}')
                 temp_option.click()
-                self.get_district(region_idx=idx)
+                self.get_district(region_idx=idx, region_text=temp_option.text)
 
-    def get_district(self, region_idx):
+    def get_district(self, region_idx, region_text):
         time.sleep(5)
         district_select = Select(
             self.driver.find_element(by=By.ID, value="district"))
@@ -75,11 +106,16 @@ class Scraper:
                 temp_district_select = Select(
                     self.driver.find_element(by=By.ID, value="district"))
                 temp_option = temp_district_select.options[idx]
+                self.districts.append({
+                    "name": temp_option.text,
+                    "region": region_text
+                })
                 print(f'District : {temp_option.text}')
                 temp_option.click()
-                self.get_estate(region_idx=region_idx, district_idx=idx)
+                self.get_estate(region_idx=region_idx,
+                                district_idx=idx, district_text=temp_option.text)
 
-    def get_estate(self, region_idx, district_idx):
+    def get_estate(self, region_idx, district_idx, district_text):
         time.sleep(5)
         estate_select = Select(
             self.driver.find_element(by=By.ID, value="estate"))
@@ -88,6 +124,10 @@ class Scraper:
                 temp_estate_select = Select(
                     self.driver.find_element(by=By.ID, value="estate"))
                 temp_option = temp_estate_select.options[idx]
+                self.estates.append({
+                    "name": temp_option.text,
+                    "district": district_text
+                })
                 print(f'Estate : {temp_option.text}')
                 temp_option.click()
                 self.house.append(
@@ -141,42 +181,58 @@ class Scraper:
         self.get_html_obj()
         time.sleep(10)
         self.get_region()
-        for property in self.house:
 
-            region_select = Select(
-                self.driver.find_element(by=By.ID, value="region"))
-            selected_region = region_select.options[property.region]
+        # Add Region to Database
+        self.region_service.delete_regions()
+        for region in self.regions:
+            self.region_service.create_region(region)
 
-            selected_region.click()
+        # Add District to Database
+        self.district_service.delete_districts()
+        for district in self.districts:
+            self.district_service.create_district(district)
 
-            time.sleep(5)
+        # Add Estate to Database
+        self.estate_service.delete_estates()
+        for estate in self.estates:
+            self.estate_service.create_estate(estate)
 
-            district_select = Select(
-                self.driver.find_element(by=By.ID, value="district"))
-            selected_district = district_select.options[property.district]
+        # for property in self.house:
 
-            selected_district.click()
+        #     region_select = Select(
+        #         self.driver.find_element(by=By.ID, value="region"))
+        #     selected_region = region_select.options[property.region]
 
-            time.sleep(5)
+        #     selected_region.click()
 
-            estate_select = Select(
-                self.driver.find_element(by=By.ID, value="estate"))
-            selected_estate = estate_select.options[property.estate]
+        #     time.sleep(5)
 
-            selected_estate.click()
+        #     district_select = Select(
+        #         self.driver.find_element(by=By.ID, value="district"))
+        #     selected_district = district_select.options[property.district]
 
-            time.sleep(5)
+        #     selected_district.click()
 
-            submit_button = self.driver.find_element(
-                by=By.ID, value="estateSearch")
-            submit_button.click()
-            time.sleep(5)
-            self.get_building()
-            print('Wait...')
-            time.sleep(60)
-            self.get()
-            time.sleep(10)
+        #     time.sleep(5)
+
+        #     estate_select = Select(
+        #         self.driver.find_element(by=By.ID, value="estate"))
+        #     selected_estate = estate_select.options[property.estate]
+
+        #     selected_estate.click()
+
+        #     time.sleep(5)
+
+        #     submit_button = self.driver.find_element(
+        #         by=By.ID, value="estateSearch")
+        #     submit_button.click()
+        #     time.sleep(5)
+        #     self.get_building()
+        #     print('Wait...')
+        #     time.sleep(60)
+        #     self.get()
+        #     time.sleep(10)
 
         return {
-            "html": ""
+            "": ""
         }

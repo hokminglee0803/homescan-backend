@@ -6,7 +6,7 @@ class RegionCreateSchema(BaseModel):
     name: str
 
 class RegionSchema(BaseModel):
-    id: str
+    _id: str
     name: str
 
 class RegionsSchema(BaseModel):

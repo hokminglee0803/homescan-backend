@@ -5,8 +5,7 @@ import app.config
 
 settings = app.config.get_settings()
 
-client = MongoClient(settings.mongodb_connection_string,
-                     tlsCAFile=certifi.where())
+client = MongoClient(settings.mongodb_connection_string)
 database = client[settings.db_name]
 
 
