@@ -8,6 +8,7 @@ class HouseCreateSchema(BaseModel):
     district: str
     estate: str
     building: str
+    floor: str
     block: str
 
 
@@ -18,5 +19,5 @@ class HouseSchema(BaseModel):
     district: str
     estate: str
     building: str
+    floor: str
     block: str
-

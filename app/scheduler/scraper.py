@@ -41,6 +41,8 @@ class Scraper:
     regions = []
     districts = []
     estates = []
+    building = []
+    block = []
 
     region_service = None
     district_service = None
