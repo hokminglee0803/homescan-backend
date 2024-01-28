@@ -1,7 +1,7 @@
 from celery import Celery
 from celery.schedules import crontab
 import app.config
-from . import scraper
+from . import scraper,hsbc
 
 settings = app.config.get_settings()
 
@@ -11,19 +11,23 @@ app = Celery(
     backend=f"{settings.redis_url}/1"
 )
 
+
 @app.on_after_configure.connect
 def setup_periodic_tasks(sender, *arg, **kwargs):
     sender.add_periodic_task(
         # crontab(minute="*"),
-        60.0,
+        30.0,
         scrape_house_property_value.s()
     )
 
-
 @app.task
 def scrape_house_property_value():
-    print("Start House Property Value Evaluation Scan in Home Price HK")
-    s = scraper.Scraper()
-    dataset = s.scrape()
+    print("Start House Property Value Evaluation Scan in HSBC")
+    s = hsbc.HSBCScraper()
+    s.scrape()
     del s
-    # Web Scraping
+    
+    
+
+
+

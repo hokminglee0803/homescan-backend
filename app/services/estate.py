@@ -18,11 +18,13 @@ class EstateService():
         })
         return [EstateModel(**estate) for estate in estates]
 
-    def create_estate(self, value: EstateCreateSchema):
-        get_collection().insert_one({
-            "name": value["name"],
-            "district": value["district"]
-        })
-
-    def delete_estates(self):
-        get_collection().delete_many({})
+    def update_estate(self, value: EstateCreateSchema):
+        get_collection().update_one({
+            "name": value['name'],
+            "district": value['district']
+        }, {
+            "$set": {
+                "name": value['name'],
+                "district": value['district']
+            }
+        }, upsert=True)

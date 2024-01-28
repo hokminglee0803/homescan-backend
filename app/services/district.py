@@ -17,11 +17,13 @@ class DistrictService():
         })
         return [DistrictModel(**district) for district in districts]
 
-    def create_district(self, value: DistrictCreateSchema):
-        get_collection().insert_one({
-            "name": value["name"],
-            "region": value["region"]
-        })
-
-    def delete_districts(self):
-        get_collection().delete_many({})
+    def update_district(self, value: DistrictCreateSchema):
+        get_collection().update_one({
+            "name": value['name'],
+            "region": value['region']
+        }, {
+            "$set": {
+                "name": value['name'],
+                "region": value['region']
+            }
+        }, upsert=True)

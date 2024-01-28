@@ -5,7 +5,7 @@ from app.schemas.region import RegionCreateSchema
 from app.utils.mongodb import get_database
 
 
-def get_items_collection() -> Collection:
+def get_collection() -> Collection:
     database = get_database()
     return database["regions"]
 
@@ -13,13 +13,14 @@ def get_items_collection() -> Collection:
 class RegionService():
 
     def get_regions(self):
-        regions = get_items_collection().find()
+        regions = get_collection().find()
         return [RegionModel(**region) for region in regions]
 
-    def create_region(self, region: RegionCreateSchema):
-        get_items_collection().insert_one({
-            "name": region
-        })
-
-    def delete_regions(self):
-        get_items_collection().delete_many({})
+    def update_region(self, region: RegionCreateSchema):
+        get_collection().update_one({
+            "name": region,
+        }, {
+            "$set": {
+                "name": region,
+            }
+        }, upsert=True)
