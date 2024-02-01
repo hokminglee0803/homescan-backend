@@ -9,7 +9,6 @@ from threading import current_thread
 
 logger = logging.getLogger(__name__)
 
-
 @dataclass
 class ThreadScraper:
 
@@ -109,7 +108,7 @@ class ThreadScraper:
     def valuation(self, region_idx, district_idx, estate_idx, building_idx, floor_idx, block_idx):
         try:
             browser = self.get_driver()
-            logger.error(f'Thread :{current_thread().name} - {region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx} - Start Valuation')
+            logger.info(f'Thread :{current_thread().name} - {region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx} - Start Valuation')
             self.click_field(field_idx=region_idx, id=1, browser=browser)
             self.click_field(field_idx=district_idx, id=2, browser=browser)
             self.click_field(field_idx=estate_idx, id=3, browser=browser)
@@ -138,7 +137,7 @@ class ThreadScraper:
                 By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[4]/div[2]/span').text
             property_age = browser.find_element(
                 By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[5]/div[2]/span').text
-            logger.error(f'Thread :{current_thread().name} - {region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx} - Valuation: {valuation}')
+            logger.info(f'Thread :{current_thread().name} - {region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx} - Valuation: {valuation}')
             browser.close()
             browser.quit()
             return
@@ -152,18 +151,12 @@ class ThreadScraper:
         if region_idx > 0:
             self.click_field(field_idx=region_idx, id=1,
                              browser=self.root_browser)
-            # current_region = self.root_browser.find_element(
-            #     by=By.ID, value="tools_form_1_selected_text").text
-            # logger.info(f"Current Region : {current_region}")
-
+            
             self.scrape_districts()
             district_idx = selected_district
             if district_idx > 0:
                 self.click_field(field_idx=district_idx,
                                  id=2, browser=self.root_browser)
-                # current_district = self.root_browser.find_element(
-                #     by=By.ID, value="tools_form_2_selected_text").text
-                # logger.info(f"Current District : {current_district}")
 
                 self.scrape_estates()
                 for estate_idx, estate in enumerate(self.estates):
@@ -171,29 +164,18 @@ class ThreadScraper:
 
                         self.click_field(field_idx=estate_idx,
                                          id=3, browser=self.root_browser)
-                        # current_estate = self.root_browser.find_element(
-                        #     by=By.ID, value="tools_form_3_selected_text").text
-                        # logger.info(f"Current Estate : {current_estate}")
-
+                        
                         self.scrape_buldings()
                         for building_idx, building in enumerate(self.buildings):
                             if building_idx > 0:
                                 self.click_field(
                                     field_idx=building_idx, id=4, browser=self.root_browser)
-                                # current_building = self.root_browser.find_element(
-                                #     by=By.ID, value="tools_form_4_selected_text").text
-                                # logger.info(
-                                #     f"Current Building : {current_building}")
 
                                 self.scrape_floors()
                                 for floor_idx, floor in enumerate(self.floors):
                                     if floor_idx > 0:
                                         self.click_field(
                                             field_idx=floor_idx, id=5, browser=self.root_browser)
-                                        # current_floor = self.root_browser.find_element(
-                                        #     by=By.ID, value="tools_form_5_selected_text").text
-                                        # logger.info(
-                                        #     f"Current Floor : {current_floor}")
 
                                         self.scrape_blocks()
                                         with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
@@ -201,8 +183,6 @@ class ThreadScraper:
                                                 if block_idx > 0:
                                                     self.click_field(
                                                         field_idx=block_idx, id=6, browser=self.root_browser)
-                                                    # current_block = self.root_browser.find_element(
-                                                    #     by=By.ID, value="tools_form_6_selected_text").text
                                                     executor.submit(
                                                         self.valuation, region_idx, district_idx, estate_idx, building_idx, floor_idx, block_idx)
                                             executor.shutdown()
