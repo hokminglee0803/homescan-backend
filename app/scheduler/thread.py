@@ -1,0 +1,208 @@
+from dataclasses import dataclass
+import logging
+import concurrent.futures
+import time
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
+from threading import current_thread
+
+logger = logging.getLogger(__name__)
+
+
+@dataclass
+class ThreadScraper:
+
+    url: str = "https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/"
+    regions = []
+    districts = []
+    estates = []
+    buildings = []
+    floors = []
+    blocks = []
+
+    def __init__(self):
+        self.root_browser = self.get_driver()
+
+    def get_driver(self):
+        options = Options()
+        options.add_argument("--no-sandbox")
+        options.add_argument("--headless")
+        options.add_argument("--disable-gpu")
+        options.add_argument('--disable-dev-shm-usage')
+        options.add_argument("--window-size=1920,1080")
+        options.add_argument("--log-level=3")
+
+        driver = webdriver.Chrome(
+            options=options)
+        driver.get(self.url)
+        return driver
+
+    def scrape_districts(self):
+        district_select = self.root_browser.find_element(
+            by=By.ID, value="tools_form_2_selectized")
+        district_select.click()
+        time.sleep(0.5)
+        self.districts = self.root_browser.find_element(
+            by=By.ID, value="tools_form_2_menu").find_elements(by=By.TAG_NAME, value="div")
+        district_select.click()
+
+    def scrape_regions(self):
+        regions_select = self.root_browser.find_element(
+            by=By.ID, value="tools_form_1_selectized")
+        regions_select.click()
+        time.sleep(0.5)
+        self.regions = self.root_browser.find_element(
+            by=By.ID, value="tools_form_1_menu").find_elements(by=By.TAG_NAME, value="div")
+        regions_select.click()
+
+    def scrape_estates(self):
+        estates_select = self.root_browser.find_element(
+            by=By.ID, value="tools_form_3_selectized")
+        estates_select.click()
+        time.sleep(0.5)
+        self.estates = self.root_browser.find_element(
+            by=By.ID, value="tools_form_3_menu").find_elements(by=By.TAG_NAME, value="div")
+        estates_select.click()
+
+    def scrape_buldings(self):
+        buildings_select = self.root_browser.find_element(
+            by=By.ID, value="tools_form_4_selectized")
+        buildings_select.click()
+        time.sleep(0.5)
+        self.buildings = self.root_browser.find_element(
+            by=By.ID, value="tools_form_4_menu").find_elements(by=By.TAG_NAME, value="div")
+        buildings_select.click()
+
+    def scrape_floors(self):
+        floors_select = self.root_browser.find_element(
+            by=By.ID, value="tools_form_5_selectized")
+        floors_select.click()
+        time.sleep(0.5)
+        self.floors = self.root_browser.find_element(
+            by=By.ID, value="tools_form_5_menu").find_elements(by=By.TAG_NAME, value="div")
+        floors_select.click()
+
+    def scrape_blocks(self):
+        blocks_select = self.root_browser.find_element(
+            by=By.ID, value="tools_form_6_selectized")
+        blocks_select.click()
+        time.sleep(0.5)
+        self.blocks = self.root_browser.find_element(
+            by=By.ID, value="tools_form_6_menu").find_elements(by=By.TAG_NAME, value="div")
+        blocks_select.click()
+
+    def click_field(self, field_idx, id, browser: webdriver.Chrome):
+        retry = 1
+        while retry < 5:
+            try: 
+                browser.find_element(
+                    by=By.ID, value=f"tools_form_{id}_selectized").click()
+                time.sleep(0.5)
+                browser.find_element(by=By.ID, value=f"tools_form_{id}_menu").find_elements(
+                    by=By.TAG_NAME, value="div")[field_idx].click()
+                retry=5
+            except Exception:
+                time.sleep(2)
+                retry += 1
+                
+    def valuation(self, region_idx, district_idx, estate_idx, building_idx, floor_idx, block_idx):
+        try:
+            browser = self.get_driver()
+            logger.error(f'Thread :{current_thread().name} - {region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx} - Start Valuation')
+            self.click_field(field_idx=region_idx, id=1, browser=browser)
+            self.click_field(field_idx=district_idx, id=2, browser=browser)
+            self.click_field(field_idx=estate_idx, id=3, browser=browser)
+            self.click_field(field_idx=building_idx, id=4, browser=browser)
+            self.click_field(field_idx=floor_idx, id=5, browser=browser)
+            self.click_field(field_idx=block_idx, id=6, browser=browser)
+
+            valuation = ""
+            retry = 1
+            while retry < 5:
+                submit_button = browser.find_element(
+                    By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[1]/div/div[7]/a')
+                submit_button.click()
+                time.sleep(5)
+                valuation = browser.find_element(
+                    By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[2]/div[2]/span').text
+                if valuation == "":
+                    retry += 1
+                else:
+                    browser.save_screenshot(f"{region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx}.png")
+                    retry = 5           
+            
+            gross_floor_area = browser.find_element(
+                By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[3]/div[2]/span').text
+            saleable_area = browser.find_element(
+                By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[4]/div[2]/span').text
+            property_age = browser.find_element(
+                By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[5]/div[2]/span').text
+            logger.error(f'Thread :{current_thread().name} - {region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx} - Valuation: {valuation}')
+            browser.close()
+            browser.quit()
+            return
+        except Exception as e:
+            logger.error(f'Thread :{current_thread().name} - {region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx} - Error: {e}')
+            return
+
+    def scrape(self, selected_region, selected_district):
+        self.scrape_regions()
+        region_idx = selected_region
+        if region_idx > 0:
+            self.click_field(field_idx=region_idx, id=1,
+                             browser=self.root_browser)
+            # current_region = self.root_browser.find_element(
+            #     by=By.ID, value="tools_form_1_selected_text").text
+            # logger.info(f"Current Region : {current_region}")
+
+            self.scrape_districts()
+            district_idx = selected_district
+            if district_idx > 0:
+                self.click_field(field_idx=district_idx,
+                                 id=2, browser=self.root_browser)
+                # current_district = self.root_browser.find_element(
+                #     by=By.ID, value="tools_form_2_selected_text").text
+                # logger.info(f"Current District : {current_district}")
+
+                self.scrape_estates()
+                for estate_idx, estate in enumerate(self.estates):
+                    if estate_idx > 0:
+
+                        self.click_field(field_idx=estate_idx,
+                                         id=3, browser=self.root_browser)
+                        # current_estate = self.root_browser.find_element(
+                        #     by=By.ID, value="tools_form_3_selected_text").text
+                        # logger.info(f"Current Estate : {current_estate}")
+
+                        self.scrape_buldings()
+                        for building_idx, building in enumerate(self.buildings):
+                            if building_idx > 0:
+                                self.click_field(
+                                    field_idx=building_idx, id=4, browser=self.root_browser)
+                                # current_building = self.root_browser.find_element(
+                                #     by=By.ID, value="tools_form_4_selected_text").text
+                                # logger.info(
+                                #     f"Current Building : {current_building}")
+
+                                self.scrape_floors()
+                                for floor_idx, floor in enumerate(self.floors):
+                                    if floor_idx > 0:
+                                        self.click_field(
+                                            field_idx=floor_idx, id=5, browser=self.root_browser)
+                                        # current_floor = self.root_browser.find_element(
+                                        #     by=By.ID, value="tools_form_5_selected_text").text
+                                        # logger.info(
+                                        #     f"Current Floor : {current_floor}")
+
+                                        self.scrape_blocks()
+                                        with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
+                                            for block_idx, block in enumerate(self.blocks):
+                                                if block_idx > 0:
+                                                    self.click_field(
+                                                        field_idx=block_idx, id=6, browser=self.root_browser)
+                                                    # current_block = self.root_browser.find_element(
+                                                    #     by=By.ID, value="tools_form_6_selected_text").text
+                                                    executor.submit(
+                                                        self.valuation, region_idx, district_idx, estate_idx, building_idx, floor_idx, block_idx)
+                                            executor.shutdown()
