@@ -1,7 +1,8 @@
 from celery import Celery
 from celery.schedules import crontab
 import app.config
-from . import scraper,hsbc
+from . import hsbc,example
+import concurrent.futures
 
 settings = app.config.get_settings()
 
@@ -22,8 +23,8 @@ def setup_periodic_tasks(sender, *arg, **kwargs):
 
 @app.task
 def scrape_house_property_value():
-    print("Start House Property Value Evaluation Scan in HSBC")
-    s = hsbc.HSBCScraper()
+    # print("Start House Property Value Evaluation Scan in HSBC")
+    s = example.Example()
     s.scrape()
     del s
     

@@ -20,6 +20,8 @@ from selenium.common.exceptions import NoSuchElementException
 from app.services.region import RegionService
 from app.utils.mongodb import close_mongodb_connection, connect_to_mongodb
 
+import concurrent.futures
+
 logger = logging.getLogger(__name__)
 
 def get_user_agent():
@@ -138,6 +140,24 @@ class HSBCScraper:
                 retries += 1
                 time.sleep(2)
             return ''
+        
+    def drop_down_list(self,form_select_id, menu_id):
+        try:
+            self.click_form_select(id=form_select_id)
+            return self.driver.find_element(by=By.ID, value=menu_id).find_elements(by=By.TAG_NAME,value="div")
+        except:
+            retries = 0
+            while retries < 5:
+                try:
+                    time.sleep(2)
+                    self.click_form_select(id='tools_form_6_selectized')
+                    time.sleep(2)
+                    return self.driver.find_element(by=By.ID, value=menu_id).find_elements(by=By.TAG_NAME,value="div")
+                except:
+                    pass
+                retries += 1
+                time.sleep(2)
+            return []
 
     def valuation(self,region,district,estate,building,floor,block):
         valuation = self.driver.find_element(By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[2]/div[2]/span').text
@@ -149,54 +169,55 @@ class HSBCScraper:
         logger.info(f'Gross Floor Area: {gross_floor_area}')
         logger.info(f'Saleable Area: {saleable_area}')
         logger.info(f'Property Age: {property_age}')
-        self.house_service.update_house_hsbc({
-            "valuation": valuation,
-            "region": region,
-            "district": district,
-            "estate": estate,
-            "building": building,
-            "floor": floor,
-            "block": block,
-            "gross_floor_area":gross_floor_area,
-            "saleable_area":saleable_area,
-            "property_age":property_age
-        })
+        # self.house_service.update_house_hsbc({
+        #     "valuation": valuation,
+        #     "region": region,
+        #     "district": district,
+        #     "estate": estate,
+        #     "building": building,
+        #     "floor": floor,
+        #     "block": block,
+        #     "gross_floor_area":gross_floor_area,
+        #     "saleable_area":saleable_area,
+        #     "property_age":property_age
+        # })
     
-    def valuation_scrape(self):
-            # Select Region
-            self.click_form_select(id='tools_form_1_selectized')
-            regions = self.driver.find_element(by=By.ID, value="tools_form_1_menu").find_elements(by=By.TAG_NAME,value="div")
+    def example(document):
+        print(document)
 
+    def valuation_scrape(self,selected_region_idx,selected_distrcit_idx):
+        with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+            [executor.submit(self.example, document) for document in [{1,1},{1,2},{1,3}]]
+            # Select Region
+            regions = self.drop_down_list(form_select_id='tools_form_1_selectized',menu_id='tools_form_1_menu')
             for region_idx,region in enumerate(regions):
-                if region_idx > 0:
+                if region_idx == selected_region_idx: # Only Do the selected Region
                     if region_idx > 1:
                         self.click_form_select(id='tools_form_1_selectized')
                     selected_region = self.select_form_data(id='tools_form_1_menu',index=region_idx,selected_text_id="tools_form_1_selected_text")
 
-                    self.region_service.update_region(selected_region)
+                    # self.region_service.update_region(selected_region)
 
                     # Select District
-                    self.click_form_select(id='tools_form_2_selectized')
-                    districts = self.driver.find_element(by=By.ID, value="tools_form_2_menu").find_elements(by=By.TAG_NAME,value="div")
+                    districts = self.drop_down_list(form_select_id='tools_form_2_selectized',menu_id='tools_form_2_menu')
 
                     for district_idx,district in enumerate(districts):
-                        if district_idx > 0 :
-                            if district_idx > 1:
-                                # Reclick Region
-                                self.click_form_select(id='tools_form_1_selectized')
-                                self.select_form_data_retry(form_select_id='tools_form_1_selectized',form_id='tools_form_1_menu',index=region_idx,selected_text_id="tools_form_1_selected_text")
-                                # Reclick District
-                                self.click_form_select(id='tools_form_2_selectized')
+                        if district_idx == selected_distrcit_idx :
+                            # if district_idx > 1:
+                            # Reclick Region
+                            self.click_form_select(id='tools_form_1_selectized')
+                            self.select_form_data_retry(form_select_id='tools_form_1_selectized',form_id='tools_form_1_menu',index=region_idx,selected_text_id="tools_form_1_selected_text")
+                            # Reclick District
+                            self.click_form_select(id='tools_form_2_selectized')
                             selected_district = self.select_form_data_retry(form_select_id='tools_form_2_selectized',form_id='tools_form_2_menu',index=district_idx,selected_text_id="tools_form_2_selected_text")
 
-                            self.district_service.update_district({
-                                "name": selected_region,
-                                "region": selected_district
-                            })
+                            # self.district_service.update_district({
+                            #     "name": selected_region,
+                            #     "region": selected_district
+                            # })
 
                             # Select Estate
-                            self.click_form_select(id='tools_form_3_selectized')
-                            estates = self.driver.find_element(by=By.ID, value="tools_form_3_menu").find_elements(by=By.TAG_NAME,value="div")
+                            estates = self.drop_down_list(form_select_id='tools_form_3_selectized',menu_id='tools_form_3_menu')
 
                             for estate_idx,estate in enumerate(estates):
                                 if estate_idx > 0 :
@@ -211,14 +232,13 @@ class HSBCScraper:
                                         self.click_form_select(id='tools_form_3_selectized')
                                     selected_estate= self.select_form_data_retry(form_select_id='tools_form_3_selectized',form_id='tools_form_3_menu',index=estate_idx,selected_text_id="tools_form_3_selected_text")
 
-                                    self.estate_service.update_estate({
-                                        "name": selected_estate,
-                                        "district": selected_district
-                                    })
+                                    # self.estate_service.update_estate({
+                                    #     "name": selected_estate,
+                                    #     "district": selected_district
+                                    # })
 
                                     # Select Building
-                                    self.click_form_select(id='tools_form_4_selectized')
-                                    buildings = self.driver.find_element(by=By.ID, value="tools_form_4_menu").find_elements(by=By.TAG_NAME,value="div")
+                                    buildings = self.drop_down_list(form_select_id='tools_form_4_selectized',menu_id='tools_form_4_menu')
 
                                     for building_idx,building in enumerate(buildings):
                                         if building_idx > 0 :
@@ -236,14 +256,13 @@ class HSBCScraper:
                                                 self.click_form_select(id='tools_form_4_selectized')
                                             selected_building = self.select_form_data_retry(form_select_id='tools_form_4_selectized',form_id='tools_form_4_menu',index=building_idx,selected_text_id="tools_form_4_selected_text")
 
-                                            self.building_service.update_building({
-                                                "name": selected_building,
-                                                "estate": selected_estate
-                                            })
+                                            # self.building_service.update_building({
+                                            #     "name": selected_building,
+                                            #     "estate": selected_estate
+                                            # })
 
                                             # Select Floor
-                                            self.click_form_select(id='tools_form_5_selectized')
-                                            floors = self.driver.find_element(by=By.ID, value="tools_form_5_menu").find_elements(by=By.TAG_NAME,value="div")
+                                            floors = self.drop_down_list(form_select_id='tools_form_5_selectized',menu_id='tools_form_5_menu')
 
                                             for floor_idx,floor in enumerate(floors):
                                                 if floor_idx > 0 :
@@ -264,15 +283,14 @@ class HSBCScraper:
                                                         self.click_form_select(id='tools_form_5_selectized')
                                                     selected_floor = self.select_form_data_retry(form_select_id='tools_form_5_selectized',form_id='tools_form_5_menu',index=floor_idx,selected_text_id="tools_form_5_selected_text")
 
-                                                    self.floor_service.update_floor({
-                                                        "name": selected_floor,
-                                                        "building": selected_building
-                                                    })
+                                                    # self.floor_service.update_floor({
+                                                    #     "name": selected_floor,
+                                                    #     "building": selected_building
+                                                    # })
 
                                                     # Select Block
-                                                    self.click_form_select(id='tools_form_6_selectized')
-                                                    blocks = self.driver.find_element(by=By.ID, value="tools_form_6_menu").find_elements(by=By.TAG_NAME,value="div")
-
+                                                    blocks =  self.drop_down_list(form_select_id='tools_form_6_selectized',menu_id='tools_form_6_menu')
+                                                  
                                                     for block_idx,block in enumerate(blocks):
                                                         if block_idx > 0 :
                                                             if block_idx > 1:
@@ -296,11 +314,11 @@ class HSBCScraper:
 
                                                             selected_block = self.select_form_data_retry(form_select_id='tools_form_6_selectized',form_id='tools_form_6_menu',index=block_idx,selected_text_id="tools_form_6_selected_text")
 
-                                                            self.block_service.update_block({
-                                                                "name": selected_block,
-                                                                "floor": selected_floor,
-                                                                "building": selected_building
-                                                            })
+                                                            # self.block_service.update_block({
+                                                            #     "name": selected_block,
+                                                            #     "floor": selected_floor,
+                                                            #     "building": selected_building
+                                                            # })
 
                                                             time.sleep(0.5)
                                                             submit_button = self.driver.find_element(By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[1]/div/div[7]/a')
@@ -323,14 +341,14 @@ class HSBCScraper:
                                                             self.driver.quit()
                                                             self.get_html_obj()
             
-                                                            time.sleep(5)
+                                                            time.sleep(8)
                                                             self.driver.execute_script('window.scrollTo(0, 0);')
                                                             
-    def scrape(self):
+    def scrape(self,selected_region_idx,selected_distrcit_idx):
         self.get_html_obj()
         time.sleep(2)
 
-        self.valuation_scrape()
+        self.valuation_scrape(selected_region_idx=selected_region_idx,selected_distrcit_idx=selected_distrcit_idx)
 
         time.sleep(5)
         
