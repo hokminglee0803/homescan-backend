@@ -128,7 +128,7 @@ class ThreadScraper:
                 if valuation == "":
                     retry += 1
                 else:
-                    browser.save_screenshot(f"{region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx}.png")
+                    # browser.save_screenshot(f"{region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx}.png")
                     retry = 5           
             
             gross_floor_area = browser.find_element(

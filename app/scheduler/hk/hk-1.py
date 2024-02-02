@@ -13,8 +13,8 @@ app = Celery(
 @app.on_after_configure.connect
 def setup_periodic_tasks(sender, *arg, **kwargs):
     sender.add_periodic_task(
-        # crontab(minute="*"),
-        2678400.0,
+        crontab(day_of_month=2),
+        # 30.0,
         scrape_house_property_value.s(),
     )
 
