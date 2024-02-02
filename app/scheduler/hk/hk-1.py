@@ -14,7 +14,7 @@ app = Celery(
 def setup_periodic_tasks(sender, *arg, **kwargs):
     sender.add_periodic_task(
         # crontab(minute="*"),
-        30.0,
+        2678400.0,
         scrape_house_property_value.s(),
     )
 
