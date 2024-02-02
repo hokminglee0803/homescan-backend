@@ -1,7 +1,7 @@
 from celery import Celery
 from celery.schedules import crontab
 import app.config
-from . import thread
+from app.scheduler.thread import ThreadScraper
 
 settings = app.config.get_settings()
 
@@ -21,6 +21,6 @@ def setup_periodic_tasks(sender, *arg, **kwargs):
 
 @app.task
 def scrape_house_property_value():
-    s = thread.ThreadScraper()
+    s = ThreadScraper()
     s.scrape(1, 1) # 香港 － 香港仔
     del s
