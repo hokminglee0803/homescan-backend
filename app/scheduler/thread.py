@@ -6,6 +6,13 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from threading import current_thread
+from app.services.house import HouseService
+from app.utils.mongodb import close_mongodb_connection, connect_to_mongodb
+from selenium.webdriver.chrome.service import Service
+import os
+
+CHROMEDRIVER_DIR = os.getenv("CHROMEDRIVER_DIR")
+DRIVER_PATH = os.path.join(CHROMEDRIVER_DIR, "chromedriver")
 
 logger = logging.getLogger(__name__)
 
@@ -21,7 +28,17 @@ class ThreadScraper:
     blocks = []
 
     def __init__(self):
+        connect_to_mongodb()
+        logger.info("Connected to the MongoDB database!")
         self.root_browser = self.get_driver()
+        self.house_service = HouseService()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self):
+        close_mongodb_connection()
+        logger.info('Close connection to Mongo DB.')
 
     def get_driver(self):
         options = Options()
@@ -32,8 +49,10 @@ class ThreadScraper:
         options.add_argument("--window-size=1920,1080")
         options.add_argument("--log-level=3")
 
+        service = Service(executable_path=DRIVER_PATH)
         driver = webdriver.Chrome(
-            options=options)
+            options=options,
+            service=service)
         driver.get(self.url)
         return driver
 
@@ -138,8 +157,26 @@ class ThreadScraper:
             property_age = browser.find_element(
                 By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[5]/div[2]/span').text
             logger.info(f'Thread :{current_thread().name} - {region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx} - Valuation: {valuation}')
+            selected_region = browser.find_element(by=By.ID, value="tools_form_1_selected_text").text
+            selected_district = browser.find_element(by=By.ID, value="tools_form_2_selected_text").text
+            selected_estate = browser.find_element(by=By.ID, value="tools_form_3_selected_text").text
+            selected_building = browser.find_element(by=By.ID, value="tools_form_4_selected_text").text
+            selected_floor = browser.find_element(by=By.ID, value="tools_form_5_selected_text").text
+            selected_block = browser.find_element(by=By.ID, value="tools_form_6_selected_text").text
             browser.close()
             browser.quit()
+            self.house_service.update_house_hsbc({
+                "valuation": valuation,
+                "region": selected_region,
+                "district": selected_district,
+                "estate": selected_estate,
+                "building": selected_building,
+                "floor": selected_floor,
+                "block": selected_block,
+                "gross_floor_area": gross_floor_area,
+                "saleable_area": saleable_area,
+                "property_age": property_age,
+            })
             return
         except Exception as e:
             logger.error(f'Thread :{current_thread().name} - {region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx} - Error: {e}')
