@@ -9,10 +9,10 @@ from threading import current_thread
 from app.services.house import HouseService
 from app.utils.mongodb import close_mongodb_connection, connect_to_mongodb
 from selenium.webdriver.chrome.service import Service
-import os
+# import os
 
-CHROMEDRIVER_DIR = os.getenv("CHROMEDRIVER_DIR")
-DRIVER_PATH = os.path.join(CHROMEDRIVER_DIR, "chromedriver")
+# CHROMEDRIVER_DIR = os.getenv("CHROMEDRIVER_DIR")
+# DRIVER_PATH = os.path.join(CHROMEDRIVER_DIR, "chromedriver")
 
 logger = logging.getLogger(__name__)
 
@@ -49,10 +49,11 @@ class ThreadScraper:
         options.add_argument("--window-size=1920,1080")
         options.add_argument("--log-level=3")
 
-        service = Service(executable_path=DRIVER_PATH)
+        # service = Service(executable_path=DRIVER_PATH)
         driver = webdriver.Chrome(
             options=options,
-            service=service)
+            # service=service
+            )
         driver.get(self.url)
         return driver
 
