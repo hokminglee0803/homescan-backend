@@ -17,9 +17,10 @@ RUN apt-get update -y
 # Set up Chromedriver Environment variables and install chrome
 ENV CHROMEDRIVER_VERSION 114.0.5735.90
 ENV CHROME_VERSION 114.0.5735.90-1
-RUN wget --no-verbose -O /tmp/chrome.deb https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_114.0.5735.90-1_amd64.deb \
-    && sudo apt install -y /tmp/chrome.deb \
-    && rm /tmp/chrome.deb
+RUN wget --no-verbose -O /tmp/chrome.deb https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_114.0.5735.90-1_amd64.deb 
+
+RUN sudo apt install -y /tmp/chrome.deb 
+RUN rm /tmp/chrome.deb
 
 ENV CHROMEDRIVER_DIR /chromedriver
 RUN mkdir $CHROMEDRIVER_DIR
