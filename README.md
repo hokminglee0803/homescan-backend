@@ -8,3 +8,6 @@ python3 -m celery -A app.scheduler.tasks:app worker -l info -c 53
 
 Start Beat
 python3 -m celery -A app.scheduler.tasks:app beat -l info
+
+# Docker Run
+sudo docker-compose up --build
