@@ -14,6 +14,8 @@ RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/so
 # Update the package list
 RUN apt-get update -y
 
+RUN apt-get install sudo
+
 # Set up Chromedriver Environment variables and install chrome
 ENV CHROMEDRIVER_VERSION 114.0.5735.90
 ENV CHROME_VERSION 114.0.5735.90-1
