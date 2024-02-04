@@ -4,7 +4,7 @@ services:
 
   worker:
     build: .
-    command: celery -A app.scheduler.tasks:app worker -l info -c 1
+    command: celery -A app.scheduler.tasks:app worker -l info -c 54
     volumes:
       - ./app:/app
     depends_on:
