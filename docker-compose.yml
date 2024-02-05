@@ -4,7 +4,7 @@ services:
 
   worker:
     build: .
-    shm_size: 14gb
+    # shm_size: 14gb
     command: celery -A app.scheduler.tasks:app worker -l info -c 27 -B
     depends_on:
       - redis

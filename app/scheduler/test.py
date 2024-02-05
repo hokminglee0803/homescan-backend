@@ -51,6 +51,7 @@ class TestScraper:
         chrome_options.add_argument("--headless")  
         chrome_options.add_argument('--disable-blink-features=AutomationControlled')
         chrome_options.add_argument("--disable-gpu")
+        chrome_options.add_argument('--disable-dev-shm-usage')
         chrome_options.add_argument("--window-size=1920,1080")
         chrome_options.add_argument("--log-level=3")
         browser = webdriver.Chrome(options=chrome_options)
