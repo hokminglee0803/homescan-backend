@@ -236,7 +236,7 @@ class ThreadScraper:
                                             field_idx=floor_idx, id=5, browser=browser)
 
                                         self.scrape_blocks(browser=browser)
-                                        with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
+                                        with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
                                             for block_idx, block in enumerate(self.blocks):
                                                 if block_idx > 0:
                                                     self.click_field(
@@ -244,3 +244,5 @@ class ThreadScraper:
                                                     executor.submit(
                                                         self.valuation, region_idx, district_idx, estate_idx, building_idx, floor_idx, block_idx)
                                             executor.shutdown()
+        browser.close()
+        browser.quit()
