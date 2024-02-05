@@ -204,38 +204,38 @@ class ThreadScraper:
 
     def scrape(self, selected_region, selected_district):
         browser = self.get_driver()
-        self.scrape_regions()
+        self.scrape_regions(browser=browser)
         region_idx = selected_region
         if region_idx > 0:
             self.click_field(field_idx=region_idx, id=1,
                              browser=browser)
 
-            self.scrape_districts()
+            self.scrape_districts(browser=browser)
             district_idx = selected_district
             if district_idx > 0:
                 self.click_field(field_idx=district_idx,
                                  id=2, browser=browser)
 
-                self.scrape_estates()
+                self.scrape_estates(browser=browser)
                 for estate_idx, estate in enumerate(self.estates):
                     if estate_idx > 0:
 
                         self.click_field(field_idx=estate_idx,
                                          id=3, browser=browser)
 
-                        self.scrape_buldings()
+                        self.scrape_buldings(browser=browser)
                         for building_idx, building in enumerate(self.buildings):
                             if building_idx > 0:
                                 self.click_field(
                                     field_idx=building_idx, id=4, browser=browser)
 
-                                self.scrape_floors()
+                                self.scrape_floors(browser=browser)
                                 for floor_idx, floor in enumerate(self.floors):
                                     if floor_idx > 0:
                                         self.click_field(
                                             field_idx=floor_idx, id=5, browser=browser)
 
-                                        self.scrape_blocks()
+                                        self.scrape_blocks(browser=browser)
                                         with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
                                             for block_idx, block in enumerate(self.blocks):
                                                 if block_idx > 0:
