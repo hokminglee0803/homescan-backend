@@ -38,7 +38,7 @@ class TestScraper:
                 except:
                     logger.warning(f"Page crash occurred. Retrying... ({retries+1}/{max_retries})")
                     retries += 1
-                    time.sleep(5)
+                    time.sleep(random.uniform(1, 30))
             raise Exception("Failed after multiple retries")
 
         return wrapper
@@ -55,7 +55,7 @@ class TestScraper:
     @retry_on_crash
     def navigate_to_url(browser, url):
         browser.get(url)
-        time.sleep(random.uniform(1, 30))
+        time.sleep(5)
         return browser
 
     def scrape(self, selected_region, selected_district):
