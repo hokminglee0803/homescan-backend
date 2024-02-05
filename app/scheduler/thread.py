@@ -59,9 +59,11 @@ class ThreadScraper:
                     # service=service
                     )
                 driver.get(self.url)
+                retry = 10
             except Exception:
                 time.sleep(2)
                 retry += 1
+        logger.info('HSBC Connected')
         return driver
 
     def scrape_districts(self):
