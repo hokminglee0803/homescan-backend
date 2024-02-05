@@ -208,8 +208,9 @@ class ThreadScraper:
                 big_retry = 10
                 return
             except Exception as e:
-                logger.error(
-                    f'Thread :{current_thread().name} - {region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx} - Error: {e}')
+                if big_retry == 10:
+                    logger.error(
+                        f'Thread :{current_thread().name} - {region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx} - Error: {e}')
                 big_retry += 1
                 time.sleep(20)
 
