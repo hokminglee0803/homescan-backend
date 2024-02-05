@@ -50,6 +50,7 @@ class TestScraper:
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-dev-shm-usage')
         chrome_options.add_argument("--headless")  
+        chrome_options.add_argument('--disable-blink-features=AutomationControlled')
         browser = webdriver.Chrome(options=chrome_options)
         return browser
 
@@ -60,7 +61,7 @@ class TestScraper:
         return browser
 
     def scrape(self, selected_region, selected_district):
-        url = "https://www.google.com"
+        url = "https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/"
 
         browser = self.open_browser()
     
