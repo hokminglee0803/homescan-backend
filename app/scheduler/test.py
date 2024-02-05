@@ -14,19 +14,19 @@ class TestScraper:
 
     broswer: webdriver.Chrome = None
 
-    # def click_field(self, field_idx, id, broswer: webdriver.Chrome):
-    #     retry = 1
-    #     while retry < 5:
-    #         try:
-    #             broswer.find_element(
-    #                 by=By.ID, value=f"tools_form_{id}_selectized").click()
-    #             time.sleep(0.5)
-    #             broswer.find_element(by=By.ID, value=f"tools_form_{id}_menu").find_elements(
-    #                 by=By.TAG_NAME, value="div")[field_idx].click()
-    #             retry = 5
-    #         except Exception:
-    #             time.sleep(2)
-    #             retry += 1
+    def click_field(self, field_idx, id, browser: webdriver.Chrome):
+        retry = 1
+        while retry < 5:
+            try:
+                browser.find_element(
+                    by=By.ID, value=f"tools_form_{id}_selectized").click()
+                time.sleep(0.5)
+                browser.find_element(by=By.ID, value=f"tools_form_{id}_menu").find_elements(
+                    by=By.TAG_NAME, value="div")[field_idx].click()
+                retry = 5
+            except Exception:
+                time.sleep(2)
+                retry += 1
 
     def retry_on_crash(func):
         def wrapper(*args, **kwargs):
@@ -70,13 +70,13 @@ class TestScraper:
         finally:
             browser.quit()
 
-        # self.click_field(field_idx=selected_region, id=1,
-        #                      broswer=broswer)
+        self.click_field(field_idx=selected_region, id=1,
+                             broswer=browser)
         
-        # selected_region = broswer.find_element(
-        #                     by=By.ID, value="tools_form_1_selected_text").text
+        selected_region = browser.find_element(
+                            by=By.ID, value="tools_form_1_selected_text").text
         
-        # logger.info(selected_region)
+        logger.info(selected_region)
 
        
        
