@@ -5,7 +5,7 @@ services:
   worker:
     build: .
     shm_size: 10gb
-    command: celery -A app.scheduler.tasks:app worker -l info -c 10 -B
+    command: celery -A app.scheduler.tasks:app worker -l info -c 54 -B
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
