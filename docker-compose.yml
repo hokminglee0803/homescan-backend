@@ -10,6 +10,14 @@ services:
       - /dev/shm:/dev/shm
     depends_on:
       - redis
+    deploy:
+      resources:
+        limits:
+          cpus: 6
+          memory: 10GB
+        reservations:
+          cpus: 4
+          memory: 8GB  
 
   # beat:
   #   build: .

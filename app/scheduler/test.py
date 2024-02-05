@@ -11,6 +11,8 @@ logger = logging.getLogger(__name__)
 @dataclass
 class TestScraper:
 
+    broswer: webdriver.Chrome = None
+
     # def click_field(self, field_idx, id, broswer: webdriver.Chrome):
     #     retry = 1
     #     while retry < 5:
@@ -25,26 +27,46 @@ class TestScraper:
     #             time.sleep(2)
     #             retry += 1
 
-    def scrape(self, selected_region, selected_district):
+    def retry_on_crash(func):
+        def wrapper(*args, **kwargs):
+            max_retries = 10
+            retries = 0
+            while retries < max_retries:
+                try:
+                    return func(*args, **kwargs)
+                except:
+                    logger.warning(f"Page crash occurred. Retrying... ({retries+1}/{max_retries})")
+                    retries += 1
+                    time.sleep(5)
+            raise Exception("Failed after multiple retries")
+
+        return wrapper
+
+    @retry_on_crash
+    def open_browser():
         chrome_options = Options()
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-dev-shm-usage')
         chrome_options.add_argument("--headless")  
-        broswer = webdriver.Chrome(options=chrome_options)
+        browser = webdriver.Chrome(options=chrome_options)
+        return browser
 
-        max_retries = 10
-        retries = 0
-        while retries < max_retries:
-            try:
-                broswer.get("https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/") 
-            except :
-                print(f"Page crash occurred. Retrying... ({retries+1}/{max_retries})")
-                broswer.refresh()
-                retries += 1
-                time.sleep(5)
-        
-        time.sleep(5)  
-        logger.info(broswer.title)
+    @retry_on_crash
+    def navigate_to_url(browser, url):
+        browser.get(url)
+        time.sleep(5)
+        return browser
+
+    def scrape(self, selected_region, selected_district):
+        url = "https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/"
+
+        browser = self.open_browser()
+    
+        try:
+            browser = self.navigate_to_url(browser, url)
+            logger.info(browser.title)
+        finally:
+            browser.quit()
 
         # self.click_field(field_idx=selected_region, id=1,
         #                      broswer=broswer)
@@ -54,5 +76,5 @@ class TestScraper:
         
         # logger.info(selected_region)
 
-        broswer.quit()
+       
        
