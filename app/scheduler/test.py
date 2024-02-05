@@ -23,6 +23,7 @@ class TestScraper:
                 time.sleep(0.5)
                 browser.find_element(by=By.ID, value=f"tools_form_{id}_menu").find_elements(
                     by=By.TAG_NAME, value="div")[field_idx].click()
+                time.sleep(0.5)
                 retry = 5
             except Exception:
                 time.sleep(2)
@@ -73,7 +74,8 @@ class TestScraper:
         
             selected_region = browser.find_element(
                             by=By.ID, value="tools_form_1_selected_text").text
-        
+
+            logger.info(browser.title)
             logger.info(selected_region)
 
             time.sleep(3600)
