@@ -167,6 +167,7 @@ class ThreadScraper:
                         By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[2]/div[2]/span').text
                     if valuation == "":
                         retry += 1
+                        time.sleep(10)
                     else:
                         # browser.save_screenshot(f"{region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx}.png")
                         retry = 5
