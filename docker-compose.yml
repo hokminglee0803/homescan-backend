@@ -6,24 +6,12 @@ services:
     build: .
     shm_size: 10gb
     command: celery -A app.scheduler.tasks:app worker -l info -c 54 -B
-    volumes:
-      - /dev/shm:/dev/shm
     depends_on:
       - redis
-    deploy:
-      resources:
-        limits:
-          cpus: 6
-          memory: 10GB
-        reservations:
-          cpus: 4
-          memory: 8GB  
 
   # beat:
   #   build: .
   #   command: celery -A app.scheduler.tasks:app beat -l info
-  #   volumes:
-  #     - ./app:/app
   #   depends_on:
   #     - redis
 

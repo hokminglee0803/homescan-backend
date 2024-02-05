@@ -35,8 +35,9 @@ class TestScraper:
             while retries < max_retries:
                 try:
                     return func(*args, **kwargs)
-                except:
+                except Exception as e:
                     logger.warning(f"Page crash occurred. Retrying... ({retries+1}/{max_retries})")
+                    logger.warn(e)
                     retries += 1
                     time.sleep(random.uniform(1, 30))
             raise Exception("Failed after multiple retries")
@@ -59,7 +60,7 @@ class TestScraper:
         return browser
 
     def scrape(self, selected_region, selected_district):
-        url = "https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/"
+        url = "https://www.google.com"
 
         browser = self.open_browser()
     
