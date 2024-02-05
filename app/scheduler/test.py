@@ -45,7 +45,7 @@ class TestScraper:
         return wrapper
 
     @retry_on_crash
-    def open_browser():
+    def open_browser(self):
         chrome_options = Options()
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-dev-shm-usage')
@@ -54,7 +54,7 @@ class TestScraper:
         return browser
 
     @retry_on_crash
-    def navigate_to_url(browser, url):
+    def navigate_to_url(self,browser, url):
         browser.get(url)
         time.sleep(5)
         return browser
