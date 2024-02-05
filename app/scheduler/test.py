@@ -48,9 +48,11 @@ class TestScraper:
     def open_browser(self):
         chrome_options = Options()
         chrome_options.add_argument('--no-sandbox')
-        chrome_options.add_argument('--disable-dev-shm-usage')
         chrome_options.add_argument("--headless")  
         chrome_options.add_argument('--disable-blink-features=AutomationControlled')
+        chrome_options.add_argument("--disable-gpu")
+        chrome_options.add_argument("--window-size=1920,1080")
+        chrome_options.add_argument("--log-level=3")
         browser = webdriver.Chrome(options=chrome_options)
         return browser
 
@@ -68,14 +70,13 @@ class TestScraper:
     
         try:
             browser = self.navigate_to_url(browser, url)
-
+            browser.save_screenshot('1.png')
             self.click_field(field_idx=selected_region, id=1,
                              browser=browser)
         
             selected_region = browser.find_element(
                             by=By.ID, value="tools_form_1_selected_text").text
 
-            logger.info(browser.title)
             logger.info(selected_region)
 
             time.sleep(3600)
