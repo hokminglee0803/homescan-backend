@@ -4,10 +4,10 @@ services:
 
   worker:
     build: .
-    shm_size: '16gb'
-    command: celery -A app.scheduler.tasks:app worker -l info -c 27
+    shm_size: 10gb
+    command: celery -A app.scheduler.tasks:app worker -l info -c 10
     volumes:
-      - ./app:/app
+      - /dev/shm:/dev/shm
     depends_on:
       - redis
 
