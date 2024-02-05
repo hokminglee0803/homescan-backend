@@ -143,71 +143,75 @@ class ThreadScraper:
                 retry += 1
 
     def valuation(self, region_idx, district_idx, estate_idx, building_idx, floor_idx, block_idx):
-        try:
-            browser = self.get_driver()
-            logger.info(
-                f'Thread :{current_thread().name} - {region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx} - Start Valuation')
-            self.click_field(field_idx=region_idx, id=1, browser=browser)
-            self.click_field(field_idx=district_idx, id=2, browser=browser)
-            self.click_field(field_idx=estate_idx, id=3, browser=browser)
-            self.click_field(field_idx=building_idx, id=4, browser=browser)
-            self.click_field(field_idx=floor_idx, id=5, browser=browser)
-            self.click_field(field_idx=block_idx, id=6, browser=browser)
+        big_retry = 0
+        while big_retry < 10:
+            try:
+                browser = self.get_driver()
+                logger.info(
+                    f'Thread :{current_thread().name} - {region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx} - Start Valuation')
+                self.click_field(field_idx=region_idx, id=1, browser=browser)
+                self.click_field(field_idx=district_idx, id=2, browser=browser)
+                self.click_field(field_idx=estate_idx, id=3, browser=browser)
+                self.click_field(field_idx=building_idx, id=4, browser=browser)
+                self.click_field(field_idx=floor_idx, id=5, browser=browser)
+                self.click_field(field_idx=block_idx, id=6, browser=browser)
 
-            valuation = ""
-            retry = 1
-            while retry < 5:
-                submit_button = browser.find_element(
-                    By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[1]/div/div[7]/a')
-                submit_button.click()
-                time.sleep(5)
-                valuation = browser.find_element(
-                    By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[2]/div[2]/span').text
-                if valuation == "":
-                    retry += 1
-                else:
-                    # browser.save_screenshot(f"{region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx}.png")
-                    retry = 5
+                valuation = ""
+                retry = 1
+                while retry < 5:
+                    submit_button = browser.find_element(
+                        By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[1]/div/div[7]/a')
+                    submit_button.click()
+                    time.sleep(5)
+                    valuation = browser.find_element(
+                        By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[2]/div[2]/span').text
+                    if valuation == "":
+                        retry += 1
+                    else:
+                        # browser.save_screenshot(f"{region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx}.png")
+                        retry = 5
 
-            gross_floor_area = browser.find_element(
-                By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[3]/div[2]/span').text
-            saleable_area = browser.find_element(
-                By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[4]/div[2]/span').text
-            property_age = browser.find_element(
-                By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[5]/div[2]/span').text
-            logger.info(
-                f'Thread :{current_thread().name} - {region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx} - Valuation: {valuation}')
-            selected_region = browser.find_element(
-                by=By.ID, value="tools_form_1_selected_text").text
-            selected_district = browser.find_element(
-                by=By.ID, value="tools_form_2_selected_text").text
-            selected_estate = browser.find_element(
-                by=By.ID, value="tools_form_3_selected_text").text
-            selected_building = browser.find_element(
-                by=By.ID, value="tools_form_4_selected_text").text
-            selected_floor = browser.find_element(
-                by=By.ID, value="tools_form_5_selected_text").text
-            selected_block = browser.find_element(
-                by=By.ID, value="tools_form_6_selected_text").text
-            browser.close()
-            browser.quit()
-            self.house_service.update_house_hsbc({
-                "valuation": valuation,
-                "region": selected_region,
-                "district": selected_district,
-                "estate": selected_estate,
-                "building": selected_building,
-                "floor": selected_floor,
-                "block": selected_block,
-                "gross_floor_area": gross_floor_area,
-                "saleable_area": saleable_area,
-                "property_age": property_age,
-            })
-            return
-        except Exception as e:
-            logger.error(
-                f'Thread :{current_thread().name} - {region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx} - Error: {e}')
-            return
+                gross_floor_area = browser.find_element(
+                    By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[3]/div[2]/span').text
+                saleable_area = browser.find_element(
+                    By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[4]/div[2]/span').text
+                property_age = browser.find_element(
+                    By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[5]/div[2]/span').text
+                logger.info(
+                    f'Thread :{current_thread().name} - {region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx} - Valuation: {valuation}')
+                selected_region = browser.find_element(
+                    by=By.ID, value="tools_form_1_selected_text").text
+                selected_district = browser.find_element(
+                    by=By.ID, value="tools_form_2_selected_text").text
+                selected_estate = browser.find_element(
+                    by=By.ID, value="tools_form_3_selected_text").text
+                selected_building = browser.find_element(
+                    by=By.ID, value="tools_form_4_selected_text").text
+                selected_floor = browser.find_element(
+                    by=By.ID, value="tools_form_5_selected_text").text
+                selected_block = browser.find_element(
+                    by=By.ID, value="tools_form_6_selected_text").text
+                browser.close()
+                browser.quit()
+                self.house_service.update_house_hsbc({
+                    "valuation": valuation,
+                    "region": selected_region,
+                    "district": selected_district,
+                    "estate": selected_estate,
+                    "building": selected_building,
+                    "floor": selected_floor,
+                    "block": selected_block,
+                    "gross_floor_area": gross_floor_area,
+                    "saleable_area": saleable_area,
+                    "property_age": property_age,
+                })
+                big_retry = 10
+                return
+            except Exception as e:
+                logger.error(
+                    f'Thread :{current_thread().name} - {region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx} - Error: {e}')
+                big_retry += 1
+                time.sleep(20)
 
     def scrape(self, selected_region, selected_district):
         self.scrape_regions()
