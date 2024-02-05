@@ -42,20 +42,26 @@ class ThreadScraper:
         logger.info('Close connection to Mongo DB.')
 
     def get_driver(self):
-        options = Options()
-        options.add_argument("--no-sandbox")
-        options.add_argument("--headless")
-        options.add_argument("--disable-gpu")
-        options.add_argument('--disable-dev-shm-usage')
-        options.add_argument("--window-size=1920,1080")
-        options.add_argument("--log-level=3")
+        retry = 0
+        while retry < 10:
+            try: 
+                options = Options()
+                options.add_argument("--no-sandbox")
+                options.add_argument("--headless")
+                options.add_argument("--disable-gpu")
+                options.add_argument('--disable-dev-shm-usage')
+                options.add_argument("--window-size=1920,1080")
+                options.add_argument("--log-level=3")
 
-        service = Service(executable_path=DRIVER_PATH)
-        driver = webdriver.Chrome(
-            options=options,
-            # service=service
-            )
-        driver.get(self.url)
+                service = Service(executable_path=DRIVER_PATH)
+                driver = webdriver.Chrome(
+                    options=options,
+                    # service=service
+                    )
+                driver.get(self.url)
+            except Exception:
+                time.sleep(2)
+                retry += 1
         return driver
 
     def scrape_districts(self):
