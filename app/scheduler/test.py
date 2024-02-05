@@ -24,8 +24,12 @@ class TestScraper:
                 browser.find_element(by=By.ID, value=f"tools_form_{id}_menu").find_elements(
                     by=By.TAG_NAME, value="div")[field_idx].click()
                 time.sleep(2)
-                return browser.find_element(
+                selected_text = browser.find_element(
                             by=By.ID, value=f"tools_form_{id}_selected_text").text
+                if selected_text is None:
+                    raise Exception("Selected Text is Null")
+                else:
+                    return selected_text
             except Exception:
                 time.sleep(2)
                 retry += 1
