@@ -26,7 +26,7 @@ class TestScraper:
                 time.sleep(2)
                 selected_text = browser.find_element(
                             by=By.ID, value=f"tools_form_{id}_selected_text").text
-                if selected_text is None:
+                if selected_text == None:
                     raise Exception("Selected Text is Null")
                 else:
                     return selected_text
