@@ -67,18 +67,18 @@ class TestScraper:
     
         try:
             browser = self.navigate_to_url(browser, url)
-        finally:
-            browser.quit()
 
-        self.click_field(field_idx=selected_region, id=1,
+            self.click_field(field_idx=selected_region, id=1,
                              browser=browser)
         
-        selected_region = browser.find_element(
+            selected_region = browser.find_element(
                             by=By.ID, value="tools_form_1_selected_text").text
         
-        logger.info(selected_region)
+            logger.info(selected_region)
 
-        time.sleep(3600)
+            time.sleep(3600)
+        finally:
+            browser.quit()
 
        
        
