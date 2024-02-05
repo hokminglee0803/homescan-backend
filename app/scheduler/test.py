@@ -20,10 +20,10 @@ class TestScraper:
             try:
                 browser.find_element(
                     by=By.ID, value=f"tools_form_{id}_selectized").click()
-                time.sleep(2)
+                time.sleep(5)
                 browser.find_element(by=By.ID, value=f"tools_form_{id}_menu").find_elements(
                     by=By.TAG_NAME, value="div")[field_idx].click()
-                time.sleep(2)
+                time.sleep(0.5)
                 retry = 5
             except Exception:
                 time.sleep(2)
@@ -60,7 +60,7 @@ class TestScraper:
     @retry_on_crash
     def navigate_to_url(self,browser, url):
         browser.get(url)
-        time.sleep(5)
+        time.sleep(10)
         logger.debug(browser.title)
         return browser
 
@@ -71,7 +71,6 @@ class TestScraper:
     
         try:
             browser = self.navigate_to_url(browser, url)
-            browser.save_screenshot('1.png')
             self.click_field(field_idx=selected_region, id=1,
                              browser=browser)
         
