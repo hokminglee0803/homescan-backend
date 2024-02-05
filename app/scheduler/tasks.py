@@ -4,6 +4,7 @@ from celery import Celery
 from celery.schedules import crontab
 import app.config
 from app.scheduler.thread import ThreadScraper
+from app.scheduler.test import TestScraper
 from datetime import timedelta
 settings = app.config.get_settings()
 
@@ -287,13 +288,16 @@ app.conf.beat_schedule = {
 
 @app.task(name='scrape_house_property_value')
 def scrape_house_property_value(region, district):
-    retry = 0
-    while retry < 10:
-        try:
-            s = ThreadScraper()
-            s.scrape(region, district)
-            del s
-            retry = 10
-        except:
-            retry += 1
-            time.sleep(30)
+    s = TestScraper()
+    s.scrape(selected_region=region,selected_district=district)
+    del s
+    # retry = 0
+    # while retry < 10:
+    #     try:
+    #         s = ThreadScraper()
+    #         s.scrape(region, district)
+    #         del s
+    #         retry = 10
+    #     except:
+    #         retry += 1
+    #         time.sleep(30)
