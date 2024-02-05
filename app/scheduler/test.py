@@ -12,6 +12,8 @@ class TestScraper:
 
     def scrape(self, selected_region, selected_district):
         chrome_options = Options()
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--disable-dev-shm-usage')
         chrome_options.add_argument("--headless")  # 如果不需要顯示瀏覽器視窗，可以加上此行設定
         driver = webdriver.Chrome(options=chrome_options)
         driver.get("https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/")  # 替換為您想要打開的網址
