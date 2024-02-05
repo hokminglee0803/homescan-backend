@@ -158,7 +158,7 @@ class ThreadScraper:
 
                 valuation = ""
                 retry = 1
-                while retry < 5:
+                while retry < 10:
                     submit_button = browser.find_element(
                         By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[1]/div/div[7]/a')
                     submit_button.click()
@@ -170,7 +170,7 @@ class ThreadScraper:
                         time.sleep(10)
                     else:
                         # browser.save_screenshot(f"{region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx}.png")
-                        retry = 5
+                        retry = 10
 
                 gross_floor_area = browser.find_element(
                     By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[3]/div[2]/span').text
