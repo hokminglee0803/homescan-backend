@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import random
 import time
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -54,7 +55,7 @@ class TestScraper:
     @retry_on_crash
     def navigate_to_url(browser, url):
         browser.get(url)
-        time.sleep(5)
+        time.sleep(random.uniform(1, 30))
         return browser
 
     def scrape(self, selected_region, selected_district):
