@@ -57,6 +57,7 @@ class TestScraper:
     def navigate_to_url(self,browser, url):
         browser.get(url)
         time.sleep(5)
+        logger.debug(browser.title)
         return browser
 
     def scrape(self, selected_region, selected_district):
@@ -66,7 +67,6 @@ class TestScraper:
     
         try:
             browser = self.navigate_to_url(browser, url)
-            logger.info(browser.title)
         finally:
             browser.quit()
 
