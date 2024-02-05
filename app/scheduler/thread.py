@@ -242,7 +242,7 @@ class ThreadScraper:
                                             field_idx=floor_idx, id=5, browser=self.root_browser)
 
                                         self.scrape_blocks()
-                                        with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+                                        with concurrent.futures.ThreadPoolExecutor(max_workers=30) as executor:
                                             for block_idx, block in enumerate(self.blocks):
                                                 if block_idx > 0:
                                                     self.click_field(
