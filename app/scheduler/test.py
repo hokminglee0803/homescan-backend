@@ -35,13 +35,15 @@ class TestScraper:
     
         time.sleep(5)  
 
-        self.click_field(field_idx=selected_region, id=1,
-                             broswer=broswer)
+        logger.info(broswer.title)
+
+        # self.click_field(field_idx=selected_region, id=1,
+        #                      broswer=broswer)
         
-        selected_region = broswer.find_element(
-                            by=By.ID, value="tools_form_1_selected_text").text
+        # selected_region = broswer.find_element(
+        #                     by=By.ID, value="tools_form_1_selected_text").text
         
-        logger.info(selected_region)
+        # logger.info(selected_region)
 
         broswer.quit()
        
