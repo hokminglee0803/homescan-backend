@@ -17,5 +17,6 @@ class TestScraper:
         driver.get("https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/")  # 替換為您想要打開的網址
         # 在這裡執行您的網頁操作
         time.sleep(5)  # 簡單示範等待 5 秒
+        logger.info(driver.title)
         driver.quit()
        
