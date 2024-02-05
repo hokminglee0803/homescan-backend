@@ -17,8 +17,6 @@ RUN apt-get install sudo
 ENV CHROMEDRIVER_VERSION 114.0.5735.90
 RUN wget --no-verbose -O /tmp/chrome.deb https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_114.0.5735.90-1_amd64.deb 
 
-RUN sudo dpkg --configure -a
-
 RUN sudo apt install -y /tmp/chrome.deb 
 RUN rm /tmp/chrome.deb
 
