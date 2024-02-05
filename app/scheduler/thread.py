@@ -171,41 +171,41 @@ class ThreadScraper:
                     else:
                         # browser.save_screenshot(f"{region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx}.png")
                         retry = 10
-
-                gross_floor_area = browser.find_element(
-                    By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[3]/div[2]/span').text
-                saleable_area = browser.find_element(
-                    By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[4]/div[2]/span').text
-                property_age = browser.find_element(
-                    By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[5]/div[2]/span').text
-                logger.info(
-                    f'Thread :{current_thread().name} - {region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx} - Valuation: {valuation}')
-                selected_region = browser.find_element(
-                    by=By.ID, value="tools_form_1_selected_text").text
-                selected_district = browser.find_element(
-                    by=By.ID, value="tools_form_2_selected_text").text
-                selected_estate = browser.find_element(
-                    by=By.ID, value="tools_form_3_selected_text").text
-                selected_building = browser.find_element(
-                    by=By.ID, value="tools_form_4_selected_text").text
-                selected_floor = browser.find_element(
-                    by=By.ID, value="tools_form_5_selected_text").text
-                selected_block = browser.find_element(
-                    by=By.ID, value="tools_form_6_selected_text").text
-                browser.close()
-                browser.quit()
-                self.house_service.update_house_hsbc({
-                    "valuation": valuation,
-                    "region": selected_region,
-                    "district": selected_district,
-                    "estate": selected_estate,
-                    "building": selected_building,
-                    "floor": selected_floor,
-                    "block": selected_block,
-                    "gross_floor_area": gross_floor_area,
-                    "saleable_area": saleable_area,
-                    "property_age": property_age,
-                })
+                        
+                        gross_floor_area = browser.find_element(
+                            By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[3]/div[2]/span').text
+                        saleable_area = browser.find_element(
+                            By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[4]/div[2]/span').text
+                        property_age = browser.find_element(
+                            By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[5]/div[2]/span').text
+                        logger.info(
+                            f'Thread :{current_thread().name} - {region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx} - Valuation: {valuation}')
+                        selected_region = browser.find_element(
+                            by=By.ID, value="tools_form_1_selected_text").text
+                        selected_district = browser.find_element(
+                            by=By.ID, value="tools_form_2_selected_text").text
+                        selected_estate = browser.find_element(
+                            by=By.ID, value="tools_form_3_selected_text").text
+                        selected_building = browser.find_element(
+                            by=By.ID, value="tools_form_4_selected_text").text
+                        selected_floor = browser.find_element(
+                            by=By.ID, value="tools_form_5_selected_text").text
+                        selected_block = browser.find_element(
+                            by=By.ID, value="tools_form_6_selected_text").text
+                        browser.close()
+                        browser.quit()
+                        self.house_service.update_house_hsbc({
+                            "valuation": valuation,
+                            "region": selected_region,
+                            "district": selected_district,
+                            "estate": selected_estate,
+                            "building": selected_building,
+                            "floor": selected_floor,
+                            "block": selected_block,
+                            "gross_floor_area": gross_floor_area,
+                            "saleable_area": saleable_area,
+                            "property_age": property_age,
+                        })
                 big_retry = 10
                 return
             except Exception as e:
