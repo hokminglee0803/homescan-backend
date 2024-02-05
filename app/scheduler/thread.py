@@ -16,6 +16,7 @@ DRIVER_PATH = os.path.join(CHROMEDRIVER_DIR, "chromedriver")
 
 logger = logging.getLogger(__name__)
 
+
 @dataclass
 class ThreadScraper:
 
@@ -30,12 +31,13 @@ class ThreadScraper:
     def __init__(self):
         retry = 0
         while retry < 10:
-            try: 
+            try:
                 connect_to_mongodb()
                 logger.info("Connected to the MongoDB database!")
                 self.root_browser = self.get_driver()
                 time.sleep(2)
                 self.house_service = HouseService()
+                retry = 10
             except Exception:
                 time.sleep(30)
                 retry += 1
@@ -50,7 +52,7 @@ class ThreadScraper:
     def get_driver(self):
         retry = 0
         while retry < 10:
-            try: 
+            try:
                 options = Options()
                 options.add_argument("--no-sandbox")
                 options.add_argument("--headless")
@@ -63,7 +65,7 @@ class ThreadScraper:
                 driver = webdriver.Chrome(
                     options=options,
                     # service=service
-                    )
+                )
                 driver.get(self.url)
                 retry = 10
             except Exception:
@@ -129,21 +131,22 @@ class ThreadScraper:
     def click_field(self, field_idx, id, browser: webdriver.Chrome):
         retry = 1
         while retry < 5:
-            try: 
+            try:
                 browser.find_element(
                     by=By.ID, value=f"tools_form_{id}_selectized").click()
                 time.sleep(0.5)
                 browser.find_element(by=By.ID, value=f"tools_form_{id}_menu").find_elements(
                     by=By.TAG_NAME, value="div")[field_idx].click()
-                retry=5
+                retry = 5
             except Exception:
                 time.sleep(2)
                 retry += 1
-                
+
     def valuation(self, region_idx, district_idx, estate_idx, building_idx, floor_idx, block_idx):
         try:
             browser = self.get_driver()
-            logger.info(f'Thread :{current_thread().name} - {region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx} - Start Valuation')
+            logger.info(
+                f'Thread :{current_thread().name} - {region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx} - Start Valuation')
             self.click_field(field_idx=region_idx, id=1, browser=browser)
             self.click_field(field_idx=district_idx, id=2, browser=browser)
             self.click_field(field_idx=estate_idx, id=3, browser=browser)
@@ -164,21 +167,28 @@ class ThreadScraper:
                     retry += 1
                 else:
                     # browser.save_screenshot(f"{region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx}.png")
-                    retry = 5           
-            
+                    retry = 5
+
             gross_floor_area = browser.find_element(
                 By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[3]/div[2]/span').text
             saleable_area = browser.find_element(
                 By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[4]/div[2]/span').text
             property_age = browser.find_element(
                 By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[5]/div[2]/span').text
-            logger.info(f'Thread :{current_thread().name} - {region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx} - Valuation: {valuation}')
-            selected_region = browser.find_element(by=By.ID, value="tools_form_1_selected_text").text
-            selected_district = browser.find_element(by=By.ID, value="tools_form_2_selected_text").text
-            selected_estate = browser.find_element(by=By.ID, value="tools_form_3_selected_text").text
-            selected_building = browser.find_element(by=By.ID, value="tools_form_4_selected_text").text
-            selected_floor = browser.find_element(by=By.ID, value="tools_form_5_selected_text").text
-            selected_block = browser.find_element(by=By.ID, value="tools_form_6_selected_text").text
+            logger.info(
+                f'Thread :{current_thread().name} - {region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx} - Valuation: {valuation}')
+            selected_region = browser.find_element(
+                by=By.ID, value="tools_form_1_selected_text").text
+            selected_district = browser.find_element(
+                by=By.ID, value="tools_form_2_selected_text").text
+            selected_estate = browser.find_element(
+                by=By.ID, value="tools_form_3_selected_text").text
+            selected_building = browser.find_element(
+                by=By.ID, value="tools_form_4_selected_text").text
+            selected_floor = browser.find_element(
+                by=By.ID, value="tools_form_5_selected_text").text
+            selected_block = browser.find_element(
+                by=By.ID, value="tools_form_6_selected_text").text
             browser.close()
             browser.quit()
             self.house_service.update_house_hsbc({
@@ -195,7 +205,8 @@ class ThreadScraper:
             })
             return
         except Exception as e:
-            logger.error(f'Thread :{current_thread().name} - {region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx} - Error: {e}')
+            logger.error(
+                f'Thread :{current_thread().name} - {region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx} - Error: {e}')
             return
 
     def scrape(self, selected_region, selected_district):
@@ -204,7 +215,7 @@ class ThreadScraper:
         if region_idx > 0:
             self.click_field(field_idx=region_idx, id=1,
                              browser=self.root_browser)
-            
+
             self.scrape_districts()
             district_idx = selected_district
             if district_idx > 0:
@@ -217,7 +228,7 @@ class ThreadScraper:
 
                         self.click_field(field_idx=estate_idx,
                                          id=3, browser=self.root_browser)
-                        
+
                         self.scrape_buldings()
                         for building_idx, building in enumerate(self.buildings):
                             if building_idx > 0:
