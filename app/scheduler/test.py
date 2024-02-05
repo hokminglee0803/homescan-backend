@@ -71,7 +71,7 @@ class TestScraper:
             browser.quit()
 
         self.click_field(field_idx=selected_region, id=1,
-                             broswer=browser)
+                             browser=browser)
         
         selected_region = browser.find_element(
                             by=By.ID, value="tools_form_1_selected_text").text
