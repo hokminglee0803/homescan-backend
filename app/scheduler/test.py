@@ -78,5 +78,7 @@ class TestScraper:
         
         logger.info(selected_region)
 
+        time.sleep(3600)
+
        
        
