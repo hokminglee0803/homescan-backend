@@ -59,8 +59,14 @@ class TestScraper:
         chrome_options.add_argument('--disable-dev-shm-usage')
         chrome_options.add_argument("--window-size=1920,1080")
         chrome_options.add_argument("--log-level=3")
-        browser = webdriver.Chrome(options=chrome_options)
+        # browser = webdriver.Chrome(options=chrome_options)
+        browser = webdriver.Remote(
+            command_executor='http://localhost:4444/wd/hub',
+            desired_capabilities={'browserName': 'chrome'},
+            options=chrome_options
+        )
         return browser
+    
 
     @retry_on_crash
     def navigate_to_url(self,browser, url):
