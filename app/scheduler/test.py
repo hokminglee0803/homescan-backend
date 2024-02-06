@@ -5,6 +5,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 import logging
+import concurrent.futures
 
 logger = logging.getLogger(__name__)
 
@@ -87,6 +88,33 @@ class TestScraper:
             by=By.ID, value="tools_form_3_menu").find_elements(by=By.TAG_NAME, value="div")
         estates_select.click()
 
+    def scrape_buldings(self,browser:webdriver.Chrome):
+        buildings_select = browser.find_element(
+            by=By.ID, value="tools_form_4_selectized")
+        buildings_select.click()
+        time.sleep(0.5)
+        self.buildings = browser.find_element(
+            by=By.ID, value="tools_form_4_menu").find_elements(by=By.TAG_NAME, value="div")
+        buildings_select.click()
+
+    def scrape_floors(self,browser:webdriver.Chrome):
+        floors_select = browser.find_element(
+            by=By.ID, value="tools_form_5_selectized")
+        floors_select.click()
+        time.sleep(0.5)
+        self.floors = browser.find_element(
+            by=By.ID, value="tools_form_5_menu").find_elements(by=By.TAG_NAME, value="div")
+        floors_select.click()
+
+    def scrape_blocks(self,browser:webdriver.Chrome):
+        blocks_select = browser.find_element(
+            by=By.ID, value="tools_form_6_selectized")
+        blocks_select.click()
+        time.sleep(0.5)
+        self.blocks = browser.find_element(
+            by=By.ID, value="tools_form_6_menu").find_elements(by=By.TAG_NAME, value="div")
+        blocks_select.click()
+
     def scrape(self, selected_region, selected_district):
         url = "https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/"
 
@@ -105,7 +133,30 @@ class TestScraper:
                         selected_estate = self.click_field(field_idx=estate_idx,
                                          id=3, browser=browser)
                         
-                        logger.info(f'{selected_region} - {selected_district} - {selected_estate}')
+                        self.scrape_buldings(browser=browser)
+                        for building_idx, building in enumerate(self.buildings):
+                            if building_idx > 0:
+                                selected_building= self.click_field(
+                                    field_idx=building_idx, id=4, browser=browser)
+
+                                self.scrape_floors(browser=browser)
+                                for floor_idx, floor in enumerate(self.floors):
+                                    if floor_idx > 0:
+                                        selected_floor = self.click_field(
+                                            field_idx=floor_idx, id=5, browser=browser)
+
+                                        self.scrape_blocks(browser=browser)
+                                        with concurrent.futures.ThreadPoolExecutor(max_workers=30) as executor:
+                                            for block_idx, block in enumerate(self.blocks):
+                                                if block_idx > 0:
+                                                    selected_block = self.click_field(
+                                                        field_idx=block_idx, id=6, browser=browser)
+                                                    logger.info(f'{selected_region} - {selected_district} - {selected_estate} - {selected_building} - {selected_floor}- {selected_block}')
+                                                    # executor.submit(
+                                                    #     self.valuation, region_idx, district_idx, estate_idx, building_idx, floor_idx, block_idx)
+                                            executor.shutdown()
+                        
+          
 
 
         finally:
