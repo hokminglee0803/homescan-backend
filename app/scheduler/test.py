@@ -224,26 +224,26 @@ class TestScraper:
                     if estate_idx > 0:
                         selected_estate = self.click_field(field_idx=estate_idx,
                                          id=3, browser=browser)
-                        
-                        self.scrape_buldings(browser=browser)
-                        for building_idx, building in enumerate(self.buildings):
-                            if building_idx > 0:
-                                selected_building= self.click_field(
-                                    field_idx=building_idx, id=4, browser=browser)
+                        logger.log(f'{selected_estate}')
+                        # self.scrape_buldings(browser=browser)
+                        # for building_idx, building in enumerate(self.buildings):
+                        #     if building_idx > 0:
+                        #         selected_building= self.click_field(
+                        #             field_idx=building_idx, id=4, browser=browser)
 
-                                self.scrape_floors(browser=browser)
-                                for floor_idx, floor in enumerate(self.floors):
-                                    if floor_idx > 0:
-                                        selected_floor = self.click_field(
-                                            field_idx=floor_idx, id=5, browser=browser)
+                        #         self.scrape_floors(browser=browser)
+                        #         for floor_idx, floor in enumerate(self.floors):
+                        #             if floor_idx > 0:
+                        #                 selected_floor = self.click_field(
+                        #                     field_idx=floor_idx, id=5, browser=browser)
 
-                                        self.scrape_blocks(browser=browser)
-                                        for block_idx, block in enumerate(self.blocks):
-                                            if block_idx > 0:
-                                                time.sleep(2)
-                                                selected_block = self.click_field(
-                                                        field_idx=block_idx, id=6, browser=browser)
-                                                logger.info(f'{selected_region_text} - {selected_district_text} - {selected_estate} - {selected_building} - {selected_floor}- {selected_block}')
+                        #                 self.scrape_blocks(browser=browser)
+                        #                 for block_idx, block in enumerate(self.blocks):
+                        #                     if block_idx > 0:
+                        #                         time.sleep(2)
+                        #                         selected_block = self.click_field(
+                        #                                 field_idx=block_idx, id=6, browser=browser)
+                        #                         logger.info(f'{selected_region_text} - {selected_district_text} - {selected_estate} - {selected_building} - {selected_floor}- {selected_block}')
                                                 # self.valuation(selected_region, selected_district, estate_idx, building_idx, floor_idx, block_idx)
                         
           
