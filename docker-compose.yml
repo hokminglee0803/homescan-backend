@@ -181,7 +181,7 @@ services:
 
   worker:
     build: .
-    command: celery -A app.scheduler.tasks:app worker -l info -c 27 -B
+    command: celery -A app.scheduler.tasks:app worker -l info -c 12 -B
     depends_on:
       - redis
 
