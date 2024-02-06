@@ -11,8 +11,7 @@ services:
       GRID_MAX_SESSION: 54   
 
   chrome-node-1:
-    image: selenium/node-chrome
-    shm_size: 2gb
+    image: selenium/node-chrome    
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
@@ -26,7 +25,6 @@ services:
 
   chrome-node-2:
     image: selenium/node-chrome
-    shm_size: 2gb
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
@@ -40,7 +38,6 @@ services:
     
   chrome-node-3:
     image: selenium/node-chrome
-    shm_size: 2gb
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
@@ -54,7 +51,6 @@ services:
 
   chrome-node-4:
     image: selenium/node-chrome
-    shm_size: 2gb
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
@@ -68,7 +64,6 @@ services:
 
   chrome-node-5:
     image: selenium/node-chrome
-    shm_size: 2gb
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
@@ -82,7 +77,6 @@ services:
 
   chrome-node-6:
     image: selenium/node-chrome
-    shm_size: 2gb
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
