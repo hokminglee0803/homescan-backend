@@ -95,89 +95,89 @@ services:
       SE_NODE_MAX_SESSIONS: 4
       SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
 
-  chrome-node-7:
-    image: selenium/node-chrome
-    shm_size: 1gb
-    volumes:
-      - /dev/shm:/dev/shm
-    depends_on:
-      - selenium-hub
-    environment:
-      SE_EVENT_BUS_HOST: selenium-hub
-      SE_EVENT_BUS_PUBLISH_PORT: 4442
-      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-      SE_NODE_MAX_SESSIONS: 4
-      SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
+  # chrome-node-7:
+  #   image: selenium/node-chrome
+  #   shm_size: 1gb
+  #   volumes:
+  #     - /dev/shm:/dev/shm
+  #   depends_on:
+  #     - selenium-hub
+  #   environment:
+  #     SE_EVENT_BUS_HOST: selenium-hub
+  #     SE_EVENT_BUS_PUBLISH_PORT: 4442
+  #     SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+  #     SE_NODE_MAX_SESSIONS: 4
+  #     SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
 
-  chrome-node-8:
-    image: selenium/node-chrome
-    shm_size: 1gb
-    volumes:
-      - /dev/shm:/dev/shm
-    depends_on:
-      - selenium-hub
-    environment:
-      SE_EVENT_BUS_HOST: selenium-hub
-      SE_EVENT_BUS_PUBLISH_PORT: 4442
-      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-      SE_NODE_MAX_SESSIONS: 4
-      SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
+  # chrome-node-8:
+  #   image: selenium/node-chrome
+  #   shm_size: 1gb
+  #   volumes:
+  #     - /dev/shm:/dev/shm
+  #   depends_on:
+  #     - selenium-hub
+  #   environment:
+  #     SE_EVENT_BUS_HOST: selenium-hub
+  #     SE_EVENT_BUS_PUBLISH_PORT: 4442
+  #     SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+  #     SE_NODE_MAX_SESSIONS: 4
+  #     SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
     
-  chrome-node-9:
-    image: selenium/node-chrome
-    shm_size: 1gb
-    volumes:
-      - /dev/shm:/dev/shm
-    depends_on:
-      - selenium-hub
-    environment:
-      SE_EVENT_BUS_HOST: selenium-hub
-      SE_EVENT_BUS_PUBLISH_PORT: 4442
-      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-      SE_NODE_MAX_SESSIONS: 4
-      SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
+  # chrome-node-9:
+  #   image: selenium/node-chrome
+  #   shm_size: 1gb
+  #   volumes:
+  #     - /dev/shm:/dev/shm
+  #   depends_on:
+  #     - selenium-hub
+  #   environment:
+  #     SE_EVENT_BUS_HOST: selenium-hub
+  #     SE_EVENT_BUS_PUBLISH_PORT: 4442
+  #     SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+  #     SE_NODE_MAX_SESSIONS: 4
+  #     SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
     
-  chrome-node-10:
-    image: selenium/node-chrome
-    shm_size: 1gb
-    volumes:
-      - /dev/shm:/dev/shm
-    depends_on:
-      - selenium-hub
-    environment:
-      SE_EVENT_BUS_HOST: selenium-hub
-      SE_EVENT_BUS_PUBLISH_PORT: 4442
-      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-      SE_NODE_MAX_SESSIONS: 4
-      SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
+  # chrome-node-10:
+  #   image: selenium/node-chrome
+  #   shm_size: 1gb
+  #   volumes:
+  #     - /dev/shm:/dev/shm
+  #   depends_on:
+  #     - selenium-hub
+  #   environment:
+  #     SE_EVENT_BUS_HOST: selenium-hub
+  #     SE_EVENT_BUS_PUBLISH_PORT: 4442
+  #     SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+  #     SE_NODE_MAX_SESSIONS: 4
+  #     SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
 
-  chrome-node-11:
-    image: selenium/node-chrome
-    shm_size: 1gb
-    volumes:
-      - /dev/shm:/dev/shm
-    depends_on:
-      - selenium-hub
-    environment:
-      SE_EVENT_BUS_HOST: selenium-hub
-      SE_EVENT_BUS_PUBLISH_PORT: 4442
-      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-      SE_NODE_MAX_SESSIONS: 4
-      SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
+  # chrome-node-11:
+  #   image: selenium/node-chrome
+  #   shm_size: 1gb
+  #   volumes:
+  #     - /dev/shm:/dev/shm
+  #   depends_on:
+  #     - selenium-hub
+  #   environment:
+  #     SE_EVENT_BUS_HOST: selenium-hub
+  #     SE_EVENT_BUS_PUBLISH_PORT: 4442
+  #     SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+  #     SE_NODE_MAX_SESSIONS: 4
+  #     SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
 
-  chrome-node-12:
-    image: selenium/node-chrome
-    shm_size: 1gb
-    volumes:
-      - /dev/shm:/dev/shm
-    depends_on:
-      - selenium-hub
-    environment:
-      SE_EVENT_BUS_HOST: selenium-hub
-      SE_EVENT_BUS_PUBLISH_PORT: 4442
-      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-      SE_NODE_MAX_SESSIONS: 4
-      SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
+  # chrome-node-12:
+  #   image: selenium/node-chrome
+  #   shm_size: 1gb
+  #   volumes:
+  #     - /dev/shm:/dev/shm
+  #   depends_on:
+  #     - selenium-hub
+  #   environment:
+  #     SE_EVENT_BUS_HOST: selenium-hub
+  #     SE_EVENT_BUS_PUBLISH_PORT: 4442
+  #     SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+  #     SE_NODE_MAX_SESSIONS: 4
+  #     SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
 
   worker:
     build: .
@@ -192,12 +192,12 @@ services:
       - chrome-node-4
       - chrome-node-5
       - chrome-node-6
-      - chrome-node-7
-      - chrome-node-8
-      - chrome-node-9
-      - chrome-node-10
-      - chrome-node-11
-      - chrome-node-12
+      # - chrome-node-7
+      # - chrome-node-8
+      # - chrome-node-9
+      # - chrome-node-10
+      # - chrome-node-11
+      # - chrome-node-12
 
   beat:
     build: .
@@ -211,12 +211,12 @@ services:
       - chrome-node-4
       - chrome-node-5
       - chrome-node-6
-      - chrome-node-7
-      - chrome-node-8
-      - chrome-node-9
-      - chrome-node-10
-      - chrome-node-11
-      - chrome-node-12
+      # - chrome-node-7
+      # - chrome-node-8
+      # - chrome-node-9
+      # - chrome-node-10
+      # - chrome-node-11
+      # - chrome-node-12
 
   redis:
     image: "redis:alpine"
