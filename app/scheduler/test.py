@@ -61,8 +61,7 @@ class TestScraper:
         chrome_options.add_argument("--log-level=3")
         # browser = webdriver.Chrome(options=chrome_options)
         browser = webdriver.Remote(
-            command_executor='http://localhost:4444/wd/hub',
-            desired_capabilities={'browserName': 'chrome'},
+            command_executor='http://127.0.0.1:4444/wd/hub',
             options=chrome_options
         )
         return browser
