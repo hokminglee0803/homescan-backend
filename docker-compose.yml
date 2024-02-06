@@ -185,6 +185,18 @@ services:
     depends_on:
       - redis
       - selenium-hub
+      - chrome-node-1
+      - chrome-node-2
+      - chrome-node-3
+      - chrome-node-4
+      - chrome-node-5
+      - chrome-node-6
+      - chrome-node-7
+      - chrome-node-8
+      - chrome-node-9
+      - chrome-node-10
+      - chrome-node-11
+      - chrome-node-12
 
   beat:
     build: .
@@ -192,6 +204,18 @@ services:
     depends_on:
       - redis
       - selenium-hub
+      - chrome-node-1
+      - chrome-node-2
+      - chrome-node-3
+      - chrome-node-4
+      - chrome-node-5
+      - chrome-node-6
+      - chrome-node-7
+      - chrome-node-8
+      - chrome-node-9
+      - chrome-node-10
+      - chrome-node-11
+      - chrome-node-12
 
   redis:
     image: "redis:alpine"
