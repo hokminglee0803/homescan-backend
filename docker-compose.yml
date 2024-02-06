@@ -184,12 +184,14 @@ services:
     command: celery -A app.scheduler.tasks:app worker -l info -c 12
     depends_on:
       - redis
+      - selenium-hub
 
   beat:
     build: .
     command: celery -A app.scheduler.tasks:app beat -l info
     depends_on:
       - redis
+      - selenium-hub
 
   redis:
     image: "redis:alpine"
