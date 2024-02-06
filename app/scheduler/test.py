@@ -90,7 +90,7 @@ class TestScraper:
             time.sleep(2)
             selected_district_text = self.click_field(field_idx=selected_district, id=2,
                              browser=browser)   
-            logger.log(f'{selected_region_text} - {selected_district_text} ')
+            logger.info(f'{selected_region_text} - {selected_district_text} ')
           
         finally:
             browser.quit()
