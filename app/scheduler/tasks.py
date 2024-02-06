@@ -15,7 +15,7 @@ app = Celery(
 app.conf.beat_schedule = {
     "hk-1": {
         "task": "scrape_house_property_value",
-        "schedule": crontab(hour=17, day_of_month=6),
+        "schedule": crontab(day_of_month=6),
         'args': (1, 1)  # 香港 － 香港仔/鴨脷洲
     },
     # "hk-2": {
