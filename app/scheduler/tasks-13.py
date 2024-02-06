@@ -88,11 +88,11 @@ app.conf.beat_schedule = {
         "schedule": crontab(day_of_month=6),
         'args': (1, 15)  # 香港 － 大坑/渣甸山
     },
-    # "hk-16": {
-    #     "task": "scrape_house_property_value",
-    #     "schedule": crontab(day_of_month=6),
-    #     'args': (1, 16)  # 香港 － 山頂
-    # },
+    "hk-16": {
+        "task": "scrape_house_property_value",
+        "schedule": crontab(day_of_month=6),
+        'args': (1, 16)  # 香港 － 山頂
+    },
     # "hk-17": {
     #     "task": "scrape_house_property_value",
     #     "schedule": crontab(day_of_month=6),
