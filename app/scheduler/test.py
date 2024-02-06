@@ -49,7 +49,6 @@ class TestScraper:
                     return func(*args, **kwargs)
                 except Exception as e:
                     logger.warning(f"Something crash occurred. Retrying... ({retries+1}/{max_retries})")
-                    logger.warning(e)
                     retries += 1
                     time.sleep(random.uniform(30, 100))
             raise Exception("Failed after multiple retries")
@@ -95,7 +94,7 @@ class TestScraper:
             district_selected = self.click_field(field_idx=selected_district, id=2,
                              browser=browser)   
 
-            self.scrape_estates()
+            self.scrape_estates(browser=browser)
             for estate_idx, estate in enumerate(self.estates):
                 if estate_idx > 0:
                     estate_selected = self.click_field(field_idx=estate_idx,id=3, browser=browser)
