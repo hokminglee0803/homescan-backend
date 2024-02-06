@@ -18,51 +18,51 @@ app.conf.beat_schedule = {
         "schedule": crontab(day_of_month=6),
         'args': (1, 1)  # 香港 － 香港仔/鴨脷洲
     },
-    "hk-2": {
-        "task": "scrape_house_property_value",
-        "schedule": crontab(day_of_month=6),
-        'args': (1, 2)  # 香港 － 香港仔
-    },
-    "hk-3": {
-        "task": "scrape_house_property_value",
-        "schedule": crontab(day_of_month=6),
-        'args': (1, 3)  # 香港 － 銅鑼灣
-    },
-    "hk-4": {
-        "task": "scrape_house_property_value",
-        "schedule": crontab(day_of_month=6),
-        'args': (1, 4)  # 香港 － 中環/上環
-    },
-    "hk-5": {
-        "task": "scrape_house_property_value",
-        "schedule": crontab(day_of_month=6),
-        'args': (1, 5)  # 香港 － 柴灣
-    },
-    "hk-6": {
-        "task": "scrape_house_property_value",
-        "schedule": crontab(day_of_month=6),
-        'args': (1, 6)  # 香港 － 跑馬地/黃泥涌
-    },
-    "hk-7": {
-        "task": "scrape_house_property_value",
-        "schedule": crontab(day_of_month=6),
-        'args': (1, 7)  # 香港 － 南區
-    },
-    "hk-8": {
-        "task": "scrape_house_property_value",
-        "schedule": crontab(day_of_month=6),
-        'args': (1, 8)  # 香港 － 堅尼地城/西營盤
-    },
-    "hk-9": {
-        "task": "scrape_house_property_value",
-        "schedule": crontab(day_of_month=6),
-        'args': (1, 9)  # 香港 － 半山
-    },
-    "hk-10": {
-        "task": "scrape_house_property_value",
-        "schedule": crontab(day_of_month=6),
-        'args': (1, 10)  # 香港 － 北角
-    },
+    # "hk-2": {
+    #     "task": "scrape_house_property_value",
+    #     "schedule": crontab(day_of_month=6),
+    #     'args': (1, 2)  # 香港 － 香港仔
+    # },
+    # "hk-3": {
+    #     "task": "scrape_house_property_value",
+    #     "schedule": crontab(day_of_month=6),
+    #     'args': (1, 3)  # 香港 － 銅鑼灣
+    # },
+    # "hk-4": {
+    #     "task": "scrape_house_property_value",
+    #     "schedule": crontab(day_of_month=6),
+    #     'args': (1, 4)  # 香港 － 中環/上環
+    # },
+    # "hk-5": {
+    #     "task": "scrape_house_property_value",
+    #     "schedule": crontab(day_of_month=6),
+    #     'args': (1, 5)  # 香港 － 柴灣
+    # },
+    # "hk-6": {
+    #     "task": "scrape_house_property_value",
+    #     "schedule": crontab(day_of_month=6),
+    #     'args': (1, 6)  # 香港 － 跑馬地/黃泥涌
+    # },
+    # "hk-7": {
+    #     "task": "scrape_house_property_value",
+    #     "schedule": crontab(day_of_month=6),
+    #     'args': (1, 7)  # 香港 － 南區
+    # },
+    # "hk-8": {
+    #     "task": "scrape_house_property_value",
+    #     "schedule": crontab(day_of_month=6),
+    #     'args': (1, 8)  # 香港 － 堅尼地城/西營盤
+    # },
+    # "hk-9": {
+    #     "task": "scrape_house_property_value",
+    #     "schedule": crontab(day_of_month=6),
+    #     'args': (1, 9)  # 香港 － 半山
+    # },
+    # "hk-10": {
+    #     "task": "scrape_house_property_value",
+    #     "schedule": crontab(day_of_month=6),
+    #     'args': (1, 10)  # 香港 － 北角
+    # },
     # "hk-11": {
     #     "task": "scrape_house_property_value",
     #     "schedule": crontab(day_of_month=6),
