@@ -174,8 +174,6 @@ class TestScraper:
                                                             By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[5]/div[2]/span').text
                                                 
                                                         logger.info(f'{region_selected} - {district_selected} - {estate_selected} - {building_selected} - {floor_selected} - {block_selected}  --- Valuation: {valuation}')
-                                                        browser.close()
-                                                        browser.quit()
                                                         connect_to_mongodb()
                                                         logger.info("Connected to the MongoDB database!")
                                                         self.house_service.update_house_hsbc({
