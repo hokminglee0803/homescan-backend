@@ -268,11 +268,11 @@ app.conf.beat_schedule = {
         "schedule": crontab(day_of_month=6),
         'args': (3, 12)  # 新界/離島 － 青衣
     },
-    "nt-13": {
-        "task": "scrape_house_property_value",
-        "schedule": crontab(day_of_month=6),
-        'args': (3, 13)  # 新界/離島 － 荃灣
-    },
+    # "nt-13": {
+    #     "task": "scrape_house_property_value",
+    #     "schedule": crontab(day_of_month=6),
+    #     'args': (3, 13)  # 新界/離島 － 荃灣
+    # },
     # "nt-14": {
     #     "task": "scrape_house_property_value",
     #     "schedule": crontab(day_of_month=6),

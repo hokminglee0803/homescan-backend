@@ -278,11 +278,11 @@ app.conf.beat_schedule = {
         "schedule": crontab(day_of_month=6),
         'args': (3, 14)  # 新界/離島 － 屯門
     },
-    "nt-15": {
-        "task": "scrape_house_property_value",
-        "schedule": crontab(day_of_month=6),
-        'args': (3, 15)  # 新界/離島 － 元朗/天水圍
-    },
+    # "nt-15": {
+    #     "task": "scrape_house_property_value",
+    #     "schedule": crontab(day_of_month=6),
+    #     'args': (3, 15)  # 新界/離島 － 元朗/天水圍
+    # },
 }
 
 

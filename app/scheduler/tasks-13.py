@@ -33,16 +33,16 @@ app.conf.beat_schedule = {
     #     "schedule": crontab(day_of_month=6),
     #     'args': (1, 4)  # 香港 － 中環/上環
     # },
-    "hk-5": {
-        "task": "scrape_house_property_value",
-        "schedule": crontab(day_of_month=6),
-        'args': (1, 5)  # 香港 － 柴灣
-    },
-    "hk-6": {
-        "task": "scrape_house_property_value",
-        "schedule": crontab(day_of_month=6),
-        'args': (1, 6)  # 香港 － 跑馬地/黃泥涌
-    },
+    # "hk-5": {
+    #     "task": "scrape_house_property_value",
+    #     "schedule": crontab(day_of_month=6),
+    #     'args': (1, 5)  # 香港 － 柴灣
+    # },
+    # "hk-6": {
+    #     "task": "scrape_house_property_value",
+    #     "schedule": crontab(day_of_month=6),
+    #     'args': (1, 6)  # 香港 － 跑馬地/黃泥涌
+    # },
     # "hk-7": {
     #     "task": "scrape_house_property_value",
     #     "schedule": crontab(day_of_month=6),
@@ -83,11 +83,11 @@ app.conf.beat_schedule = {
     #     "schedule": crontab(day_of_month=6),
     #     'args': (1, 14)  # 香港 － 筲箕灣
     # },
-    # "hk-15": {
-    #     "task": "scrape_house_property_value",
-    #     "schedule": crontab(day_of_month=6),
-    #     'args': (1, 15)  # 香港 － 大坑/渣甸山
-    # },
+    "hk-15": {
+        "task": "scrape_house_property_value",
+        "schedule": crontab(day_of_month=6),
+        'args': (1, 15)  # 香港 － 大坑/渣甸山
+    },
     # "hk-16": {
     #     "task": "scrape_house_property_value",
     #     "schedule": crontab(day_of_month=6),

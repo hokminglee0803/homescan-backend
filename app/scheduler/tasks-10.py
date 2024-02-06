@@ -258,11 +258,11 @@ app.conf.beat_schedule = {
     #     "schedule": crontab(day_of_month=6),
     #     'args': (3, 10)  # 新界/離島 － 大埔
     # },
-    "nt-11": {
-        "task": "scrape_house_property_value",
-        "schedule": crontab(day_of_month=6),
-        'args': (3, 11)  # 新界/離島 － 將軍澳
-    },
+    # "nt-11": {
+    #     "task": "scrape_house_property_value",
+    #     "schedule": crontab(day_of_month=6),
+    #     'args': (3, 11)  # 新界/離島 － 將軍澳
+    # },
     # "nt-12": {
     #     "task": "scrape_house_property_value",
     #     "schedule": crontab(day_of_month=6),
