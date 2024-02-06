@@ -29,7 +29,6 @@ class TestScraper:
             try:
                 connect_to_mongodb()
                 logger.info("Connected to the MongoDB database!")
-                self.root_browser = self.get_driver()
                 time.sleep(2)
                 self.house_service = HouseService()
                 retry = 10
