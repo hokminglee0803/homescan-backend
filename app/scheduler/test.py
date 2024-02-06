@@ -66,7 +66,7 @@ class TestScraper:
         chrome_options.add_argument("--window-size=1920,1080")
         chrome_options.add_argument("--log-level=3")
         browser = webdriver.Remote(
-            command_executor='http://18.141.147.24:4444/wd/hub',
+            command_executor='http://47.129.55.174:4444/wd/hub',
             options=chrome_options
         )
         browser.get("https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/")
