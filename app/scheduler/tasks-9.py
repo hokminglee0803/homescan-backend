@@ -53,11 +53,11 @@ app.conf.beat_schedule = {
     #     "schedule": crontab(day_of_month=6),
     #     'args': (1, 8)  # 香港 － 堅尼地城/西營盤
     # },
-    "hk-9": {
-        "task": "scrape_house_property_value",
-        "schedule": crontab(day_of_month=6),
-        'args': (1, 9)  # 香港 － 半山
-    },
+    # "hk-9": {
+    #     "task": "scrape_house_property_value",
+    #     "schedule": crontab(day_of_month=6),
+    #     'args': (1, 9)  # 香港 － 半山
+    # },
     # "hk-10": {
     #     "task": "scrape_house_property_value",
     #     "schedule": crontab(day_of_month=6),
@@ -253,11 +253,11 @@ app.conf.beat_schedule = {
     #     "schedule": crontab(day_of_month=6),
     #     'args': (3, 9)  # 新界/離島 － 上水
     # },
-    # "nt-10": {
-    #     "task": "scrape_house_property_value",
-    #     "schedule": crontab(day_of_month=6),
-    #     'args': (3, 10)  # 新界/離島 － 大埔
-    # },
+    "nt-10": {
+        "task": "scrape_house_property_value",
+        "schedule": crontab(day_of_month=6),
+        'args': (3, 10)  # 新界/離島 － 大埔
+    },
     # "nt-11": {
     #     "task": "scrape_house_property_value",
     #     "schedule": crontab(day_of_month=6),

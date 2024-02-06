@@ -23,11 +23,11 @@ app.conf.beat_schedule = {
     #     "schedule": crontab(day_of_month=6),
     #     'args': (1, 2)  # 香港 － 香港仔
     # },
-    "hk-3": {
-        "task": "scrape_house_property_value",
-        "schedule": crontab(day_of_month=6),
-        'args': (1, 3)  # 香港 － 銅鑼灣
-    },
+    # "hk-3": {
+    #     "task": "scrape_house_property_value",
+    #     "schedule": crontab(day_of_month=6),
+    #     'args': (1, 3)  # 香港 － 銅鑼灣
+    # },
     # "hk-4": {
     #     "task": "scrape_house_property_value",
     #     "schedule": crontab(day_of_month=6),
@@ -223,11 +223,11 @@ app.conf.beat_schedule = {
     #     "schedule": crontab(day_of_month=6),
     #     'args': (3, 3)  # 新界/離島 － 荔景
     # },
-    # "nt-4": {
-    #     "task": "scrape_house_property_value",
-    #     "schedule": crontab(day_of_month=6),
-    #     'args': (3, 4)  # 新界/離島 － 大嶼山/離島
-    # },
+    "nt-4": {
+        "task": "scrape_house_property_value",
+        "schedule": crontab(day_of_month=6),
+        'args': (3, 4)  # 新界/離島 － 大嶼山/離島
+    },
     # "nt-5": {
     #     "task": "scrape_house_property_value",
     #     "schedule": crontab(day_of_month=6),

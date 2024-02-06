@@ -178,11 +178,11 @@ app.conf.beat_schedule = {
     #     "schedule": crontab(day_of_month=6),
     #     'args': (2, 15)  # 九龍 － 石硤尾/又一村
     # },
-    "kl-16": {
-        "task": "scrape_house_property_value",
-        "schedule": crontab(day_of_month=6),
-        'args': (2, 16)  # 九龍 － 大角咀
-    },
+    # "kl-16": {
+    #     "task": "scrape_house_property_value",
+    #     "schedule": crontab(day_of_month=6),
+    #     'args': (2, 16)  # 九龍 － 大角咀
+    # },
     # "kl-17": {
     #     "task": "scrape_house_property_value",
     #     "schedule": crontab(day_of_month=6),
@@ -228,11 +228,11 @@ app.conf.beat_schedule = {
     #     "schedule": crontab(day_of_month=6),
     #     'args': (3, 4)  # 新界/離島 － 大嶼山/離島
     # },
-    "nt-5": {
-        "task": "scrape_house_property_value",
-        "schedule": crontab(day_of_month=6),
-        'args': (3, 5)  # 新界/離島 － 馬鞍山
-    },
+    # "nt-5": {
+    #     "task": "scrape_house_property_value",
+    #     "schedule": crontab(day_of_month=6),
+    #     'args': (3, 5)  # 新界/離島 － 馬鞍山
+    # },
     # "nt-6": {
     #     "task": "scrape_house_property_value",
     #     "schedule": crontab(day_of_month=6),
@@ -263,16 +263,16 @@ app.conf.beat_schedule = {
     #     "schedule": crontab(day_of_month=6),
     #     'args': (3, 11)  # 新界/離島 － 將軍澳
     # },
-    # "nt-12": {
-    #     "task": "scrape_house_property_value",
-    #     "schedule": crontab(day_of_month=6),
-    #     'args': (3, 12)  # 新界/離島 － 青衣
-    # },
-    # "nt-13": {
-    #     "task": "scrape_house_property_value",
-    #     "schedule": crontab(day_of_month=6),
-    #     'args': (3, 13)  # 新界/離島 － 荃灣
-    # },
+    "nt-12": {
+        "task": "scrape_house_property_value",
+        "schedule": crontab(day_of_month=6),
+        'args': (3, 12)  # 新界/離島 － 青衣
+    },
+    "nt-13": {
+        "task": "scrape_house_property_value",
+        "schedule": crontab(day_of_month=6),
+        'args': (3, 13)  # 新界/離島 － 荃灣
+    },
     # "nt-14": {
     #     "task": "scrape_house_property_value",
     #     "schedule": crontab(day_of_month=6),
