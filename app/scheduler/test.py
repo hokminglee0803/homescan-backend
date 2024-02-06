@@ -152,7 +152,7 @@ class TestScraper:
                 browser = self.navigate_to_url(browser, url)
 
                 time.sleep(2)
-                
+
                 self.click_field(field_idx=region_idx, id=1, browser=browser)
                 self.click_field(field_idx=district_idx, id=2, browser=browser)
                 self.click_field(field_idx=estate_idx, id=3, browser=browser)
@@ -252,7 +252,7 @@ class TestScraper:
                                             field_idx=floor_idx, id=5, browser=browser)
 
                                         self.scrape_blocks(browser=browser)
-                                        with concurrent.futures.ThreadPoolExecutor(max_workers=100) as executor:
+                                        with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
                                             for block_idx, block in enumerate(self.blocks):
                                                 if block_idx > 0:
                                                     time.sleep(2)
