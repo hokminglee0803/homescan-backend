@@ -99,14 +99,13 @@ class TestScraper:
             time.sleep(2)
             selected_district = self.click_field(field_idx=selected_district, id=2,
                              browser=browser)   
-            logger.info(f'{selected_region} - {selected_district}')
-            # self.scrape_estates(browser=browser)
-            # for estate_idx, estate in enumerate(self.estates):
-            #         if estate_idx > 0:
-            #             selected_estate = self.click_field(field_idx=estate_idx,
-            #                              id=3, browser=browser)
+            self.scrape_estates(browser=browser)
+            for estate_idx, estate in enumerate(self.estates):
+                    if estate_idx > 0:
+                        selected_estate = self.click_field(field_idx=estate_idx,
+                                         id=3, browser=browser)
                         
-            #             logger.info(f'{selected_region} - {selected_district} - {selected_estate}')
+                        logger.info(f'{selected_region} - {selected_district} - {selected_estate}')
 
 
         finally:
