@@ -73,22 +73,42 @@ class TestScraper:
         time.sleep(10)
         logger.debug(browser.title)
         return browser
+    
+    def get_driver1():
+        options = webdriver.ChromeOptions()
+        options.add_argument('--disable-dev-shm-usage')  
+        driver = webdriver.Remote(
+            command_executor="http://127.0.0.1:4444/wd/hub",
+            options=options
+        )
+        return driver
 
     def scrape(self, selected_region, selected_district):
-        url = "https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/"
+        # Initialize two headless browsers at the same time
+        driver1 = self.get_driver1()
+        print("Driver 1 is running")
+        # The below code will get executed
+        driver2 = self.get_driver1()
+        print("Driver 2 is running")
 
-        browser = self.open_browser()
+        driver1.quit()
+        print("Driver 1 is closed")
+        driver2.quit()
+        print("driver 2 is closed")
+        # url = "https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/"
+
+        # browser = self.open_browser()
     
-        try:
-            browser = self.navigate_to_url(browser, url)
-            selected_region = self.click_field(field_idx=selected_region, id=1,
-                             browser=browser)      
+        # try:
+        #     browser = self.navigate_to_url(browser, url)
+        #     selected_region = self.click_field(field_idx=selected_region, id=1,
+        #                      browser=browser)      
 
-            logger.info(selected_region)
+        #     logger.info(selected_region)
 
-            time.sleep(3600)
-        finally:
-            browser.quit()
+        #     time.sleep(3600)
+        # finally:
+        #     browser.quit()
 
        
        
