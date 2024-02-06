@@ -238,16 +238,13 @@ class TestScraper:
                                             field_idx=floor_idx, id=5, browser=browser)
 
                                         self.scrape_blocks(browser=browser)
-                                        with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
-                                            for block_idx, block in enumerate(self.blocks):
-                                                if block_idx > 0:
-                                                    time.sleep(2)
-                                                    selected_block = self.click_field(
+                                        for block_idx, block in enumerate(self.blocks):
+                                            if block_idx > 0:
+                                                time.sleep(2)
+                                                selected_block = self.click_field(
                                                         field_idx=block_idx, id=6, browser=browser)
-                                                    logger.info(f'{selected_region_text} - {selected_district_text} - {selected_estate} - {selected_building} - {selected_floor}- {selected_block}')
-                                                    executor.submit(
-                                                        self.valuation, selected_region, selected_district, estate_idx, building_idx, floor_idx, block_idx)
-                                            executor.shutdown()
+                                                logger.info(f'{selected_region_text} - {selected_district_text} - {selected_estate} - {selected_building} - {selected_floor}- {selected_block}')
+                                                self.valuation(selected_region, selected_district, estate_idx, building_idx, floor_idx, block_idx)
                         
           
 
