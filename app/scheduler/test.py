@@ -153,45 +153,48 @@ class TestScraper:
                                             valuation = ""
                                             retry = 1
                                             while retry < 10:
-                                                submit_button = browser.find_element(
+                                                try:
+                                                    submit_button = browser.find_element(
                                                     By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[1]/div/div[7]/a')
-                                                submit_button.click()
-                                                time.sleep(5)
-                                                valuation = browser.find_element(
-                                                    By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[2]/div[2]/span').text
-                                                if valuation == "":
-                                                    retry += 1
+                                                    submit_button.click()
+                                                    time.sleep(5)
+                                                    valuation = browser.find_element(
+                                                        By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[2]/div[2]/span').text
+                                                    if valuation == "":
+                                                        raise Exception
+                                                    else:
+                                                        # browser.save_screenshot(f"{region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx}.png")
+                                                        retry = 10
+                                                        
+                                                        gross_floor_area = browser.find_element(
+                                                            By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[3]/div[2]/span').text
+                                                        saleable_area = browser.find_element(
+                                                            By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[4]/div[2]/span').text
+                                                        property_age = browser.find_element(
+                                                            By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[5]/div[2]/span').text
+                                                
+                                                        logger.info(f'{region_selected} - {district_selected} - {estate_selected} - {building_selected} - {floor_selected} - {block_selected}  --- Valuation: {valuation}')
+                                                        browser.close()
+                                                        browser.quit()
+                                                        connect_to_mongodb()
+                                                        logger.info("Connected to the MongoDB database!")
+                                                        self.house_service.update_house_hsbc({
+                                                            "valuation": valuation,
+                                                            "region": region_selected,
+                                                            "district": district_selected,
+                                                            "estate": estate_selected,
+                                                            "building": building_selected,
+                                                            "floor": floor_selected,
+                                                            "block": block_selected,
+                                                            "gross_floor_area": gross_floor_area,
+                                                            "saleable_area": saleable_area,
+                                                            "property_age": property_age,
+                                                        })
+                                                        close_mongodb_connection()
+                                                        logger.info('Close connection to Mongo DB.')
+                                                except:
+                                                    retry+=1
                                                     time.sleep(10)
-                                                else:
-                                                    # browser.save_screenshot(f"{region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx}.png")
-                                                    retry = 10
-                                                    
-                                                    gross_floor_area = browser.find_element(
-                                                        By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[3]/div[2]/span').text
-                                                    saleable_area = browser.find_element(
-                                                        By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[4]/div[2]/span').text
-                                                    property_age = browser.find_element(
-                                                        By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[5]/div[2]/span').text
-                                             
-                                                    logger.info(f'{region_selected} - {district_selected} - {estate_selected} - {building_selected} - {floor_selected} - {block_selected}  --- Valuation: {valuation}')
-                                                    browser.close()
-                                                    browser.quit()
-                                                    connect_to_mongodb()
-                                                    logger.info("Connected to the MongoDB database!")
-                                                    self.house_service.update_house_hsbc({
-                                                        "valuation": valuation,
-                                                        "region": region_selected,
-                                                        "district": district_selected,
-                                                        "estate": estate_selected,
-                                                        "building": building_selected,
-                                                        "floor": floor_selected,
-                                                        "block": block_selected,
-                                                        "gross_floor_area": gross_floor_area,
-                                                        "saleable_area": saleable_area,
-                                                        "property_age": property_age,
-                                                    })
-                                                    close_mongodb_connection()
-                                                    logger.info('Close connection to Mongo DB.')
         finally:
             browser.quit()
 
