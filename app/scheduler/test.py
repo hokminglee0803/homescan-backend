@@ -140,11 +140,25 @@ class TestScraper:
             by=By.ID, value="tools_form_6_menu").find_elements(by=By.TAG_NAME, value="div")
         blocks_select.click()
 
-    def valuation(self, region_idx, district_idx, estate_idx, building_idx, floor_idx, block_idx,browser:webdriver.Chrome):
+    def valuation(self, region_idx, district_idx, estate_idx, building_idx, floor_idx, block_idx):
         big_retry = 0
         
         while big_retry < 10:
             try:
+                url = "https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/"
+
+                browser = self.open_browser()
+    
+                browser = self.navigate_to_url(browser, url)
+
+                time.sleep(2)
+                
+                self.click_field(field_idx=region_idx, id=1, browser=browser)
+                self.click_field(field_idx=district_idx, id=2, browser=browser)
+                self.click_field(field_idx=estate_idx, id=3, browser=browser)
+                self.click_field(field_idx=building_idx, id=4, browser=browser)
+                self.click_field(field_idx=floor_idx, id=5, browser=browser)
+                self.click_field(field_idx=block_idx, id=6, browser=browser)
                 logger.info(
                     f'Thread :{current_thread().name} - {region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx} - Start Valuation')
                 valuation = ""
@@ -247,7 +261,7 @@ class TestScraper:
                                                     logger.info(f'{selected_region_text} - {selected_district_text} - {selected_estate} - {selected_building} - {selected_floor}- {selected_block}')
                                                     # self.valuation(selected_region, selected_district, estate_idx, building_idx, floor_idx, block_idx,browser=browser)
                                                     executor.submit(
-                                                        self.valuation, selected_region, selected_district, estate_idx, building_idx, floor_idx, block_idx,browser)
+                                                        self.valuation, selected_region, selected_district, estate_idx, building_idx, floor_idx, block_idx)
                                             executor.shutdown()
                         
           
