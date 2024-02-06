@@ -13,7 +13,7 @@ services:
 
   chrome-node-1:
     image: selenium/node-chrome
-    shm_size: 2gb
+    shm_size: 1gb
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
@@ -22,13 +22,12 @@ services:
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-      SE_NODE_OVERRIDE_MAX_SESSIONS: 'true'
-      SE_NODE_MAX_SESSIONS: 54
+      SE_NODE_MAX_SESSIONS: 4
       SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
 
   chrome-node-2:
     image: selenium/node-chrome
-    shm_size: 2gb
+    shm_size: 1gb
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
@@ -37,12 +36,12 @@ services:
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-      SE_NODE_OVERRIDE_MAX_SESSIONS: 'true'
-      SE_NODE_MAX_SESSIONS: 54
+      SE_NODE_MAX_SESSIONS: 4
+      SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
     
   chrome-node-3:
     image: selenium/node-chrome
-    shm_size: 2gb
+    shm_size: 1gb
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
@@ -51,12 +50,12 @@ services:
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-      SE_NODE_OVERRIDE_MAX_SESSIONS: 'true'
-      SE_NODE_MAX_SESSIONS: 54
+      SE_NODE_MAX_SESSIONS: 4
+      SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
     
   chrome-node-4:
     image: selenium/node-chrome
-    shm_size: 2gb
+    shm_size: 1gb
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
@@ -65,12 +64,12 @@ services:
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-      SE_NODE_OVERRIDE_MAX_SESSIONS: 'true'
-      SE_NODE_MAX_SESSIONS: 54
+      SE_NODE_MAX_SESSIONS: 4
+      SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
 
   chrome-node-5:
     image: selenium/node-chrome
-    shm_size: 2gb
+    shm_size: 1gb
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
@@ -79,12 +78,12 @@ services:
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-      SE_NODE_OVERRIDE_MAX_SESSIONS: 'true'
-      SE_NODE_MAX_SESSIONS: 54
+      SE_NODE_MAX_SESSIONS: 4
+      SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
 
   chrome-node-6:
     image: selenium/node-chrome
-    shm_size: 2gb
+    shm_size: 1gb
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
@@ -93,8 +92,92 @@ services:
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-      SE_NODE_OVERRIDE_MAX_SESSIONS: 'true'
-      SE_NODE_MAX_SESSIONS: 54
+      SE_NODE_MAX_SESSIONS: 4
+      SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
+
+  chrome-node-7:
+    image: selenium/node-chrome
+    shm_size: 1gb
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - selenium-hub
+    environment:
+      SE_EVENT_BUS_HOST: selenium-hub
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+      SE_NODE_MAX_SESSIONS: 4
+      SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
+
+  chrome-node-8:
+    image: selenium/node-chrome
+    shm_size: 1gb
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - selenium-hub
+    environment:
+      SE_EVENT_BUS_HOST: selenium-hub
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+      SE_NODE_MAX_SESSIONS: 4
+      SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
+    
+  chrome-node-9:
+    image: selenium/node-chrome
+    shm_size: 1gb
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - selenium-hub
+    environment:
+      SE_EVENT_BUS_HOST: selenium-hub
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+      SE_NODE_MAX_SESSIONS: 4
+      SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
+    
+  chrome-node-10:
+    image: selenium/node-chrome
+    shm_size: 1gb
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - selenium-hub
+    environment:
+      SE_EVENT_BUS_HOST: selenium-hub
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+      SE_NODE_MAX_SESSIONS: 4
+      SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
+
+  chrome-node-11:
+    image: selenium/node-chrome
+    shm_size: 1gb
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - selenium-hub
+    environment:
+      SE_EVENT_BUS_HOST: selenium-hub
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+      SE_NODE_MAX_SESSIONS: 4
+      SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
+
+  chrome-node-12:
+    image: selenium/node-chrome
+    shm_size: 1gb
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - selenium-hub
+    environment:
+      SE_EVENT_BUS_HOST: selenium-hub
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+      SE_NODE_MAX_SESSIONS: 4
+      SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
 
   worker:
     build: .
