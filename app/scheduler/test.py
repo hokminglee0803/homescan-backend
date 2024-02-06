@@ -70,22 +70,17 @@ class TestScraper:
             command_executor='http://18.141.147.24:4444/wd/hub',
             options=chrome_options
         )
-        return browser
-    
-    @retry_on_crash
-    def navigate_to_url(self,browser, url):
-        browser.get(url)
+        browser.get("https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/")
         time.sleep(2)
         logger.debug(browser.title)
         return browser
 
+
     def scrape(self, selected_region, selected_district):
-        url = "https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/"
 
         browser = self.open_browser()
-    
+
         try:
-            browser = self.navigate_to_url(browser, url)
             selected_region_text = self.click_field(field_idx=selected_region, id=1,
                              browser=browser)      
             time.sleep(2)
