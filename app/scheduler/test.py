@@ -31,13 +31,14 @@ class TestScraper:
                 time.sleep(2)
                 selected_text = browser.find_element(
                             by=By.ID, value=f"tools_form_{id}_selected_text").text
-                if selected_text == None:
+                if selected_text == None or selected_text == 'None':
                     raise Exception("Selected Text is Null")
                 else:
                     return selected_text
             except Exception:
                 time.sleep(2)
                 retry += 1
+        return ""
 
     def retry_on_crash(func):
         def wrapper(*args, **kwargs):
@@ -146,9 +147,10 @@ class TestScraper:
                                             field_idx=floor_idx, id=5, browser=browser)
 
                                         self.scrape_blocks(browser=browser)
-                                        with concurrent.futures.ThreadPoolExecutor(max_workers=30) as executor:
+                                        with concurrent.futures.ThreadPoolExecutor(max_workers=100) as executor:
                                             for block_idx, block in enumerate(self.blocks):
                                                 if block_idx > 0:
+                                                    time.sleep(2)
                                                     selected_block = self.click_field(
                                                         field_idx=block_idx, id=6, browser=browser)
                                                     logger.info(f'{selected_region} - {selected_district} - {selected_estate} - {selected_building} - {selected_floor}- {selected_block}')
