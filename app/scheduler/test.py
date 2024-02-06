@@ -41,7 +41,7 @@ class TestScraper:
             return selected_text
         
 
-    def retry_on_crash(self,func):
+    def retry_on_crash(func):
         def wrapper(*args, **kwargs):
             max_retries = 20
             retries = 0
