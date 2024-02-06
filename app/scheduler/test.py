@@ -135,19 +135,19 @@ class TestScraper:
                     for building_idx, building in enumerate(self.buildings):
                         if building_idx > 0:
                             building_selected = self.click_field(
-                                    field_idx=building_idx, id=4, browser=self.root_browser)
+                                    field_idx=building_idx, id=4, browser=self.browser)
 
                             self.scrape_floors(browser=browser)
                             for floor_idx, floor in enumerate(self.floors):
                                 if floor_idx > 0:
                                     floor_selected = self.click_field(
-                                            field_idx=floor_idx, id=5, browser=self.root_browser)
+                                            field_idx=floor_idx, id=5, browser=self.browser)
 
                                     self.scrape_blocks(browser=browser)
                                     for block_idx, block in enumerate(self.blocks):
                                         if block_idx > 0:
                                             block_selected = self.click_field(
-                                                    field_idx=block_idx, id=6, browser=self.root_browser)
+                                                    field_idx=block_idx, id=6, browser=self.browser)
                                             logger.info(f'{region_selected} - {district_selected} - {estate_selected} - {building_selected} - {floor_selected} - {block_selected}')
     
         finally:
