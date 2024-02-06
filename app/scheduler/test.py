@@ -151,7 +151,7 @@ class TestScraper:
     
                 browser = self.navigate_to_url(browser, url)
 
-                time.sleep(2)
+                time.sleep(1)
 
                 self.click_field(field_idx=region_idx, id=1, browser=browser)
                 self.click_field(field_idx=district_idx, id=2, browser=browser)
@@ -167,7 +167,7 @@ class TestScraper:
                     submit_button = browser.find_element(
                         By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[1]/div/div[7]/a')
                     submit_button.click()
-                    time.sleep(5)
+                    time.sleep(2)
                     valuation = browser.find_element(
                         By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[2]/div[2]/span').text
                     if valuation == "":
@@ -253,7 +253,7 @@ class TestScraper:
 
                                         self.scrape_blocks(browser=browser)
                                         executors_list = []
-                                        with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+                                        with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
                                             for block_idx, block in enumerate(self.blocks[:len(self.blocks)]):
                                                 if block_idx > 0:
                                                     time.sleep(2)
