@@ -50,7 +50,7 @@ class TestScraper:
                     return func(*args, **kwargs)
                 except Exception as e:
                     logger.warning(f"Something crash occurred. Retrying... ({retries+1}/{max_retries})")
-                    self.open_browser()
+                    TestScraper.open_browser()
                     retries += 1
                     time.sleep(random.uniform(30, 100))
             raise Exception("Failed after multiple retries")
@@ -80,13 +80,13 @@ class TestScraper:
         chrome_options.add_argument('--disable-dev-shm-usage')
         chrome_options.add_argument("--window-size=1920,1080")
         chrome_options.add_argument("--log-level=3")
-        browser = webdriver.Remote(
+        self.browser = webdriver.Remote(
             command_executor='http://18.141.147.24:4444/wd/hub',
             options=chrome_options
         )
-        browser.get("https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/")
+        self.browser.get("https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/")
         time.sleep(2)
-        logger.debug(browser.title)
+        logger.debug(self.browser.title)
 
     def scrape_estates(self,browser:webdriver.Chrome):
         estates_select = browser.find_element(
