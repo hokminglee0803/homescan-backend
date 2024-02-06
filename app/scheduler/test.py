@@ -26,6 +26,10 @@ class TestScraper:
 
     house_service = HouseService()
 
+    def __exit__(self):
+        close_mongodb_connection()
+        logger.info('Close connection to Mongo DB.')
+
     def click_field(self, field_idx, id, browser: webdriver.Chrome):
         retry = 1
         while retry < 10:
@@ -79,6 +83,9 @@ class TestScraper:
         browser.get("https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/")
         time.sleep(2)
         logger.debug(browser.title)
+
+        connect_to_mongodb()
+        logger.info("Connected to the MongoDB database!")
         return browser
 
     def scrape_estates(self,browser:webdriver.Chrome):
@@ -123,9 +130,8 @@ class TestScraper:
 
         try:
 
-            connect_to_mongodb()
-            logger.info("Connected to the MongoDB database!")
-            
+        
+
             region_selected = self.click_field(field_idx=selected_region, id=1,
                              browser=browser)      
             time.sleep(2)
@@ -195,8 +201,6 @@ class TestScraper:
                                                     retry+=1
                                                     time.sleep(10)      
         finally:
-            close_mongodb_connection()
-            logger.info('Close connection to Mongo DB.')  
             browser.quit()
 
        
