@@ -122,6 +122,10 @@ class TestScraper:
         browser = self.open_browser()
 
         try:
+
+            connect_to_mongodb()
+            logger.info("Connected to the MongoDB database!")
+            
             region_selected = self.click_field(field_idx=selected_region, id=1,
                              browser=browser)      
             time.sleep(2)
@@ -146,8 +150,6 @@ class TestScraper:
                                             field_idx=floor_idx, id=5, browser=browser)
 
                                     self.scrape_blocks(browser=browser)
-                                    connect_to_mongodb()
-                                    logger.info("Connected to the MongoDB database!")
                                     for block_idx, block in enumerate(self.blocks):
                                         if block_idx > 0:
                                             block_selected = self.click_field(
