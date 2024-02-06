@@ -288,16 +288,16 @@ app.conf.beat_schedule = {
 
 @app.task(name='scrape_house_property_value')
 def scrape_house_property_value(region, district):
-    # s = TestScraper()
-    # s.scrape(selected_region=region,selected_district=district)
-    # del s
-    retry = 0
-    while retry < 10:
-        try:
-            s = ThreadScraper()
-            s.scrape(region, district)
-            del s
-            retry = 10
-        except:
-            retry += 1
-            time.sleep(30)
+    s = TestScraper()
+    s.scrape(selected_region=region,selected_district=district)
+    del s
+    # retry = 0
+    # while retry < 10:
+    #     try:
+    #         s = ThreadScraper()
+    #         s.scrape(region, district)
+    #         del s
+    #         retry = 10
+    #     except:
+    #         retry += 1
+    #         time.sleep(30)
