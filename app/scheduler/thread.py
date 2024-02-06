@@ -216,6 +216,7 @@ class ThreadScraper:
                 time.sleep(20)
 
     def scrape(self, selected_region, selected_district):
+        logger.info(f'Region : {selected_district}, District: {selected_district}')
         self.scrape_regions()
         region_idx = selected_region
         if region_idx > 0:
