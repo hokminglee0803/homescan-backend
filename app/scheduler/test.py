@@ -1,11 +1,15 @@
 from dataclasses import dataclass
 import random
+from threading import current_thread
 import time
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 import logging
 import concurrent.futures
+from app.services.house import HouseService
+
+from app.utils.mongodb import close_mongodb_connection, connect_to_mongodb
 
 logger = logging.getLogger(__name__)
 
@@ -18,6 +22,27 @@ class TestScraper:
     buildings = []
     floors = []
     blocks = []
+
+    def __init__(self):
+        retry = 0
+        while retry < 10:
+            try:
+                connect_to_mongodb()
+                logger.info("Connected to the MongoDB database!")
+                self.root_browser = self.get_driver()
+                time.sleep(2)
+                self.house_service = HouseService()
+                retry = 10
+            except Exception:
+                time.sleep(30)
+                retry += 1
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self):
+        close_mongodb_connection()
+        logger.info('Close connection to Mongo DB.')
 
     def click_field(self, field_idx, id, browser: webdriver.Chrome):
         retry = 1
@@ -116,6 +141,73 @@ class TestScraper:
             by=By.ID, value="tools_form_6_menu").find_elements(by=By.TAG_NAME, value="div")
         blocks_select.click()
 
+    def valuation(self, region_idx, district_idx, estate_idx, building_idx, floor_idx, block_idx,browser:webdriver.Chrome):
+        big_retry = 0
+        
+        while big_retry < 10:
+            try:
+                logger.info(
+                    f'Thread :{current_thread().name} - {region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx} - Start Valuation')
+                valuation = ""
+                retry = 1
+                while retry < 10:
+                    submit_button = browser.find_element(
+                        By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[1]/div/div[7]/a')
+                    submit_button.click()
+                    time.sleep(5)
+                    valuation = browser.find_element(
+                        By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[2]/div[2]/span').text
+                    if valuation == "":
+                        retry += 1
+                        time.sleep(10)
+                    else:
+                        # browser.save_screenshot(f"{region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx}.png")
+                        retry = 10
+                        
+                        gross_floor_area = browser.find_element(
+                            By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[3]/div[2]/span').text
+                        saleable_area = browser.find_element(
+                            By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[4]/div[2]/span').text
+                        property_age = browser.find_element(
+                            By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[5]/div[2]/span').text
+                        logger.info(
+                            f'Thread :{current_thread().name} - {region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx} - Valuation: {valuation}')
+                        selected_region = browser.find_element(
+                            by=By.ID, value="tools_form_1_selected_text").text
+                        selected_district = browser.find_element(
+                            by=By.ID, value="tools_form_2_selected_text").text
+                        selected_estate = browser.find_element(
+                            by=By.ID, value="tools_form_3_selected_text").text
+                        selected_building = browser.find_element(
+                            by=By.ID, value="tools_form_4_selected_text").text
+                        selected_floor = browser.find_element(
+                            by=By.ID, value="tools_form_5_selected_text").text
+                        selected_block = browser.find_element(
+                            by=By.ID, value="tools_form_6_selected_text").text
+                        browser.close()
+                        browser.quit()
+                        self.house_service.update_house_hsbc({
+                            "valuation": valuation,
+                            "region": selected_region,
+                            "district": selected_district,
+                            "estate": selected_estate,
+                            "building": selected_building,
+                            "floor": selected_floor,
+                            "block": selected_block,
+                            "gross_floor_area": gross_floor_area,
+                            "saleable_area": saleable_area,
+                            "property_age": property_age,
+                        })
+                big_retry = 10
+                return
+            except Exception as e:
+                if big_retry == 10:
+                    logger.error(
+                        f'Thread :{current_thread().name} - {region_idx}-{district_idx}-{estate_idx}-{building_idx}-{floor_idx}-{block_idx} - Error: {e}')
+                big_retry += 1
+                time.sleep(20)
+
+
     def scrape(self, selected_region, selected_district):
         url = "https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/"
 
@@ -123,10 +215,10 @@ class TestScraper:
     
         try:
             browser = self.navigate_to_url(browser, url)
-            selected_region = self.click_field(field_idx=selected_region, id=1,
+            selected_region_text = self.click_field(field_idx=selected_region, id=1,
                              browser=browser)      
             time.sleep(2)
-            selected_district = self.click_field(field_idx=selected_district, id=2,
+            selected_district_text = self.click_field(field_idx=selected_district, id=2,
                              browser=browser)   
             self.scrape_estates(browser=browser)
             for estate_idx, estate in enumerate(self.estates):
@@ -153,9 +245,9 @@ class TestScraper:
                                                     time.sleep(2)
                                                     selected_block = self.click_field(
                                                         field_idx=block_idx, id=6, browser=browser)
-                                                    logger.info(f'{selected_region} - {selected_district} - {selected_estate} - {selected_building} - {selected_floor}- {selected_block}')
-                                                    # executor.submit(
-                                                    #     self.valuation, region_idx, district_idx, estate_idx, building_idx, floor_idx, block_idx)
+                                                    logger.info(f'{selected_region_text} - {selected_district_text} - {selected_estate} - {selected_building} - {selected_floor}- {selected_block}')
+                                                    executor.submit(
+                                                        self.valuation, selected_region, selected_district, estate_idx, building_idx, floor_idx, block_idx)
                                             executor.shutdown()
                         
           
