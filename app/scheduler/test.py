@@ -48,7 +48,7 @@ class TestScraper:
                 try:
                     return func(*args, **kwargs)
                 except Exception as e:
-                    logger.warning(f"Page crash occurred. Retrying... ({retries+1}/{max_retries})")
+                    logger.warning(f"Something crash occurred. Retrying... ({retries+1}/{max_retries})")
                     retries += 1
                     time.sleep(random.uniform(30, 100))
             raise Exception("Failed after multiple retries")
@@ -74,7 +74,7 @@ class TestScraper:
     @retry_on_crash
     def navigate_to_url(self,browser, url):
         browser.get(url)
-        time.sleep(10)
+        time.sleep(2)
         logger.debug(browser.title)
         return browser
 
