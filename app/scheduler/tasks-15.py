@@ -53,11 +53,11 @@ app.conf.beat_schedule = {
     #     "schedule": crontab(day_of_month=6),
     #     'args': (1, 8)  # 香港 － 堅尼地城/西營盤
     # },
-    "hk-9": {
-        "task": "scrape_house_property_value",
-        "schedule": crontab(day_of_month=6),
-        'args': (1, 9)  # 香港 － 半山
-    },
+    # "hk-9": {
+    #     "task": "scrape_house_property_value",
+    #     "schedule": crontab(day_of_month=6),
+    #     'args': (1, 9)  # 香港 － 半山
+    # },
     # "hk-10": {
     #     "task": "scrape_house_property_value",
     #     "schedule": crontab(day_of_month=6),
@@ -103,16 +103,16 @@ app.conf.beat_schedule = {
     #     "schedule": crontab(day_of_month=6),
     #     'args': (1, 18)  # 香港 － 黃竹坑
     # },
-    # "kl-1": {
-    #     "task": "scrape_house_property_value",
-    #     "schedule": crontab(day_of_month=6),
-    #     'args': (2, 1)  # 九龍 － 長沙灣/荔枝角
-    # },
-    # "kl-2": {
-    #     "task": "scrape_house_property_value",
-    #     "schedule": crontab(day_of_month=6),
-    #     'args': (2, 2)  # 九龍 － 鑽石山
-    # },
+    "kl-1": {
+        "task": "scrape_house_property_value",
+        "schedule": crontab(day_of_month=6),
+        'args': (2, 1)  # 九龍 － 長沙灣/荔枝角
+    },
+    "kl-2": {
+        "task": "scrape_house_property_value",
+        "schedule": crontab(day_of_month=6),
+        'args': (2, 2)  # 九龍 － 鑽石山
+    },
     # "kl-3": {
     #     "task": "scrape_house_property_value",
     #     "schedule": crontab(day_of_month=6),
@@ -203,11 +203,11 @@ app.conf.beat_schedule = {
     #     "schedule": crontab(day_of_month=6),
     #     'args': (2, 20)  # 九龍 － 油塘/茶果嶺
     # },
-    "kl-21": {
-        "task": "scrape_house_property_value",
-        "schedule": crontab(day_of_month=6),
-        'args': (2, 21)  # 九龍 － 油麻地
-    },
+    # "kl-21": {
+    #     "task": "scrape_house_property_value",
+    #     "schedule": crontab(day_of_month=6),
+    #     'args': (2, 21)  # 九龍 － 油麻地
+    # },
     # "nt-1": {
     #     "task": "scrape_house_property_value",
     #     "schedule": crontab(day_of_month=6),

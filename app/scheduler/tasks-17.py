@@ -53,11 +53,11 @@ app.conf.beat_schedule = {
     #     "schedule": crontab(day_of_month=6),
     #     'args': (1, 8)  # 香港 － 堅尼地城/西營盤
     # },
-    "hk-9": {
-        "task": "scrape_house_property_value",
-        "schedule": crontab(day_of_month=6),
-        'args': (1, 9)  # 香港 － 半山
-    },
+    # "hk-9": {
+    #     "task": "scrape_house_property_value",
+    #     "schedule": crontab(day_of_month=6),
+    #     'args': (1, 9)  # 香港 － 半山
+    # },
     # "hk-10": {
     #     "task": "scrape_house_property_value",
     #     "schedule": crontab(day_of_month=6),
@@ -123,16 +123,16 @@ app.conf.beat_schedule = {
     #     "schedule": crontab(day_of_month=6),
     #     'args': (2, 4)  # 九龍 － 啟德
     # },
-    # "kl-5": {
-    #     "task": "scrape_house_property_value",
-    #     "schedule": crontab(day_of_month=6),
-    #     'args': (2, 5)  # 九龍 － 九龍灣
-    # },
-    # "kl-6": {
-    #     "task": "scrape_house_property_value",
-    #     "schedule": crontab(day_of_month=6),
-    #     'args': (2, 6)  # 九龍 － 九龍城
-    # },
+    "kl-5": {
+        "task": "scrape_house_property_value",
+        "schedule": crontab(day_of_month=6),
+        'args': (2, 5)  # 九龍 － 九龍灣
+    },
+    "kl-6": {
+        "task": "scrape_house_property_value",
+        "schedule": crontab(day_of_month=6),
+        'args': (2, 6)  # 九龍 － 九龍城
+    },
     # "kl-7": {
     #     "task": "scrape_house_property_value",
     #     "schedule": crontab(day_of_month=6),
@@ -203,11 +203,11 @@ app.conf.beat_schedule = {
     #     "schedule": crontab(day_of_month=6),
     #     'args': (2, 20)  # 九龍 － 油塘/茶果嶺
     # },
-    "kl-21": {
-        "task": "scrape_house_property_value",
-        "schedule": crontab(day_of_month=6),
-        'args': (2, 21)  # 九龍 － 油麻地
-    },
+    # "kl-21": {
+    #     "task": "scrape_house_property_value",
+    #     "schedule": crontab(day_of_month=6),
+    #     'args': (2, 21)  # 九龍 － 油麻地
+    # },
     # "nt-1": {
     #     "task": "scrape_house_property_value",
     #     "schedule": crontab(day_of_month=6),

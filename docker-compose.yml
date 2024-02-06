@@ -214,6 +214,125 @@ services:
     command: celery -A app.scheduler.tasks-10:app beat -l info
     depends_on:
       - redis
+  worker-11:
+    build: .
+    command: celery -A app.scheduler.tasks-11:app worker -l info -c 2
+    depends_on:
+      - redis
+
+  worker-12:
+    build: .
+    command: celery -A app.scheduler.tasks-12:app worker -l info -c 2
+    depends_on:
+      - redis
+
+  worker-13:
+    build: .
+    command: celery -A app.scheduler.tasks-13:app worker -l info -c 2
+    depends_on:
+      - redis
+
+  worker-14:
+    build: .
+    command: celery -A app.scheduler.tasks-14:app worker -l info -c 2
+    depends_on:
+      - redis
+
+  worker-15:
+    build: .
+    command: celery -A app.scheduler.tasks-15:app worker -l info -c 2
+    depends_on:
+      - redis
+
+  worker-16:
+    build: .
+    command: celery -A app.scheduler.tasks-16:app worker -l info -c 2
+    depends_on:
+      - redis
+
+  worker-17:
+    build: .
+    command: celery -A app.scheduler.tasks-17:app worker -l info -c 2
+    depends_on:
+      - redis
+
+  worker-18:
+    build: .
+    command: celery -A app.scheduler.tasks-18:app worker -l info -c 2
+    depends_on:
+      - redis
+
+  worker-19:
+    build: .
+    command: celery -A app.scheduler.tasks-19:app worker -l info -c 2
+    depends_on:
+      - redis
+
+  worker-20:
+    build: .
+    command: celery -A app.scheduler.tasks-20:app worker -l info -c 2
+    depends_on:
+      - redis
+
+  beat-11:
+    build: .
+    command: celery -A app.scheduler.tasks-11:app beat -l info
+    depends_on:
+      - redis
+  
+  beat-12:
+    build: .
+    command: celery -A app.scheduler.tasks-12:app beat -l info
+    depends_on:
+      - redis
+  
+  beat-13:
+    build: .
+    command: celery -A app.scheduler.tasks-13:app beat -l info
+    depends_on:
+      - redis
+
+  beat-14:
+    build: .
+    command: celery -A app.scheduler.tasks-14:app beat -l info
+    depends_on:
+      - redis
+
+  beat-15:
+    build: .
+    command: celery -A app.scheduler.tasks-15:app beat -l info
+    depends_on:
+      - redis
+
+  beat-16:
+    build: .
+    command: celery -A app.scheduler.tasks-16:app beat -l info
+    depends_on:
+      - redis
+
+  beat-17:
+    build: .
+    command: celery -A app.scheduler.tasks-17:app beat -l info
+    depends_on:
+      - redis
+
+  beat-18:
+    build: .
+    command: celery -A app.scheduler.tasks-18:app beat -l info
+    depends_on:
+      - redis
+
+  beat-19:
+    build: .
+    command: celery -A app.scheduler.tasks-19:app beat -l info
+    depends_on:
+      - redis
+
+  beat-20:
+    build: .
+    command: celery -A app.scheduler.tasks-20:app beat -l info
+    depends_on:
+      - redis
 
   redis:
     image: "redis:alpine"

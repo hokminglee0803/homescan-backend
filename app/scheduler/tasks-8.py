@@ -198,11 +198,11 @@ app.conf.beat_schedule = {
     #     "schedule": crontab(day_of_month=6),
     #     'args': (2, 19)  # 九龍 － 黃大仙/橫頭磡
     # },
-    # "kl-20": {
-    #     "task": "scrape_house_property_value",
-    #     "schedule": crontab(day_of_month=6),
-    #     'args': (2, 20)  # 九龍 － 油塘/茶果嶺
-    # },
+    "kl-20": {
+        "task": "scrape_house_property_value",
+        "schedule": crontab(day_of_month=6),
+        'args': (2, 20)  # 九龍 － 油塘/茶果嶺
+    },
     # "kl-21": {
     #     "task": "scrape_house_property_value",
     #     "schedule": crontab(day_of_month=6),

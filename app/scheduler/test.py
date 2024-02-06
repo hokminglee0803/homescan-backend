@@ -83,9 +83,6 @@ class TestScraper:
         browser.get("https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/")
         time.sleep(2)
         logger.debug(browser.title)
-
-        connect_to_mongodb()
-        logger.info("Connected to the MongoDB database!")
         return browser
 
     def scrape_estates(self,browser:webdriver.Chrome):
@@ -126,6 +123,16 @@ class TestScraper:
 
     def scrape(self, selected_region, selected_district):
 
+        retry = 0
+        while retry < 10:
+            try:
+                connect_to_mongodb()
+                logger.info("Connected to the MongoDB database!")
+                retry= 10
+            except:
+                time.sleep(3600)
+                retry+=1
+                
         browser = self.open_browser()
 
         try:
