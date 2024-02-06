@@ -36,27 +36,11 @@ class TestScraper:
         selected_text = self.browser.find_element(
                     by=By.ID, value=f"tools_form_{id}_selected_text").text
         if selected_text == None or selected_text == 'None':
-            raise Exception("Selected Text is Null")
+            raise ""
         else:
             return selected_text
         
-
     def retry_on_crash(func):
-        def wrapper(*args, **kwargs):
-            max_retries = 20
-            retries = 0
-            while retries < max_retries:
-                try:
-                    return func(*args, **kwargs)
-                except Exception as e:
-                    logger.warning(f"Something crash occurred. Retrying... ({retries+1}/{max_retries})")
-                    TestScraper.open_browser()
-                    retries += 1
-                    time.sleep(random.uniform(30, 100))
-            raise Exception("Failed after multiple retries")
-        return wrapper
-
-    def retry_on_crash_open_browser(func):
         def wrapper(*args, **kwargs):
             max_retries = 20
             retries = 0
@@ -70,7 +54,7 @@ class TestScraper:
             raise Exception("Failed after multiple retries")
         return wrapper
 
-    @retry_on_crash_open_browser
+    @retry_on_crash
     def open_browser(self):
         chrome_options = Options()
         chrome_options.add_argument('--no-sandbox')
