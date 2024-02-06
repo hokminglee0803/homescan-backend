@@ -191,10 +191,10 @@ class TestScraper:
                                                         })
                                                 except:
                                                     retry+=1
-                                                    time.sleep(10)
-                                    close_mongodb_connection()
-                                    logger.info('Close connection to Mongo DB.')        
+                                                    time.sleep(10)      
         finally:
+            close_mongodb_connection()
+            logger.info('Close connection to Mongo DB.')  
             browser.quit()
 
        
