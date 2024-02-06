@@ -90,10 +90,13 @@ class TestScraper:
         chrome_options.add_argument("--window-size=1920,1080")
         chrome_options.add_argument("--log-level=3")
         # browser = webdriver.Chrome(options=chrome_options)
-        browser = webdriver.Remote(
-            command_executor='http://selenium-hub:4444/wd/hub',
-            options=chrome_options
-        )
+        # browser = webdriver.Remote(
+        #     command_executor='http://selenium-hub:4444/wd/hub',
+        #     options=chrome_options
+        # )
+        browser = webdriver.Chrome(
+                    options=chrome_options,
+                )
         return browser
     
 

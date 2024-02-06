@@ -66,10 +66,10 @@ class ThreadScraper:
                     options=options,
                     # service=service
                 )
-                # driver = webdriver.Remote(
-                #     command_executor='http://selenium-hub:4444/wd/hub',
-                #     options=options
-                #         )
+                driver = webdriver.Remote(
+                    command_executor='http://selenium-hub:4444/wd/hub',
+                    options=options
+                        )
                 driver.get(self.url)
                 retry = 10
             except Exception:
