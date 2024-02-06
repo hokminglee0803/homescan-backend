@@ -61,7 +61,7 @@ class TestScraper:
         chrome_options.add_argument("--log-level=3")
         # browser = webdriver.Chrome(options=chrome_options)
         browser = webdriver.Remote(
-            command_executor='http://127.0.0.1:4444/wd/hub',
+            command_executor='http://selenium-hub:4444/wd/hub',
             options=chrome_options
         )
         return browser
@@ -73,42 +73,22 @@ class TestScraper:
         time.sleep(10)
         logger.debug(browser.title)
         return browser
-    
-    def get_driver1(self):
-        options = webdriver.ChromeOptions()
-        options.add_argument('--disable-dev-shm-usage')  
-        driver = webdriver.Remote(
-            command_executor="http://127.0.0.1:4444/wd/hub",
-            options=options
-        )
-        return driver
 
     def scrape(self, selected_region, selected_district):
-        # Initialize two headless browsers at the same time
-        driver1 = self.get_driver1()
-        print("Driver 1 is running")
-        # The below code will get executed
-        driver2 = self.get_driver1()
-        print("Driver 2 is running")
+        url = "https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/"
 
-        driver1.quit()
-        print("Driver 1 is closed")
-        driver2.quit()
-        print("driver 2 is closed")
-        # url = "https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/"
-
-        # browser = self.open_browser()
+        browser = self.open_browser()
     
-        # try:
-        #     browser = self.navigate_to_url(browser, url)
-        #     selected_region = self.click_field(field_idx=selected_region, id=1,
-        #                      browser=browser)      
+        try:
+            browser = self.navigate_to_url(browser, url)
+            selected_region = self.click_field(field_idx=selected_region, id=1,
+                             browser=browser)      
 
-        #     logger.info(selected_region)
+            logger.info(selected_region)
 
-        #     time.sleep(3600)
-        # finally:
-        #     browser.quit()
+            time.sleep(3600)
+        finally:
+            browser.quit()
 
        
        
