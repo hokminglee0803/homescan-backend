@@ -24,24 +24,7 @@ class TestScraper:
     floors = []
     blocks = []
 
-    def __init__(self):
-        retry = 0
-        while retry < 10:
-            try:
-                connect_to_mongodb()
-                logger.info("Connected to the MongoDB database!")
-                self.house_service = HouseService()
-                retry = 10
-            except Exception:
-                time.sleep(30)
-                retry += 1
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self):
-        close_mongodb_connection()
-        logger.info('Close connection to Mongo DB.')
+    house_service = HouseService()
 
     def click_field(self, field_idx, id, browser: webdriver.Chrome):
         retry = 1
@@ -193,6 +176,8 @@ class TestScraper:
                                                     logger.info(f'{region_selected} - {district_selected} - {estate_selected} - {building_selected} - {floor_selected} - {block_selected}  --- Valuation: {valuation}')
                                                     browser.close()
                                                     browser.quit()
+                                                    connect_to_mongodb()
+                                                    logger.info("Connected to the MongoDB database!")
                                                     self.house_service.update_house_hsbc({
                                                         "valuation": valuation,
                                                         "region": region_selected,
@@ -205,6 +190,8 @@ class TestScraper:
                                                         "saleable_area": saleable_area,
                                                         "property_age": property_age,
                                                     })
+                                                    close_mongodb_connection()
+                                                    logger.info('Close connection to Mongo DB.')
         finally:
             browser.quit()
 
