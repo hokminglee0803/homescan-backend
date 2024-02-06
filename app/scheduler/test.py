@@ -97,7 +97,7 @@ class TestScraper:
             selected_region = self.click_field(field_idx=selected_region, id=1,
                              browser=browser)      
             time.sleep(2)
-            selected_district = self.click_field(field_idx=selected_district, id=1,
+            selected_district = self.click_field(field_idx=selected_district, id=2,
                              browser=browser)   
             logger.info(f'{selected_region} - {selected_district}')
             # self.scrape_estates(browser=browser)
