@@ -182,7 +182,7 @@ services:
   worker:
     build: .
     shm_size: 2gb
-    command: celery -A app.scheduler.tasks:app worker -l info -c 5
+    command: celery -A app.scheduler.tasks:app worker -l info -c 4
     depends_on:
       - redis
       - selenium-hub
