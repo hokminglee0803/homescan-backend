@@ -41,7 +41,7 @@ class TestScraper:
             return selected_text
         
 
-    def retry_on_crash(func):
+    def retry_on_crash(self,func):
         def wrapper(*args, **kwargs):
             max_retries = 20
             retries = 0
@@ -50,7 +50,7 @@ class TestScraper:
                     return func(*args, **kwargs)
                 except Exception as e:
                     logger.warning(f"Something crash occurred. Retrying... ({retries+1}/{max_retries})")
-                    func.open_browser()
+                    self.open_browser()
                     retries += 1
                     time.sleep(random.uniform(30, 100))
             raise Exception("Failed after multiple retries")
