@@ -49,6 +49,7 @@ class TestScraper:
                     return func(*args, **kwargs)
                 except Exception as e:
                     logger.warning(f"Something crash occurred. Retrying... ({retries+1}/{max_retries})")
+                    logger.warning(e)
                     retries += 1
                     time.sleep(random.uniform(30, 100))
             raise Exception("Failed after multiple retries")
