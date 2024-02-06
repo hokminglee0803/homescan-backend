@@ -19,6 +19,11 @@ class TestScraper:
 
     broswer: webdriver.Chrome = None
 
+    estates = []
+    buildings = []
+    floors = []
+    blocks = []
+
     def click_field(self, field_idx, id, browser: webdriver.Chrome):
         retry = 1
         while retry < 10:
@@ -83,6 +88,33 @@ class TestScraper:
             by=By.ID, value="tools_form_3_menu").find_elements(by=By.TAG_NAME, value="div")
         estates_select.click()
 
+    def scrape_buldings(self,browser:webdriver.Chrome):
+        buildings_select = browser.find_element(
+            by=By.ID, value="tools_form_4_selectized")
+        buildings_select.click()
+        time.sleep(0.5)
+        self.buildings = browser.find_element(
+            by=By.ID, value="tools_form_4_menu").find_elements(by=By.TAG_NAME, value="div")
+        buildings_select.click()
+
+    def scrape_floors(self,browser:webdriver.Chrome):
+        floors_select = browser.find_element(
+            by=By.ID, value="tools_form_5_selectized")
+        floors_select.click()
+        time.sleep(0.5)
+        self.floors = browser.find_element(
+            by=By.ID, value="tools_form_5_menu").find_elements(by=By.TAG_NAME, value="div")
+        floors_select.click()
+
+    def scrape_blocks(self,browser:webdriver.Chrome):
+        blocks_select = browser.find_element(
+            by=By.ID, value="tools_form_6_selectized")
+        blocks_select.click()
+        time.sleep(0.5)
+        self.blocks = browser.find_element(
+            by=By.ID, value="tools_form_6_menu").find_elements(by=By.TAG_NAME, value="div")
+        blocks_select.click()
+
     def scrape(self, selected_region, selected_district):
 
         browser = self.open_browser()
@@ -99,7 +131,25 @@ class TestScraper:
                 if estate_idx > 0:
                     estate_selected = self.click_field(field_idx=estate_idx,id=3, browser=browser)
 
-                    logger.info(f'{region_selected} - {district_selected} - {estate_selected}')
+                    self.scrape_buldings(browser=browser)
+                    for building_idx, building in enumerate(self.buildings):
+                        if building_idx > 0:
+                            building_selected = self.click_field(
+                                    field_idx=building_idx, id=4, browser=self.root_browser)
+
+                            self.scrape_floors(browser=browser)
+                            for floor_idx, floor in enumerate(self.floors):
+                                if floor_idx > 0:
+                                    floor_selected = self.click_field(
+                                            field_idx=floor_idx, id=5, browser=self.root_browser)
+
+                                    self.scrape_blocks(browser=browser)
+                                    for block_idx, block in enumerate(self.blocks):
+                                        if block_idx > 0:
+                                            block_selected = self.click_field(
+                                                    field_idx=block_idx, id=6, browser=self.root_browser)
+                                            logger.info(f'{region_selected} - {district_selected} - {estate_selected} - {building_selected} - {floor_selected} - {block_selected}')
+    
         finally:
             browser.quit()
 
