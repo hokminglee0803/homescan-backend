@@ -146,6 +146,8 @@ class TestScraper:
                                             field_idx=floor_idx, id=5, browser=browser)
 
                                     self.scrape_blocks(browser=browser)
+                                    connect_to_mongodb()
+                                    logger.info("Connected to the MongoDB database!")
                                     for block_idx, block in enumerate(self.blocks):
                                         if block_idx > 0:
                                             block_selected = self.click_field(
@@ -174,8 +176,7 @@ class TestScraper:
                                                             By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[5]/div[2]/span').text
                                                 
                                                         logger.info(f'{region_selected} - {district_selected} - {estate_selected} - {building_selected} - {floor_selected} - {block_selected}  --- Valuation: {valuation}')
-                                                        connect_to_mongodb()
-                                                        logger.info("Connected to the MongoDB database!")
+
                                                         self.house_service.update_house_hsbc({
                                                             "valuation": valuation,
                                                             "region": region_selected,
@@ -188,11 +189,11 @@ class TestScraper:
                                                             "saleable_area": saleable_area,
                                                             "property_age": property_age,
                                                         })
-                                                        close_mongodb_connection()
-                                                        logger.info('Close connection to Mongo DB.')
                                                 except:
                                                     retry+=1
                                                     time.sleep(10)
+                                    close_mongodb_connection()
+                                    logger.info('Close connection to Mongo DB.')        
         finally:
             browser.quit()
 
