@@ -13,6 +13,10 @@ logger = logging.getLogger(__name__)
 class TestScraper:
 
     broswer: webdriver.Chrome = None
+    estates = []
+    buildings = []
+    floors = []
+    blocks = []
 
     def click_field(self, field_idx, id, browser: webdriver.Chrome):
         retry = 1
@@ -74,6 +78,15 @@ class TestScraper:
         logger.debug(browser.title)
         return browser
 
+    def scrape_estates(self,browser:webdriver.Chrome):
+        estates_select = browser.find_element(
+            by=By.ID, value="tools_form_3_selectized")
+        estates_select.click()
+        time.sleep(0.5)
+        self.estates = browser.find_element(
+            by=By.ID, value="tools_form_3_menu").find_elements(by=By.TAG_NAME, value="div")
+        estates_select.click()
+
     def scrape(self, selected_region, selected_district):
         url = "https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/"
 
@@ -83,10 +96,20 @@ class TestScraper:
             browser = self.navigate_to_url(browser, url)
             selected_region = self.click_field(field_idx=selected_region, id=1,
                              browser=browser)      
+            time.sleep(2)
+            selected_district = self.click_field(field_idx=selected_district, id=1,
+                             browser=browser)   
+            
+            self.scrape_estates(browser=browser)
+            for estate_idx, estate in enumerate(self.estates):
+                    if estate_idx > 0:
+                        selected_estate = self.click_field(field_idx=estate_idx,
+                                         id=3, browser=browser)
+                        
+                        logger.info(f'{selected_region} - {selected_district} - {selected_estate}')
 
-            logger.info(selected_region)
+    
 
-            # time.sleep(3600)
         finally:
             browser.quit()
 
