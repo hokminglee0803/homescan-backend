@@ -50,6 +50,45 @@ services:
       SE_NODE_MAX_SESSIONS: 4
       SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
 
+  chrome-node-4:
+    image: selenium/node-chrome    
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - selenium-hub
+    environment:
+      SE_EVENT_BUS_HOST: selenium-hub
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+      SE_NODE_MAX_SESSIONS: 4
+      SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
+
+  chrome-node-5:
+    image: selenium/node-chrome
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - selenium-hub
+    environment:
+      SE_EVENT_BUS_HOST: selenium-hub
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+      SE_NODE_MAX_SESSIONS: 4
+      SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
+    
+  chrome-node-6:
+    image: selenium/node-chrome
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - selenium-hub
+    environment:
+      SE_EVENT_BUS_HOST: selenium-hub
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+      SE_NODE_MAX_SESSIONS: 4
+      SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
+
 
   worker-1:
     build: .
