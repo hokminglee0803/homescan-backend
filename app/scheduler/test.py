@@ -21,7 +21,7 @@ class TestScraper:
 
     def click_field(self, field_idx, id, browser: webdriver.Chrome):
         retry = 1
-        while retry < 5:
+        while retry < 10:
             try:
                 browser.find_element(
                     by=By.ID, value=f"tools_form_{id}_selectized").click()
@@ -36,7 +36,7 @@ class TestScraper:
                 else:
                     return selected_text
             except Exception:
-                time.sleep(2)
+                time.sleep(30)
                 retry += 1
         return ""
 
@@ -147,7 +147,7 @@ class TestScraper:
                                             field_idx=floor_idx, id=5, browser=browser)
 
                                         self.scrape_blocks(browser=browser)
-                                        with concurrent.futures.ThreadPoolExecutor(max_workers=100) as executor:
+                                        with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
                                             for block_idx, block in enumerate(self.blocks):
                                                 if block_idx > 0:
                                                     time.sleep(2)
