@@ -86,7 +86,7 @@ class TestScraper:
 
             logger.info(selected_region)
 
-            time.sleep(3600)
+            # time.sleep(3600)
         finally:
             browser.quit()
 
