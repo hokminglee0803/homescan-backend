@@ -244,7 +244,7 @@ class TestScraper:
                                                 selected_block = self.click_field(
                                                         field_idx=block_idx, id=6, browser=browser)
                                                 logger.info(f'{selected_region_text} - {selected_district_text} - {selected_estate} - {selected_building} - {selected_floor}- {selected_block}')
-                                                self.valuation(selected_region, selected_district, estate_idx, building_idx, floor_idx, block_idx)
+                                                self.valuation(selected_region, selected_district, estate_idx, building_idx, floor_idx, block_idx,browser=browser)
                         
           
 
