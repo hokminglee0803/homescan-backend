@@ -2,78 +2,78 @@ version: '3.7'
 
 services:
 
-  selenium-hub:
-    image: selenium/hub
-    ports:
-      - 4442:4442
-      - 4443:4443
-      - 4444:4444
-    environment:
-      GRID_MAX_SESSION: 54   
+  # selenium-hub:
+  #   image: selenium/hub
+  #   ports:
+  #     - 4442:4442
+  #     - 4443:4443
+  #     - 4444:4444
+  #   environment:
+  #     GRID_MAX_SESSION: 54   
 
-  chrome-node-1:
-    image: selenium/node-chrome
-    shm_size: 3gb
-    volumes:
-      - /dev/shm:/dev/shm
-    depends_on:
-      - selenium-hub
-    environment:
-      SE_EVENT_BUS_HOST: selenium-hub
-      SE_EVENT_BUS_PUBLISH_PORT: 4442
-      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-      SE_NODE_MAX_SESSIONS: 4
-      SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
+  # chrome-node-1:
+  #   image: selenium/node-chrome
+  #   shm_size: 3gb
+  #   volumes:
+  #     - /dev/shm:/dev/shm
+  #   depends_on:
+  #     - selenium-hub
+  #   environment:
+  #     SE_EVENT_BUS_HOST: selenium-hub
+  #     SE_EVENT_BUS_PUBLISH_PORT: 4442
+  #     SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+  #     SE_NODE_MAX_SESSIONS: 4
+  #     SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
 
-  chrome-node-2:
-    image: selenium/node-chrome
-    shm_size: 3gb
-    volumes:
-      - /dev/shm:/dev/shm
-    depends_on:
-      - selenium-hub
-    environment:
-      SE_EVENT_BUS_HOST: selenium-hub
-      SE_EVENT_BUS_PUBLISH_PORT: 4442
-      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-      SE_NODE_MAX_SESSIONS: 4
-      SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
+  # chrome-node-2:
+  #   image: selenium/node-chrome
+  #   shm_size: 3gb
+  #   volumes:
+  #     - /dev/shm:/dev/shm
+  #   depends_on:
+  #     - selenium-hub
+  #   environment:
+  #     SE_EVENT_BUS_HOST: selenium-hub
+  #     SE_EVENT_BUS_PUBLISH_PORT: 4442
+  #     SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+  #     SE_NODE_MAX_SESSIONS: 4
+  #     SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
     
-  chrome-node-3:
-    image: selenium/node-chrome
-    shm_size: 3gb
-    volumes:
-      - /dev/shm:/dev/shm
-    depends_on:
-      - selenium-hub
-    environment:
-      SE_EVENT_BUS_HOST: selenium-hub
-      SE_EVENT_BUS_PUBLISH_PORT: 4442
-      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-      SE_NODE_MAX_SESSIONS: 4
-      SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
+  # chrome-node-3:
+  #   image: selenium/node-chrome
+  #   shm_size: 3gb
+  #   volumes:
+  #     - /dev/shm:/dev/shm
+  #   depends_on:
+  #     - selenium-hub
+  #   environment:
+  #     SE_EVENT_BUS_HOST: selenium-hub
+  #     SE_EVENT_BUS_PUBLISH_PORT: 4442
+  #     SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+  #     SE_NODE_MAX_SESSIONS: 4
+  #     SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
     
 
   worker:
     build: .
-    shm_size: 2gb
+    shm_size: 4gb
     command: celery -A app.scheduler.tasks:app worker -l info -c 3
     depends_on:
       - redis
-      - selenium-hub
-      - chrome-node-1
-      - chrome-node-2
-      - chrome-node-3
+      # - selenium-hub
+      # - chrome-node-1
+      # - chrome-node-2
+      # - chrome-node-3
 
   beat:
     build: .
     command: celery -A app.scheduler.tasks:app beat -l info
     depends_on:
       - redis
-      - selenium-hub
-      - chrome-node-1
-      - chrome-node-2
-      - chrome-node-3
+      # - selenium-hub
+      # - chrome-node-1
+      # - chrome-node-2
+      # - chrome-node-3
 
   redis:
     image: "redis:alpine"

@@ -62,14 +62,14 @@ class ThreadScraper:
                 options.add_argument("--log-level=3")
 
                 # service = Service(executable_path=DRIVER_PATH)
-                # driver = webdriver.Chrome(
-                #     options=options,
-                #     # service=service
-                # )
-                driver = webdriver.Remote(
-                    command_executor='http://selenium-hub:4444/wd/hub',
-                    options=options
-                        )
+                driver = webdriver.Chrome(
+                    options=options,
+                    # service=service
+                )
+                # driver = webdriver.Remote(
+                #     command_executor='http://selenium-hub:4444/wd/hub',
+                #     options=options
+                #         )
                 driver.get(self.url)
                 retry = 10
             except Exception:
