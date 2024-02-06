@@ -219,12 +219,13 @@ class TestScraper:
             time.sleep(2)
             selected_district_text = self.click_field(field_idx=selected_district, id=2,
                              browser=browser)   
-            self.scrape_estates(browser=browser)
-            for estate_idx, estate in enumerate(self.estates):
-                    if estate_idx > 0:
-                        selected_estate = self.click_field(field_idx=estate_idx,
-                                         id=3, browser=browser)
-                        logger.log(f'{selected_estate}')
+            print(selected_region_text)
+            # self.scrape_estates(browser=browser)
+            # for estate_idx, estate in enumerate(self.estates):
+            #         if estate_idx > 0:
+            #             selected_estate = self.click_field(field_idx=estate_idx,
+            #                              id=3, browser=browser)
+            #             logger.log(f'{selected_estate}')
                         # self.scrape_buldings(browser=browser)
                         # for building_idx, building in enumerate(self.buildings):
                         #     if building_idx > 0:
