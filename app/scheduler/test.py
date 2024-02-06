@@ -49,10 +49,10 @@ class TestScraper:
             try:
                 browser.find_element(
                     by=By.ID, value=f"tools_form_{id}_selectized").click()
-                time.sleep(5)
+                time.sleep(1)
                 browser.find_element(by=By.ID, value=f"tools_form_{id}_menu").find_elements(
                     by=By.TAG_NAME, value="div")[field_idx].click()
-                time.sleep(2)
+                time.sleep(1)
                 selected_text = browser.find_element(
                             by=By.ID, value=f"tools_form_{id}_selected_text").text
                 if selected_text == None or selected_text == 'None':
