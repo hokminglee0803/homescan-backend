@@ -74,7 +74,7 @@ class TestScraper:
         logger.debug(browser.title)
         return browser
     
-    def get_driver1():
+    def get_driver1(self):
         options = webdriver.ChromeOptions()
         options.add_argument('--disable-dev-shm-usage')  
         driver = webdriver.Remote(
