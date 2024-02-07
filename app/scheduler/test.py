@@ -78,7 +78,7 @@ class TestScraper:
             options=chrome_options
         )
         browser.get("https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/")
-        time.sleep(2)
+        time.sleep(10)
         logger.debug(browser.title)
 
         connect_to_mongodb()
