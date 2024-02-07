@@ -9,7 +9,11 @@ services:
       - 4443:4443
       - 4444:4444
     environment:
-      GRID_MAX_SESSION: 54   
+      GRID_MAX_SESSION: 100  
+      GRID_BROWSER_TIMEOUT: 3000
+      GRID_TIMEOUT: 3000 
+    networks:
+      - grid
 
   chrome-node-1:
     image: selenium/node-chrome 
@@ -795,3 +799,7 @@ services:
 
   redis:
     image: "redis:alpine"
+    
+networks:
+  grid:
+    driver: bridge
