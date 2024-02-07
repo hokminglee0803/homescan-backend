@@ -162,6 +162,7 @@ class TestScraper:
                         "saleable_area": saleable_area,
                         "property_age": property_age,
                     }))
+                    browser.quit()
             except:
                 retry += 1
                 time.sleep(10) 
