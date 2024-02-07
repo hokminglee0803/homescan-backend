@@ -36,84 +36,128 @@ services:
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-      SE_NODE_MAX_SESSIONS: 1
-      SE_NODE_OVERRIDE_MAX_SESSIONS: 'true'
-      SE_SESSION_REQUEST_TIMEOUT: 3600
-      SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"120\",\"platformName\": \"linux\"}"
-
-  chrome-node-3:
-    image: selenium/node-chrome 
-    shm_size: 1gb   
-    volumes:
-      - /dev/shm:/dev/shm
-    depends_on:
-      - selenium-hub
-    environment: 
-      SE_EVENT_BUS_HOST: selenium-hub
-      SE_EVENT_BUS_PUBLISH_PORT: 4442
-      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-      SE_NODE_MAX_SESSIONS: 1
+      SE_NODE_MAX_SESSIONS: 2
       SE_NODE_OVERRIDE_MAX_SESSIONS: 'true'
       SE_SESSION_REQUEST_TIMEOUT: 3600
       SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"120\",\"platformName\": \"linux\"}"
 
   worker-1:
     build: .
-    command: celery -A app.scheduler.m-3.tasks-1:app worker -l info -c 1
+    command: celery -A app.scheduler.m-5.tasks-1:app worker -l info -c 1
     depends_on:
       - redis
 
   worker-2:
     build: .
-    command: celery -A app.scheduler.m-3.tasks-2:app worker -l info -c 1
+    command: celery -A app.scheduler.m-5.tasks-2:app worker -l info -c 1
     depends_on:
       - redis
 
   worker-3:
     build: .
-    command: celery -A app.scheduler.m-3.tasks-3:app worker -l info -c 1
+    command: celery -A app.scheduler.m-5.tasks-3:app worker -l info -c 1
     depends_on:
       - redis
 
   worker-4:
     build: .
-    command: celery -A app.scheduler.m-3.tasks-4:app worker -l info -c 1
+    command: celery -A app.scheduler.m-5.tasks-4:app worker -l info -c 1
     depends_on:
       - redis
 
   worker-5:
     build: .
-    command: celery -A app.scheduler.m-3.tasks-5:app worker -l info -c 1
+    command: celery -A app.scheduler.m-5.tasks-5:app worker -l info -c 1
     depends_on:
       - redis
 
   beat-1:
     build: .
-    command: celery -A app.scheduler.m-3.tasks-1:app beat -l info
+    command: celery -A app.scheduler.m-5.tasks-1:app beat -l info
     depends_on:
       - redis
   
   beat-2:
     build: .
-    command: celery -A app.scheduler.m-3.tasks-2:app beat -l info
+    command: celery -A app.scheduler.m-5.tasks-2:app beat -l info
     depends_on:
       - redis
   
   beat-3:
     build: .
-    command: celery -A app.scheduler.m-3.tasks-3:app beat -l info
+    command: celery -A app.scheduler.m-5.tasks-3:app beat -l info
     depends_on:
       - redis
 
   beat-4:
     build: .
-    command: celery -A app.scheduler.m-3.tasks-4:app beat -l info
+    command: celery -A app.scheduler.m-5.tasks-4:app beat -l info
     depends_on:
       - redis
 
   beat-5:
     build: .
-    command: celery -A app.scheduler.m-3.tasks-5:app beat -l info
+    command: celery -A app.scheduler.m-5.tasks-5:app beat -l info
+    depends_on:
+      - redis
+
+  worker-6:
+    build: .
+    command: celery -A app.scheduler.m-6.tasks-1:app worker -l info -c 1
+    depends_on:
+      - redis
+
+  worker-7:
+    build: .
+    command: celery -A app.scheduler.m-6.tasks-2:app worker -l info -c 1
+    depends_on:
+      - redis
+
+  worker-8:
+    build: .
+    command: celery -A app.scheduler.m-6.tasks-3:app worker -l info -c 1
+    depends_on:
+      - redis
+
+  worker-9:
+    build: .
+    command: celery -A app.scheduler.m-6.tasks-4:app worker -l info -c 1
+    depends_on:
+      - redis
+
+  worker-10:
+    build: .
+    command: celery -A app.scheduler.m-6.tasks-5:app worker -l info -c 1
+    depends_on:
+      - redis
+
+  beat-6:
+    build: .
+    command: celery -A app.scheduler.m-6.tasks-1:app beat -l info
+    depends_on:
+      - redis
+  
+  beat-7:
+    build: .
+    command: celery -A app.scheduler.m-6.tasks-2:app beat -l info
+    depends_on:
+      - redis
+  
+  beat-8:
+    build: .
+    command: celery -A app.scheduler.m-6.tasks-3:app beat -l info
+    depends_on:
+      - redis
+
+  beat-9:
+    build: .
+    command: celery -A app.scheduler.m-6.tasks-4:app beat -l info
+    depends_on:
+      - redis
+
+  beat-10:
+    build: .
+    command: celery -A app.scheduler.m-6.tasks-5:app beat -l info
     depends_on:
       - redis
 
