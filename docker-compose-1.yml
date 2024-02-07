@@ -11,7 +11,7 @@ services:
 
   chrome-node-1:
     image: selenium/node-chrome 
-    shm_size: 1gb   
+    shm_size: 500mb   
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
@@ -27,7 +27,7 @@ services:
 
   chrome-node-2:
     image: selenium/node-chrome 
-    shm_size: 1gb   
+    shm_size: 500mb   
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
