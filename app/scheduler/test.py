@@ -190,18 +190,22 @@ class TestScraper:
                                             field_idx=floor_idx, id=5, browser=browser)
 
                                     self.scrape_blocks(browser=browser)
-
-                                    with concurrent.futures.ThreadPoolExecutor() as executor:
-                                        futures = []
-                                        for block_idx, block in enumerate(self.blocks):
-                                            if block_idx > 0:
-                                                block_selected = self.click_field(
+                                    for block_idx, block in enumerate(self.blocks):
+                                        if block_idx > 0:
+                                            block_selected = self.click_field(
                                                         field_idx=block_idx, id=6, browser=browser)
-                                                logger.info(f'{region_selected} - {district_selected} - {estate_selected} - {building_selected} - {floor_selected} - {block_selected}')
-                                                future = executor.submit(self.valuation, region_selected, district_selected, estate_selected, building_selected, floor_selected, block_selected)
-                                                futures.append(future)
-                                        concurrent.futures.wait(futures)
-                                        futures.clear()    
+                                            self.valuation(region_selected, district_selected, estate_selected, building_selected, floor_selected, block_selected)
+                                    # with concurrent.futures.ThreadPoolExecutor() as executor:
+                                    #     futures = []
+                                    #     for block_idx, block in enumerate(self.blocks):
+                                    #         if block_idx > 0:
+                                    #             block_selected = self.click_field(
+                                    #                     field_idx=block_idx, id=6, browser=browser)
+                                    #             logger.info(f'{region_selected} - {district_selected} - {estate_selected} - {building_selected} - {floor_selected} - {block_selected}')
+                                    #             future = executor.submit(self.valuation, region_selected, district_selected, estate_selected, building_selected, floor_selected, block_selected)
+                                    #             futures.append(future)
+                                    #     concurrent.futures.wait(futures)
+                                    #     futures.clear()    
         finally:
             browser.quit()
 
