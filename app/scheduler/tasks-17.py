@@ -1,5 +1,6 @@
 import json
 import time
+import asyncio
 from celery import Celery
 from celery.schedules import crontab
 import app.config
@@ -289,7 +290,8 @@ app.conf.beat_schedule = {
 @app.task(name='scrape_house_property_value')
 def scrape_house_property_value(region, district):
     s = TestScraper()
-    s.scrape(selected_region=region,selected_district=district)
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(s.scrape(selected_region=region,selected_district=district))
     del s
     # retry = 0
     # while retry < 10:
