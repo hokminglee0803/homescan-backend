@@ -19,7 +19,7 @@ services:
     depends_on:
       - selenium-hub
     environment:
-      SE_START_XVFB: 'false'
+      
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
@@ -36,7 +36,7 @@ services:
     depends_on:
       - selenium-hub
     environment:
-      SE_START_XVFB: 'false'
+      
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
@@ -53,7 +53,7 @@ services:
     depends_on:
       - selenium-hub
     environment:
-      SE_START_XVFB: 'false'
+      
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
@@ -70,7 +70,7 @@ services:
     depends_on:
       - selenium-hub
     environment:
-      SE_START_XVFB: 'false'
+      
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
@@ -87,7 +87,7 @@ services:
     depends_on:
       - selenium-hub
     environment:
-      SE_START_XVFB: 'false'
+      
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
@@ -104,7 +104,7 @@ services:
     depends_on:
       - selenium-hub
     environment:
-      SE_START_XVFB: 'false'
+      
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
@@ -121,7 +121,7 @@ services:
     depends_on:
       - selenium-hub
     environment:
-      SE_START_XVFB: 'false'
+      
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
@@ -138,7 +138,7 @@ services:
     depends_on:
       - selenium-hub
     environment:
-      SE_START_XVFB: 'false'
+      
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
@@ -155,7 +155,7 @@ services:
     depends_on:
       - selenium-hub
     environment:
-      SE_START_XVFB: 'false'
+      
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
@@ -172,7 +172,7 @@ services:
     depends_on:
       - selenium-hub
     environment:
-      SE_START_XVFB: 'false'
+      
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
@@ -189,7 +189,7 @@ services:
     depends_on:
       - selenium-hub
     environment:
-      SE_START_XVFB: 'false'
+      
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
@@ -206,7 +206,7 @@ services:
     depends_on:
       - selenium-hub
     environment:
-      SE_START_XVFB: 'false'
+      
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
@@ -223,7 +223,7 @@ services:
     depends_on:
       - selenium-hub
     environment:
-      SE_START_XVFB: 'false'
+      
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
@@ -240,7 +240,7 @@ services:
     depends_on:
       - selenium-hub
     environment:
-      SE_START_XVFB: 'false'
+      
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
@@ -257,7 +257,7 @@ services:
     depends_on:
       - selenium-hub
     environment:
-      SE_START_XVFB: 'false'
+      
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
@@ -274,7 +274,7 @@ services:
     depends_on:
       - selenium-hub
     environment:
-      SE_START_XVFB: 'false'
+      
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
@@ -291,7 +291,7 @@ services:
     depends_on:
       - selenium-hub
     environment:
-      SE_START_XVFB: 'false'
+      
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
@@ -308,7 +308,7 @@ services:
     depends_on:
       - selenium-hub
     environment:
-      SE_START_XVFB: 'false'
+      
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
@@ -325,7 +325,7 @@ services:
     depends_on:
       - selenium-hub
     environment:
-      SE_START_XVFB: 'false'
+      
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
@@ -342,7 +342,7 @@ services:
     depends_on:
       - selenium-hub
     environment:
-      SE_START_XVFB: 'false'
+      
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
@@ -359,7 +359,7 @@ services:
     depends_on:
       - selenium-hub
     environment:
-      SE_START_XVFB: 'false'
+      
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
@@ -376,7 +376,7 @@ services:
     depends_on:
       - selenium-hub
     environment:
-      SE_START_XVFB: 'false'
+      
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
@@ -393,7 +393,7 @@ services:
     depends_on:
       - selenium-hub
     environment:
-      SE_START_XVFB: 'false'
+      
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
@@ -410,7 +410,7 @@ services:
     depends_on:
       - selenium-hub
     environment:
-      SE_START_XVFB: 'false'
+      
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
@@ -427,7 +427,7 @@ services:
     depends_on:
       - selenium-hub
     environment:
-      SE_START_XVFB: 'false'
+      
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
