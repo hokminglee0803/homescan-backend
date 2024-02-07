@@ -61,7 +61,7 @@ class TestScraper:
                 except Exception as e:
                     logger.warning(f"Something crash occurred. Retrying... ({retries+1}/{max_retries})")
                     retries += 1
-                    time.sleep(random.uniform(30, 100))
+                    time.sleep(random.uniform(1800, 3600))
             raise Exception("Failed after multiple retries")
 
         return wrapper
@@ -198,9 +198,9 @@ class TestScraper:
                                                 block_selected = self.click_field(
                                                         field_idx=block_idx, id=6, browser=browser)
                                                 logger.info(f'{region_selected} - {district_selected} - {estate_selected} - {building_selected} - {floor_selected} - {block_selected}')
-                                        #         future = executor.submit(self.valuation, region_selected, district_selected, estate_selected, building_selected, floor_selected, block_selected)
-                                        #         futures.append(future)
-                                        # concurrent.futures.wait(futures)
+                                                future = executor.submit(self.valuation, region_selected, district_selected, estate_selected, building_selected, floor_selected, block_selected)
+                                                futures.append(future)
+                                        concurrent.futures.wait(futures)
                                         futures.clear()    
         finally:
             browser.quit()
