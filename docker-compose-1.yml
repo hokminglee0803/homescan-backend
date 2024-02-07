@@ -17,7 +17,6 @@ services:
     depends_on:
       - selenium-hub
     environment:
-      
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
@@ -34,7 +33,6 @@ services:
     depends_on:
       - selenium-hub
     environment:
-      
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
@@ -43,15 +41,14 @@ services:
       SE_SESSION_REQUEST_TIMEOUT: 3600
       SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"120\",\"platformName\": \"linux\"}"
 
-    chrome-node-3:
-      image: selenium/node-chrome 
-      shm_size: 500mb   
-      volumes:
-        - /dev/shm:/dev/shm
-      depends_on:
-        - selenium-hub
-      environment:
-      
+  chrome-node-3:
+    image: selenium/node-chrome 
+    shm_size: 1gb   
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - selenium-hub
+    environment: 
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
