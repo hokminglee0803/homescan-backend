@@ -28,6 +28,7 @@ class TestScraper:
     house_service = HouseService()
 
     def __exit__(self):
+        self.browser.quit()
         close_mongodb_connection()
         logger.info('Close connection to Mongo DB.')
 
@@ -163,52 +164,54 @@ class TestScraper:
                 time.sleep(10) 
 
     def scrape(self, selected_region, selected_district):
-
+        retry = 0
         browser = self.open_browser()
+        while retry<10:
+            try:
+                region_selected = self.click_field(field_idx=selected_region, id=1,
+                                browser=browser)      
+                time.sleep(2)
+                district_selected = self.click_field(field_idx=selected_district, id=2,
+                                browser=browser)   
 
-        try:
-            region_selected = self.click_field(field_idx=selected_region, id=1,
-                             browser=browser)      
-            time.sleep(2)
-            district_selected = self.click_field(field_idx=selected_district, id=2,
-                             browser=browser)   
+                self.scrape_estates(browser=browser)
+                for estate_idx, estate in enumerate(self.estates):
+                    if estate_idx > 0:
+                        estate_selected = self.click_field(field_idx=estate_idx,id=3, browser=browser)
 
-            self.scrape_estates(browser=browser)
-            for estate_idx, estate in enumerate(self.estates):
-                if estate_idx > 0:
-                    estate_selected = self.click_field(field_idx=estate_idx,id=3, browser=browser)
+                        self.scrape_buldings(browser=browser)
+                        for building_idx, building in enumerate(self.buildings):
+                            if building_idx > 0:
+                                building_selected = self.click_field(
+                                        field_idx=building_idx, id=4, browser=browser)
 
-                    self.scrape_buldings(browser=browser)
-                    for building_idx, building in enumerate(self.buildings):
-                        if building_idx > 0:
-                            building_selected = self.click_field(
-                                    field_idx=building_idx, id=4, browser=browser)
+                                self.scrape_floors(browser=browser)
+                                for floor_idx, floor in enumerate(self.floors):
+                                    if floor_idx > 0:
+                                        floor_selected = self.click_field(
+                                                field_idx=floor_idx, id=5, browser=browser)
 
-                            self.scrape_floors(browser=browser)
-                            for floor_idx, floor in enumerate(self.floors):
-                                if floor_idx > 0:
-                                    floor_selected = self.click_field(
-                                            field_idx=floor_idx, id=5, browser=browser)
-
-                                    self.scrape_blocks(browser=browser)
-                                    for block_idx, block in enumerate(self.blocks):
-                                        if block_idx > 0:
-                                            block_selected = self.click_field(
-                                                        field_idx=block_idx, id=6, browser=browser)
-                                            self.valuation(browser=browser,region_selected=region_selected, district_selected=district_selected, estate_selected=estate_selected, building_selected=building_selected,floor_selected=floor_selected,block_selected=block_selected)
-                                    # with concurrent.futures.ThreadPoolExecutor() as executor:
-                                    #     futures = []
-                                    #     for block_idx, block in enumerate(self.blocks):
-                                    #         if block_idx > 0:
-                                    #             block_selected = self.click_field(
-                                    #                     field_idx=block_idx, id=6, browser=browser)
-                                    #             logger.info(f'{region_selected} - {district_selected} - {estate_selected} - {building_selected} - {floor_selected} - {block_selected}')
-                                    #             future = executor.submit(self.valuation, region_selected, district_selected, estate_selected, building_selected, floor_selected, block_selected)
-                                    #             futures.append(future)
-                                    #     concurrent.futures.wait(futures)
-                                    #     futures.clear()    
-        finally:
-            browser.quit()
+                                        self.scrape_blocks(browser=browser)
+                                        for block_idx, block in enumerate(self.blocks):
+                                            if block_idx > 0:
+                                                block_selected = self.click_field(
+                                                            field_idx=block_idx, id=6, browser=browser)
+                                                self.valuation(browser=browser,region_selected=region_selected, district_selected=district_selected, estate_selected=estate_selected, building_selected=building_selected,floor_selected=floor_selected,block_selected=block_selected)
+                                        # with concurrent.futures.ThreadPoolExecutor() as executor:
+                                        #     futures = []
+                                        #     for block_idx, block in enumerate(self.blocks):
+                                        #         if block_idx > 0:
+                                        #             block_selected = self.click_field(
+                                        #                     field_idx=block_idx, id=6, browser=browser)
+                                        #             logger.info(f'{region_selected} - {district_selected} - {estate_selected} - {building_selected} - {floor_selected} - {block_selected}')
+                                        #             future = executor.submit(self.valuation, region_selected, district_selected, estate_selected, building_selected, floor_selected, block_selected)
+                                        #             futures.append(future)
+                                        #     concurrent.futures.wait(futures)
+                                        #     futures.clear()    
+                retry = 10
+            except:
+                retry += 1
+                time.sleep(2)
 
        
        
