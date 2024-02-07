@@ -194,7 +194,7 @@ class TestScraper:
                                         if block_idx > 0:
                                             block_selected = self.click_field(
                                                         field_idx=block_idx, id=6, browser=browser)
-                                            self.valuation(region_selected, district_selected, estate_selected, building_selected, floor_selected, block_selected)
+                                            self.valuation(browser=browser,region_selected=region_selected, district_selected=district_selected, estate_selected=estate_selected, building_selected=building_selected,floor_selected=floor_selected,block_selected=block_selected)
                                     # with concurrent.futures.ThreadPoolExecutor() as executor:
                                     #     futures = []
                                     #     for block_idx, block in enumerate(self.blocks):
