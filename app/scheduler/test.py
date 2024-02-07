@@ -61,7 +61,7 @@ class TestScraper:
                 except Exception as e:
                     logger.warning(f"Something crash occurred. Retrying... ({retries+1}/{max_retries})")
                     retries += 1
-                    time.sleep(random.uniform(10, 60))
+                    time.sleep(random.uniform(10, 300))
             raise Exception("Failed after multiple retries")
 
         return wrapper
