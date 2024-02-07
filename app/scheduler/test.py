@@ -134,6 +134,18 @@ class TestScraper:
         retry = 1
         while retry < 10:
             try:
+                self.click_field(field_idx=self.selected_region_idx, id=1,
+                                browser=browser)  
+                self.click_field(field_idx=self.selected_district_idx, id=2,
+                                browser=browser)   
+                self.click_field(field_idx=self.selected_estate_idx, id=3,
+                                browser=browser)   
+                self.click_field(field_idx=self.selected_building_idx, id=4,
+                                browser=browser)   
+                self.click_field(field_idx=self.selected_floor_idx, id=5,
+                                browser=browser)   
+                self.click_field(field_idx=self.blocks, id=6,
+                                browser=browser)   
                 submit_button = browser.find_element(By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[1]/div/div[7]/a')
                 submit_button.click()
                 time.sleep(5)
