@@ -25,13 +25,6 @@ class TestScraper:
     floors = []
     blocks = []
 
-    selected_region_idx = 0
-    selected_district_idx=0
-    selected_estate_idx=0
-    selected_building_idx=0
-    selected_floor_idx=0
-    selected_block_idx=0
-
     house_service = HouseService()
 
     def click_field(self, field_idx, id, browser: webdriver.Chrome):
@@ -128,24 +121,11 @@ class TestScraper:
             by=By.ID, value="tools_form_6_menu").find_elements(by=By.TAG_NAME, value="div")
         blocks_select.click()
 
-    def valuation(self,region_selected,district_selected,estate_selected,building_selected,floor_selected,block_selected):
-        browser = self.open_browser()
+    def valuation(self,browser:webdriver.Chrome,region_selected,district_selected,estate_selected,building_selected,floor_selected,block_selected):
         valuation = ""
         retry = 1
         while retry < 10:
             try:
-                self.click_field(field_idx=self.selected_region_idx, id=1,
-                                browser=browser)  
-                self.click_field(field_idx=self.selected_district_idx, id=2,
-                                browser=browser)   
-                self.click_field(field_idx=self.selected_estate_idx, id=3,
-                                browser=browser)   
-                self.click_field(field_idx=self.selected_building_idx, id=4,
-                                browser=browser)   
-                self.click_field(field_idx=self.selected_floor_idx, id=5,
-                                browser=browser)   
-                self.click_field(field_idx=self.blocks, id=6,
-                                browser=browser)   
                 submit_button = browser.find_element(By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[1]/div/div[7]/a')
                 submit_button.click()
                 time.sleep(5)
@@ -174,7 +154,6 @@ class TestScraper:
                         "saleable_area": saleable_area,
                         "property_age": property_age,
                     }))
-                    browser.quit()
             except:
                 retry += 1
                 time.sleep(10) 
@@ -186,41 +165,39 @@ class TestScraper:
             try:
                 region_selected = self.click_field(field_idx=selected_region, id=1,
                                 browser=browser)      
-                self.selected_region_idx = selected_region
                 time.sleep(2)
                 district_selected = self.click_field(field_idx=selected_district, id=2,
                                 browser=browser)   
-                self.selected_district_idx = selected_district
+
                 self.scrape_estates(browser=browser)
                 for estate_idx, estate in enumerate(self.estates):
                     if estate_idx > 0:
                         estate_selected = self.click_field(field_idx=estate_idx,id=3, browser=browser)
-                        self.selected_estate_idx=estate_idx
+
                         self.scrape_buldings(browser=browser)
                         for building_idx, building in enumerate(self.buildings):
                             if building_idx > 0:
                                 building_selected = self.click_field(
                                         field_idx=building_idx, id=4, browser=browser)
-                                self.selected_building_idx=building_idx
+
                                 self.scrape_floors(browser=browser)
                                 for floor_idx, floor in enumerate(self.floors):
                                     if floor_idx > 0:
                                         floor_selected = self.click_field(
                                                 field_idx=floor_idx, id=5, browser=browser)
-                                        self.selected_floor_idx = floor_idx
+
                                         self.scrape_blocks(browser=browser)
                                         for block_idx, block in enumerate(self.blocks):
                                             if block_idx > 0:
                                                 block_selected = self.click_field(
                                                             field_idx=block_idx, id=6, browser=browser)
-                                                self.selected_block_idx = block_idx
-                                                browser.quit()
-                                                self.valuation(region_selected=region_selected, district_selected=district_selected, estate_selected=estate_selected, building_selected=building_selected,floor_selected=floor_selected,block_selected=block_selected)
+                                                self.valuation(browser=browser,region_selected=region_selected, district_selected=district_selected, estate_selected=estate_selected, building_selected=building_selected,floor_selected=floor_selected,block_selected=block_selected)
                 retry = 10
             except:
                 retry += 1
                 time.sleep(2)
             finally:
+                browser.quit()
                 close_mongodb_connection()
                 logger.info('Close connection to Mongo DB.')
 
