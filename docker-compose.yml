@@ -115,61 +115,61 @@ services:
 
   worker-1:
     build: .
-    command: celery -A app.scheduler.tasks-1:app worker -l info -c 2
+    command: celery -A app.scheduler.tasks-1:app worker -l info -c 3
     depends_on:
       - redis
 
   worker-2:
     build: .
-    command: celery -A app.scheduler.tasks-2:app worker -l info -c 2
+    command: celery -A app.scheduler.tasks-2:app worker -l info -c 3
     depends_on:
       - redis
 
   worker-3:
     build: .
-    command: celery -A app.scheduler.tasks-3:app worker -l info -c 2
+    command: celery -A app.scheduler.tasks-3:app worker -l info -c 3
     depends_on:
       - redis
 
   worker-4:
     build: .
-    command: celery -A app.scheduler.tasks-4:app worker -l info -c 2
+    command: celery -A app.scheduler.tasks-4:app worker -l info -c 3
     depends_on:
       - redis
 
   worker-5:
     build: .
-    command: celery -A app.scheduler.tasks-5:app worker -l info -c 2
+    command: celery -A app.scheduler.tasks-5:app worker -l info -c 3
     depends_on:
       - redis
 
   worker-6:
     build: .
-    command: celery -A app.scheduler.tasks-6:app worker -l info -c 2
+    command: celery -A app.scheduler.tasks-6:app worker -l info -c 3
     depends_on:
       - redis
 
   worker-7:
     build: .
-    command: celery -A app.scheduler.tasks-7:app worker -l info -c 2
+    command: celery -A app.scheduler.tasks-7:app worker -l info -c 3
     depends_on:
       - redis
 
   worker-8:
     build: .
-    command: celery -A app.scheduler.tasks-8:app worker -l info -c 2
+    command: celery -A app.scheduler.tasks-8:app worker -l info -c 3
     depends_on:
       - redis
 
   worker-9:
     build: .
-    command: celery -A app.scheduler.tasks-9:app worker -l info -c 2
+    command: celery -A app.scheduler.tasks-9:app worker -l info -c 3
     depends_on:
       - redis
 
   worker-10:
     build: .
-    command: celery -A app.scheduler.tasks-10:app worker -l info -c 2
+    command: celery -A app.scheduler.tasks-10:app worker -l info -c 3
     depends_on:
       - redis
 
@@ -234,103 +234,103 @@ services:
       - redis
   worker-11:
     build: .
-    command: celery -A app.scheduler.tasks-11:app worker -l info -c 2
+    command: celery -A app.scheduler.tasks-11:app worker -l info -c 3
     depends_on:
       - redis
 
   worker-12:
     build: .
-    command: celery -A app.scheduler.tasks-12:app worker -l info -c 2
+    command: celery -A app.scheduler.tasks-12:app worker -l info -c 3
     depends_on:
       - redis
 
   worker-13:
     build: .
-    command: celery -A app.scheduler.tasks-13:app worker -l info -c 2
+    command: celery -A app.scheduler.tasks-13:app worker -l info -c 3
     depends_on:
       - redis
 
   worker-14:
     build: .
-    command: celery -A app.scheduler.tasks-14:app worker -l info -c 2
+    command: celery -A app.scheduler.tasks-14:app worker -l info -c 3
     depends_on:
       - redis
 
   worker-15:
     build: .
-    command: celery -A app.scheduler.tasks-15:app worker -l info -c 2
+    command: celery -A app.scheduler.tasks-15:app worker -l info -c 3
     depends_on:
       - redis
 
   worker-16:
     build: .
-    command: celery -A app.scheduler.tasks-16:app worker -l info -c 2
+    command: celery -A app.scheduler.tasks-16:app worker -l info -c 3
     depends_on:
       - redis
 
   worker-17:
     build: .
-    command: celery -A app.scheduler.tasks-17:app worker -l info -c 2
+    command: celery -A app.scheduler.tasks-17:app worker -l info -c 3
     depends_on:
       - redis
 
   worker-18:
     build: .
-    command: celery -A app.scheduler.tasks-18:app worker -l info -c 2
+    command: celery -A app.scheduler.tasks-18:app worker -l info -c 3
     depends_on:
       - redis
 
   worker-19:
     build: .
-    command: celery -A app.scheduler.tasks-19:app worker -l info -c 2
+    command: celery -A app.scheduler.tasks-19:app worker -l info -c 3
     depends_on:
       - redis
 
   worker-20:
     build: .
-    command: celery -A app.scheduler.tasks-20:app worker -l info -c 2
+    command: celery -A app.scheduler.tasks-20:app worker -l info -c 3
     depends_on:
       - redis
 
   worker-21:
     build: .
-    command: celery -A app.scheduler.tasks-21:app worker -l info -c 2
+    command: celery -A app.scheduler.tasks-21:app worker -l info -c 3
     depends_on:
       - redis
 
   worker-22:
     build: .
-    command: celery -A app.scheduler.tasks-22:app worker -l info -c 2
+    command: celery -A app.scheduler.tasks-22:app worker -l info -c 3
     depends_on:
       - redis
 
   worker-23:
     build: .
-    command: celery -A app.scheduler.tasks-23:app worker -l info -c 2
+    command: celery -A app.scheduler.tasks-23:app worker -l info -c 3
     depends_on:
       - redis
 
   worker-24:
     build: .
-    command: celery -A app.scheduler.tasks-24:app worker -l info -c 2
+    command: celery -A app.scheduler.tasks-24:app worker -l info -c 3
     depends_on:
       - redis
 
   worker-25:
     build: .
-    command: celery -A app.scheduler.tasks-25:app worker -l info -c 2
+    command: celery -A app.scheduler.tasks-25:app worker -l info -c 3
     depends_on:
       - redis
 
   worker-26:
     build: .
-    command: celery -A app.scheduler.tasks-26:app worker -l info -c 2
+    command: celery -A app.scheduler.tasks-26:app worker -l info -c 3
     depends_on:
       - redis
 
   worker-27:
     build: .
-    command: celery -A app.scheduler.tasks-27:app worker -l info -c 2
+    command: celery -A app.scheduler.tasks-27:app worker -l info -c 3
     depends_on:
       - redis
 
