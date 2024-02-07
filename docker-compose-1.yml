@@ -101,5 +101,65 @@ services:
     depends_on:
       - redis
 
+  worker-6:
+    build: .
+    command: celery -A app.scheduler.m-2.tasks-1:app worker -l info -c 1
+    depends_on:
+      - redis
+
+  worker-7:
+    build: .
+    command: celery -A app.scheduler.m-2.tasks-2:app worker -l info -c 1
+    depends_on:
+      - redis
+
+  worker-8:
+    build: .
+    command: celery -A app.scheduler.m-2.tasks-3:app worker -l info -c 1
+    depends_on:
+      - redis
+
+  worker-9:
+    build: .
+    command: celery -A app.scheduler.m-2.tasks-4:app worker -l info -c 1
+    depends_on:
+      - redis
+
+  worker-10:
+    build: .
+    command: celery -A app.scheduler.m-2.tasks-5:app worker -l info -c 1
+    depends_on:
+      - redis
+
+  beat-6:
+    build: .
+    command: celery -A app.scheduler.m-2.tasks-1:app beat -l info
+    depends_on:
+      - redis
+  
+  beat-7:
+    build: .
+    command: celery -A app.scheduler.m-2.tasks-2:app beat -l info
+    depends_on:
+      - redis
+  
+  beat-8:
+    build: .
+    command: celery -A app.scheduler.m-2.tasks-3:app beat -l info
+    depends_on:
+      - redis
+
+  beat-9:
+    build: .
+    command: celery -A app.scheduler.m-2.tasks-4:app beat -l info
+    depends_on:
+      - redis
+
+  beat-10:
+    build: .
+    command: celery -A app.scheduler.m-2.tasks-5:app beat -l info
+    depends_on:
+      - redis
+
   redis:
     image: "redis:alpine"
