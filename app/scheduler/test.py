@@ -1,4 +1,3 @@
-import asyncio
 from dataclasses import dataclass
 import random
 from threading import current_thread
@@ -146,7 +145,7 @@ class TestScraper:
 
                     logger.info(f'{region_selected} - {district_selected} - {estate_selected} - {building_selected} - {floor_selected} - {block_selected}  --- Valuation: {valuation}')
 
-                    asyncio.create_task(self.house_service.update_house_hsbc({
+                    self.house_service.update_house_hsbc({
                         "valuation": valuation,
                         "region": region_selected,
                         "district": district_selected,
@@ -157,7 +156,7 @@ class TestScraper:
                         "gross_floor_area": gross_floor_area,
                         "saleable_area": saleable_area,
                         "property_age": property_age,
-                    }))
+                    })
 
                     logger.info(f'{region_selected} - {district_selected} - {estate_selected} - {building_selected} - {floor_selected} - {block_selected}  --- Done')
             except:
