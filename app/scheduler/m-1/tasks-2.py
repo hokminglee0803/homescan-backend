@@ -1,12 +1,8 @@
-import json
-import time
 import asyncio
 from celery import Celery
 from celery.schedules import crontab
 import app.config
-from app.scheduler.thread import ThreadScraper
 from app.scheduler.test import TestScraper
-from datetime import timedelta
 settings = app.config.get_settings()
 
 app = Celery(
@@ -19,11 +15,11 @@ app.conf.beat_schedule = {
     #     "schedule": crontab(day_of_month=7),
     #     'args': (1, 1)  # 香港 － 香港仔/鴨脷洲
     # },
-    # "hk-2": {
-    #     "task": "scrape_house_property_value",
-    #     "schedule": crontab(day_of_month=7),
-    #     'args': (1, 2)  # 香港 － 香港仔
-    # },
+    "hk-2": {
+        "task": "scrape_house_property_value",
+        "schedule": crontab(day_of_month=7),
+        'args': (1, 2)  # 香港 － 香港仔
+    },
     # "hk-3": {
     #     "task": "scrape_house_property_value",
     #     "schedule": crontab(day_of_month=7),
@@ -104,16 +100,16 @@ app.conf.beat_schedule = {
     #     "schedule": crontab(day_of_month=7),
     #     'args': (1, 18)  # 香港 － 黃竹坑
     # },
-    "kl-1": {
-        "task": "scrape_house_property_value",
-        "schedule": crontab(day_of_month=7),
-        'args': (2, 1)  # 九龍 － 長沙灣/荔枝角
-    },
-    "kl-2": {
-        "task": "scrape_house_property_value",
-        "schedule": crontab(day_of_month=7),
-        'args': (2, 2)  # 九龍 － 鑽石山
-    },
+    # "kl-1": {
+    #     "task": "scrape_house_property_value",
+    #     "schedule": crontab(day_of_month=7),
+    #     'args': (2, 1)  # 九龍 － 長沙灣/荔枝角
+    # },
+    # "kl-2": {
+    #     "task": "scrape_house_property_value",
+    #     "schedule": crontab(day_of_month=7),
+    #     'args': (2, 2)  # 九龍 － 鑽石山
+    # },
     # "kl-3": {
     #     "task": "scrape_house_property_value",
     #     "schedule": crontab(day_of_month=7),

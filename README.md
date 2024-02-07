@@ -10,4 +10,4 @@ Start Beat
 python3 -m celery -A app.scheduler.tasks:app beat -l info
 
 # Docker Run
-sudo docker-compose up --build
+sudo docker-compose -f docker-compose-1.yml up --build

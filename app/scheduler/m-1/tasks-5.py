@@ -1,12 +1,8 @@
-import json
-import time
 import asyncio
 from celery import Celery
 from celery.schedules import crontab
 import app.config
-from app.scheduler.thread import ThreadScraper
 from app.scheduler.test import TestScraper
-from datetime import timedelta
 settings = app.config.get_settings()
 
 app = Celery(
@@ -34,11 +30,11 @@ app.conf.beat_schedule = {
     #     "schedule": crontab(day_of_month=7),
     #     'args': (1, 4)  # 香港 － 中環/上環
     # },
-    # "hk-5": {
-    #     "task": "scrape_house_property_value",
-    #     "schedule": crontab(day_of_month=7),
-    #     'args': (1, 5)  # 香港 － 柴灣
-    # },
+    "hk-5": {
+        "task": "scrape_house_property_value",
+        "schedule": crontab(day_of_month=7),
+        'args': (1, 5)  # 香港 － 柴灣
+    },
     # "hk-6": {
     #     "task": "scrape_house_property_value",
     #     "schedule": crontab(day_of_month=7),
@@ -209,11 +205,11 @@ app.conf.beat_schedule = {
     #     "schedule": crontab(day_of_month=7),
     #     'args': (2, 21)  # 九龍 － 油麻地
     # },
-    "nt-1": {
-        "task": "scrape_house_property_value",
-        "schedule": crontab(day_of_month=7),
-        'args': (3, 1)  # 新界/離島 － 粉嶺
-    },
+    # "nt-1": {
+    #     "task": "scrape_house_property_value",
+    #     "schedule": crontab(day_of_month=7),
+    #     'args': (3, 1)  # 新界/離島 － 粉嶺
+    # },
     # "nt-2": {
     #     "task": "scrape_house_property_value",
     #     "schedule": crontab(day_of_month=7),
@@ -259,11 +255,11 @@ app.conf.beat_schedule = {
     #     "schedule": crontab(day_of_month=7),
     #     'args': (3, 10)  # 新界/離島 － 大埔
     # },
-    "nt-11": {
-        "task": "scrape_house_property_value",
-        "schedule": crontab(day_of_month=7),
-        'args': (3, 11)  # 新界/離島 － 將軍澳
-    },
+    # "nt-11": {
+    #     "task": "scrape_house_property_value",
+    #     "schedule": crontab(day_of_month=7),
+    #     'args': (3, 11)  # 新界/離島 － 將軍澳
+    # },
     # "nt-12": {
     #     "task": "scrape_house_property_value",
     #     "schedule": crontab(day_of_month=7),
