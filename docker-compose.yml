@@ -23,7 +23,7 @@ services:
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-      SE_NODE_MAX_SESSIONS: 20
+      SE_NODE_MAX_SESSIONS: 10
       SE_NODE_OVERRIDE_MAX_SESSIONS: 'true'
       SE_SESSION_REQUEST_TIMEOUT: 3600
       SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
@@ -40,7 +40,7 @@ services:
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-      SE_NODE_MAX_SESSIONS: 20
+      SE_NODE_MAX_SESSIONS: 10
       SE_NODE_OVERRIDE_MAX_SESSIONS: 'true'
       SE_SESSION_REQUEST_TIMEOUT: 3600
       SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
@@ -57,7 +57,7 @@ services:
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-      SE_NODE_MAX_SESSIONS: 20
+      SE_NODE_MAX_SESSIONS: 10
       SE_NODE_OVERRIDE_MAX_SESSIONS: 'true'
       SE_SESSION_REQUEST_TIMEOUT: 3600
       SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
@@ -74,7 +74,7 @@ services:
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-      SE_NODE_MAX_SESSIONS: 20
+      SE_NODE_MAX_SESSIONS: 10
       SE_NODE_OVERRIDE_MAX_SESSIONS: 'true'
       SE_SESSION_REQUEST_TIMEOUT: 3600
       SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
@@ -91,7 +91,7 @@ services:
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-      SE_NODE_MAX_SESSIONS: 20
+      SE_NODE_MAX_SESSIONS: 10
       SE_NODE_OVERRIDE_MAX_SESSIONS: 'true'
       SE_SESSION_REQUEST_TIMEOUT: 3600
       SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
@@ -108,7 +108,7 @@ services:
       SE_EVENT_BUS_HOST: selenium-hub
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-      SE_NODE_MAX_SESSIONS: 20
+      SE_NODE_MAX_SESSIONS: 10
       SE_NODE_OVERRIDE_MAX_SESSIONS: 'true'
       SE_SESSION_REQUEST_TIMEOUT: 3600
       SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"114\",\"platformName\": \"linux\"}"
@@ -304,6 +304,36 @@ services:
     depends_on:
       - redis
 
+  worker-23:
+    build: .
+    command: celery -A app.scheduler.tasks-23:app worker -l info -c 2
+    depends_on:
+      - redis
+
+  worker-24:
+    build: .
+    command: celery -A app.scheduler.tasks-24:app worker -l info -c 2
+    depends_on:
+      - redis
+
+  worker-25:
+    build: .
+    command: celery -A app.scheduler.tasks-25:app worker -l info -c 2
+    depends_on:
+      - redis
+
+  worker-26:
+    build: .
+    command: celery -A app.scheduler.tasks-26:app worker -l info -c 2
+    depends_on:
+      - redis
+
+  worker-27:
+    build: .
+    command: celery -A app.scheduler.tasks-27:app worker -l info -c 2
+    depends_on:
+      - redis
+
   beat-11:
     build: .
     command: celery -A app.scheduler.tasks-11:app beat -l info
@@ -373,6 +403,36 @@ services:
   beat-22:
     build: .
     command: celery -A app.scheduler.tasks-22:app beat -l info
+    depends_on:
+      - redis
+
+  beat-23:
+    build: .
+    command: celery -A app.scheduler.tasks-23:app beat -l info
+    depends_on:
+      - redis
+
+  beat-24:
+    build: .
+    command: celery -A app.scheduler.tasks-24:app beat -l info
+    depends_on:
+      - redis
+
+  beat-25:
+    build: .
+    command: celery -A app.scheduler.tasks-25:app beat -l info
+    depends_on:
+      - redis
+
+  beat-26:
+    build: .
+    command: celery -A app.scheduler.tasks-26:app beat -l info
+    depends_on:
+      - redis
+
+  beat-27:
+    build: .
+    command: celery -A app.scheduler.tasks-27:app beat -l info
     depends_on:
       - redis
 
