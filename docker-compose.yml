@@ -30,7 +30,7 @@ services:
 
   chrome-node-2:
     image: selenium/node-chrome
-    shm_size: 3gb
+    shm_size: 4gb
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
@@ -47,7 +47,7 @@ services:
     
   chrome-node-3:
     image: selenium/node-chrome
-    shm_size: 3gb
+    shm_size: 4gb
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
@@ -64,7 +64,7 @@ services:
 
   chrome-node-4:
     image: selenium/node-chrome    
-    shm_size: 3gb
+    shm_size: 4gb
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
@@ -81,7 +81,7 @@ services:
 
   chrome-node-5:
     image: selenium/node-chrome
-    shm_size: 3gb
+    shm_size: 4gb
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
@@ -98,7 +98,7 @@ services:
     
   chrome-node-6:
     image: selenium/node-chrome
-    shm_size: 3gb
+    shm_size: 4gb
     volumes:
       - /dev/shm:/dev/shm
     depends_on:

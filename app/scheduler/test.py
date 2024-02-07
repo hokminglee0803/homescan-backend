@@ -197,10 +197,10 @@ class TestScraper:
                                             if block_idx > 0:
                                                 block_selected = self.click_field(
                                                         field_idx=block_idx, id=6, browser=browser)
-                                                
-                                                future = executor.submit(self.valuation, region_selected, district_selected, estate_selected, building_selected, floor_selected, block_selected)
-                                                futures.append(future)
-                                        concurrent.futures.wait(futures)
+                                                logger.info(f'{region_selected} - {district_selected} - {estate_selected} - {building_selected} - {floor_selected} - {block_selected}')
+                                        #         future = executor.submit(self.valuation, region_selected, district_selected, estate_selected, building_selected, floor_selected, block_selected)
+                                        #         futures.append(future)
+                                        # concurrent.futures.wait(futures)
                                         futures.clear()    
         finally:
             browser.quit()
