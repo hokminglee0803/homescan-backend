@@ -53,7 +53,7 @@ class TestScraper:
 
     def retry_on_crash(func):
         def wrapper(*args, **kwargs):
-            max_retries = 20
+            max_retries = 100
             retries = 0
             while retries < max_retries:
                 try:
@@ -61,7 +61,7 @@ class TestScraper:
                 except Exception as e:
                     logger.warning(f"Something crash occurred. Retrying... ({retries+1}/{max_retries})")
                     retries += 1
-                    time.sleep(random.uniform(1800, 3600))
+                    time.sleep(random.uniform(10, 60))
             raise Exception("Failed after multiple retries")
 
         return wrapper
