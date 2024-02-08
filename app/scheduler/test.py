@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class TestScraper:
 
-    browser: webdriver.Chrome = None
+    broswer: webdriver.Chrome = None
 
     estates = []
     buildings = []
@@ -47,47 +47,55 @@ class TestScraper:
                 retry += 1
         return ""
 
-    def retry_on_crash(func):
-        def wrapper(*args, **kwargs):
-            max_retries = 100
-            retries = 0
-            while retries < max_retries:
-                try:
-                    return func(*args, **kwargs)
-                except Exception as e:
+    # def retry_on_crash(func):
+    #     def wrapper(*args, **kwargs):
+    #         max_retries = 100
+    #         retries = 0
+    #         while retries < max_retries:
+    #             try:
+    #                 return func(*args, **kwargs)
+    #             except Exception as e:
+    #                 logger.warning(f"Something crash occurred. Retrying... ({retries+1}/{max_retries})")
+    #                 retries += 1
+    #                 time.sleep(random.uniform(10, 20))
+    #         raise Exception("Failed after multiple retries")
+
+    #     return wrapper
+
+    # @retry_on_crash
+    def open_browser(self):
+        max_retries = 100
+        retries = 0
+        browser = None
+        while retries < max_retries:
+            try:
+                chrome_options = Options()
+                chrome_options.add_argument('--no-sandbox')
+                chrome_options.add_argument("--headless")  
+                chrome_options.add_argument('--disable-blink-features=AutomationControlled')
+                chrome_options.add_argument("--disable-gpu")
+                chrome_options.add_argument('--disable-dev-shm-usage')
+                chrome_options.add_argument("--window-size=1920,1080")
+                chrome_options.add_argument("--log-level=3")
+                browser = webdriver.Remote(
+                    command_executor='http://selenium-hub:4444/wd/hub',
+                    options=chrome_options
+                )
+                browser.get("https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/")
+                time.sleep(10)
+                logger.debug(browser.title)
+
+                connect_to_mongodb()
+                logger.info("Connected to the MongoDB database!")
+                return browser
+            except Exception as e:
+                    browser.close()
+                    browser.quit()
                     logger.warning(f"Something crash occurred. Retrying... ({retries+1}/{max_retries})")
                     retries += 1
                     time.sleep(random.uniform(10, 20))
-            raise Exception("Failed after multiple retries")
+        raise Exception("Failed after multiple retries")
 
-        return wrapper
-
-    @retry_on_crash
-    def open_browser(self):
-        chrome_options = Options()
-        chrome_options.add_argument('--no-sandbox')
-        chrome_options.add_argument("--headless")  
-        chrome_options.add_argument('--disable-blink-features=AutomationControlled')
-        chrome_options.add_argument("--disable-gpu")
-        chrome_options.add_argument('--disable-dev-shm-usage')
-        chrome_options.add_argument("--window-size=1920,1080")
-        chrome_options.add_argument("--log-level=3")
-        try:
-            self.broswer.quit()
-            self.browser.close()
-        finally:
-            browser = webdriver.Remote(
-            command_executor='http://selenium-hub:4444/wd/hub',
-            options=chrome_options
-        )
-        browser.get("https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/")
-     
-        self.broswer =  browser
-        time.sleep(10)
-        logger.debug(browser.title)
-
-        connect_to_mongodb()
-        logger.info("Connected to the MongoDB database!")
 
     def scrape_estates(self,browser:webdriver.Chrome):
         estates_select = browser.find_element(
@@ -164,45 +172,44 @@ class TestScraper:
 
     def scrape(self, selected_region, selected_district):
         retry = 0
-        self.open_browser()
+        browser = self.open_browser()
         while retry<10:
             try:
                 region_selected = self.click_field(field_idx=selected_region, id=1,
-                                browser=self.browser)      
+                                browser=browser)      
                 time.sleep(2)
                 district_selected = self.click_field(field_idx=selected_district, id=2,
-                                browser=self.browser)   
+                                browser=browser)   
 
-                self.scrape_estates(browser=self.browser)
+                self.scrape_estates(browser=browser)
                 for estate_idx, estate in enumerate(self.estates):
                     if estate_idx > 0:
-                        estate_selected = self.click_field(field_idx=estate_idx,id=3, browser=self.browser)
+                        estate_selected = self.click_field(field_idx=estate_idx,id=3, browser=browser)
 
-                        self.scrape_buldings(browser=self.browser)
+                        self.scrape_buldings(browser=browser)
                         for building_idx, building in enumerate(self.buildings):
                             if building_idx > 0:
                                 building_selected = self.click_field(
-                                        field_idx=building_idx, id=4, browser=self.browser)
+                                        field_idx=building_idx, id=4, browser=browser)
 
-                                self.scrape_floors(browser=self.browser)
+                                self.scrape_floors(browser=browser)
                                 for floor_idx, floor in enumerate(self.floors):
                                     if floor_idx > 0:
                                         floor_selected = self.click_field(
-                                                field_idx=floor_idx, id=5, browser=self.browser)
+                                                field_idx=floor_idx, id=5, browser=browser)
 
-                                        self.scrape_blocks(browser=self.browser)
+                                        self.scrape_blocks(browser=browser)
                                         for block_idx, block in enumerate(self.blocks):
                                             if block_idx > 0:
                                                 block_selected = self.click_field(
-                                                            field_idx=block_idx, id=6, browser=self.browser)
-                                                self.valuation(browser=self.browser,region_selected=region_selected, district_selected=district_selected, estate_selected=estate_selected, building_selected=building_selected,floor_selected=floor_selected,block_selected=block_selected)
+                                                            field_idx=block_idx, id=6, browser=browser)
+                                                self.valuation(browser=browser,region_selected=region_selected, district_selected=district_selected, estate_selected=estate_selected, building_selected=building_selected,floor_selected=floor_selected,block_selected=block_selected)
                 retry = 10
             except:
                 retry += 1
                 time.sleep(2)
             finally:
-                self.browser.close()
-                self.browser.quit()
+                browser.quit()
                 close_mongodb_connection()
                 logger.info('Close connection to Mongo DB.')
 
