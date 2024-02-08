@@ -72,12 +72,16 @@ class TestScraper:
         chrome_options.add_argument('--disable-dev-shm-usage')
         chrome_options.add_argument("--window-size=1920,1080")
         chrome_options.add_argument("--log-level=3")
-        self.broswer.quit()
-        browser = webdriver.Remote(
+        try:
+            self.broswer.quit()
+            self.browser.close()
+        finally:
+            browser = webdriver.Remote(
             command_executor='http://selenium-hub:4444/wd/hub',
             options=chrome_options
         )
         browser.get("https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/")
+     
         self.broswer =  browser
         time.sleep(10)
         logger.debug(browser.title)
@@ -197,6 +201,7 @@ class TestScraper:
                 retry += 1
                 time.sleep(2)
             finally:
+                self.browser.close()
                 self.browser.quit()
                 close_mongodb_connection()
                 logger.info('Close connection to Mongo DB.')
