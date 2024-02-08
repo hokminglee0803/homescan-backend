@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class TestScraper:
 
-    broswer: webdriver.Chrome = None
+    browser: webdriver.Chrome = None
 
     estates = []
     buildings = []
@@ -72,17 +72,18 @@ class TestScraper:
         chrome_options.add_argument('--disable-dev-shm-usage')
         chrome_options.add_argument("--window-size=1920,1080")
         chrome_options.add_argument("--log-level=3")
+        self.broswer.quit()
         browser = webdriver.Remote(
             command_executor='http://selenium-hub:4444/wd/hub',
             options=chrome_options
         )
         browser.get("https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/")
+        self.broswer =  browser
         time.sleep(10)
         logger.debug(browser.title)
 
         connect_to_mongodb()
         logger.info("Connected to the MongoDB database!")
-        return browser
 
     def scrape_estates(self,browser:webdriver.Chrome):
         estates_select = browser.find_element(
@@ -159,44 +160,44 @@ class TestScraper:
 
     def scrape(self, selected_region, selected_district):
         retry = 0
-        browser = self.open_browser()
+        self.open_browser()
         while retry<10:
             try:
                 region_selected = self.click_field(field_idx=selected_region, id=1,
-                                browser=browser)      
+                                browser=self.browser)      
                 time.sleep(2)
                 district_selected = self.click_field(field_idx=selected_district, id=2,
-                                browser=browser)   
+                                browser=self.browser)   
 
-                self.scrape_estates(browser=browser)
+                self.scrape_estates(browser=self.browser)
                 for estate_idx, estate in enumerate(self.estates):
                     if estate_idx > 0:
-                        estate_selected = self.click_field(field_idx=estate_idx,id=3, browser=browser)
+                        estate_selected = self.click_field(field_idx=estate_idx,id=3, browser=self.browser)
 
-                        self.scrape_buldings(browser=browser)
+                        self.scrape_buldings(browser=self.browser)
                         for building_idx, building in enumerate(self.buildings):
                             if building_idx > 0:
                                 building_selected = self.click_field(
-                                        field_idx=building_idx, id=4, browser=browser)
+                                        field_idx=building_idx, id=4, browser=self.browser)
 
-                                self.scrape_floors(browser=browser)
+                                self.scrape_floors(browser=self.browser)
                                 for floor_idx, floor in enumerate(self.floors):
                                     if floor_idx > 0:
                                         floor_selected = self.click_field(
-                                                field_idx=floor_idx, id=5, browser=browser)
+                                                field_idx=floor_idx, id=5, browser=self.browser)
 
-                                        self.scrape_blocks(browser=browser)
+                                        self.scrape_blocks(browser=self.browser)
                                         for block_idx, block in enumerate(self.blocks):
                                             if block_idx > 0:
                                                 block_selected = self.click_field(
-                                                            field_idx=block_idx, id=6, browser=browser)
-                                                self.valuation(browser=browser,region_selected=region_selected, district_selected=district_selected, estate_selected=estate_selected, building_selected=building_selected,floor_selected=floor_selected,block_selected=block_selected)
+                                                            field_idx=block_idx, id=6, browser=self.browser)
+                                                self.valuation(browser=self.browser,region_selected=region_selected, district_selected=district_selected, estate_selected=estate_selected, building_selected=building_selected,floor_selected=floor_selected,block_selected=block_selected)
                 retry = 10
             except:
                 retry += 1
                 time.sleep(2)
             finally:
-                browser.quit()
+                self.browser.quit()
                 close_mongodb_connection()
                 logger.info('Close connection to Mongo DB.')
 
