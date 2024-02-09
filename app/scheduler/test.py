@@ -91,7 +91,7 @@ class TestScraper:
             except Exception as e:
                     browser.close()
                     browser.quit()
-                    logger.warning(f"Something crash occurred. Retrying... ({retries+1}/{max_retries})")
+                    logger.warning(f"Something crash occurred. Retrying... ({retries+1}/{max_retries}), Error: f{e}")
                     retries += 1
                     time.sleep(random.uniform(10, 20))
         raise Exception("Failed after multiple retries")
