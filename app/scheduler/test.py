@@ -184,6 +184,7 @@ class TestScraper:
 
                 self.scrape_estates(browser=browser)
                 logger.info(self.estates.reverse())
+                logger.info(self.estates)
                 for estate_idx, estate in enumerate(self.estates.reverse()):
                     if estate_idx > 0:
                         estate_selected = self.click_field(field_idx=estate_idx,id=3, browser=browser)
@@ -211,6 +212,7 @@ class TestScraper:
                 retry += 1
                 time.sleep(2)
             finally:
+                retry = 10
                 logger.info('Closing Browser')
                 browser.quit()
                 close_mongodb_connection()
