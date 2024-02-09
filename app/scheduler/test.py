@@ -173,6 +173,7 @@ class TestScraper:
     def scrape(self, selected_region, selected_district):
         retry = 0
         browser = self.open_browser()
+        logger.info(f'Session ID {browser.session_id}')
         while retry<10:
             try:
                 region_selected = self.click_field(field_idx=selected_region, id=1,
