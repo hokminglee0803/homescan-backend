@@ -183,9 +183,8 @@ class TestScraper:
                                 browser=browser)   
 
                 self.scrape_estates(browser=browser)
-                logger.info(self.estates.reverse())
-                logger.info(self.estates)
-                for estate_idx, estate in enumerate(self.estates.reverse()):
+                self.estates.reverse()
+                for estate_idx, estate in enumerate(self.estates):
                     if estate_idx > 0:
                         estate_selected = self.click_field(field_idx=estate_idx,id=3, browser=browser)
 
