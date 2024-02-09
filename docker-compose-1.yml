@@ -19,6 +19,7 @@ services:
       - selenium-hub
     environment:
       SE_EVENT_BUS_HOST: selenium-hub
+      SE_NODE_SESSION_TIMEOUT: 1000
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
       SE_NODE_MAX_SESSIONS: 4
@@ -35,6 +36,7 @@ services:
       - selenium-hub
     environment:
       SE_EVENT_BUS_HOST: selenium-hub
+      SE_NODE_SESSION_TIMEOUT: 1000
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
       SE_NODE_MAX_SESSIONS: 4
@@ -51,6 +53,7 @@ services:
       - selenium-hub
     environment:
       SE_EVENT_BUS_HOST: selenium-hub
+      SE_NODE_SESSION_TIMEOUT: 1000
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
       SE_NODE_MAX_SESSIONS: 4
