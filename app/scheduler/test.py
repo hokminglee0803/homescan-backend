@@ -67,20 +67,20 @@ class TestScraper:
         max_retries = 100
         retries = 0
         browser = None
-        chrome_options = Options()
-        chrome_options.add_argument('--no-sandbox')
-        chrome_options.add_argument("--headless")  
-        chrome_options.add_argument('--disable-blink-features=AutomationControlled')
-        chrome_options.add_argument("--disable-gpu")
-        chrome_options.add_argument('--disable-dev-shm-usage')
-        chrome_options.add_argument("--window-size=1920,1080")
-        chrome_options.add_argument("--log-level=3")
-        browser = webdriver.Remote(
-            command_executor='http://selenium-hub:4444/wd/hub',
-            options=chrome_options
-        )
         while retries < max_retries:
             try:
+                chrome_options = Options()
+                chrome_options.add_argument('--no-sandbox')
+                chrome_options.add_argument("--headless")  
+                chrome_options.add_argument('--disable-blink-features=AutomationControlled')
+                chrome_options.add_argument("--disable-gpu")
+                chrome_options.add_argument('--disable-dev-shm-usage')
+                chrome_options.add_argument("--window-size=1920,1080")
+                chrome_options.add_argument("--log-level=3")
+                browser = webdriver.Remote(
+                    command_executor='http://selenium-hub:4444/wd/hub',
+                    options=chrome_options
+                )
                 browser.get("https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/")
                 time.sleep(10)
                 logger.debug(browser.title)
@@ -91,10 +91,6 @@ class TestScraper:
             except Exception as e:
                     browser.close()
                     browser.quit()
-                    browser = webdriver.Remote(
-                        command_executor='http://selenium-hub:4444/wd/hub',
-                        options=chrome_options
-                    )
                     logger.warning(f"Something crash occurred. Retrying... ({retries+1}/{max_retries})")
                     retries += 1
                     time.sleep(random.uniform(10, 20))
