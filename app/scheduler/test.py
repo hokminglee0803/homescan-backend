@@ -26,6 +26,10 @@ class TestScraper:
 
     house_service = HouseService()
 
+    def __exit__(self):
+        close_mongodb_connection()
+        logger.info('Close connection to Mongo DB.')
+
     def click_field(self, field_idx, id, browser: webdriver.Chrome):
         retry = 1
         while retry < 10:
@@ -198,8 +202,8 @@ class TestScraper:
                 retry = 10
                 logger.info('Closing Browser')
                 browser.quit()
-                close_mongodb_connection()
-                logger.info('Close connection to Mongo DB.')
+                # close_mongodb_connection()
+                # logger.info('Close connection to Mongo DB.')
 
        
        
