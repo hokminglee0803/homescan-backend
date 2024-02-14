@@ -22,7 +22,7 @@ services:
       SE_NODE_SESSION_TIMEOUT: 1000
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-      SE_NODE_MAX_SESSIONS: 4
+      SE_NODE_MAX_SESSIONS: 2
       SE_NODE_OVERRIDE_MAX_SESSIONS: 'true'
       SE_SESSION_REQUEST_TIMEOUT: 3600
       SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"120\",\"platformName\": \"linux\"}"
@@ -39,7 +39,7 @@ services:
       SE_NODE_SESSION_TIMEOUT: 1000
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-      SE_NODE_MAX_SESSIONS: 4
+      SE_NODE_MAX_SESSIONS: 2
       SE_NODE_OVERRIDE_MAX_SESSIONS: 'true'
       SE_SESSION_REQUEST_TIMEOUT: 3600
       SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"120\",\"platformName\": \"linux\"}"
@@ -56,7 +56,7 @@ services:
       SE_NODE_SESSION_TIMEOUT: 1000
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-      SE_NODE_MAX_SESSIONS: 4
+      SE_NODE_MAX_SESSIONS: 2
       SE_NODE_OVERRIDE_MAX_SESSIONS: 'true'
       SE_SESSION_REQUEST_TIMEOUT: 3600
       SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"120\",\"platformName\": \"linux\"}"
