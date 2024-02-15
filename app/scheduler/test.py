@@ -195,7 +195,8 @@ class TestScraper:
                                                             field_idx=block_idx, id=6, browser=browser)
                                                 self.valuation(browser=browser,region_selected=region_selected, district_selected=district_selected, estate_selected=estate_selected, building_selected=building_selected,floor_selected=floor_selected,block_selected=block_selected)
                 retry = 10
-            except:
+            except Exception as e:
+                logger.warning(f"Something crash occurred. Error: f{e}")
                 retry += 1
                 time.sleep(2)
             finally:
