@@ -58,29 +58,5 @@ services:
       redis:
         condition: service_started
 
-  # worker-2:
-  #   build: .
-  #   command: celery -A app.scheduler.m-1.tasks-2:app worker -l info -c 1
-  #   depends_on:
-  #     - redis
-
-  # worker-3:
-  #   build: .
-  #   command: celery -A app.scheduler.m-1.tasks-3:app worker -l info -c 1
-  #   depends_on:
-  #     - redis
-
-  # worker-4:
-  #   build: .
-  #   command: celery -A app.scheduler.m-1.tasks-4:app worker -l info -c 1
-  #   depends_on:
-  #     - redis
-
-  # worker-5:
-  #   build: .
-  #   command: celery -A app.scheduler.m-1.tasks-5:app worker -l info -c 1
-  #   depends_on:
-  #     - redis
-
   redis:
     image: "redis:alpine"

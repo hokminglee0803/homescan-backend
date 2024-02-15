@@ -8,10 +8,18 @@ services:
       - 4442:4442
       - 4443:4443
       - 4444:4444
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4444/wd/hub/status"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
   chrome-node-1:
     image: selenium/node-chrome 
-    shm_size: 2gb   
+    shm_size: 1gb   
+    volumes:
+      - /dev/shm:/dev/shm
     depends_on:
       - selenium-hub
     environment:
@@ -19,14 +27,16 @@ services:
       SE_NODE_SESSION_TIMEOUT: 1000
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-      SE_NODE_MAX_SESSIONS: 2
+      SE_NODE_MAX_SESSIONS: 1
       SE_NODE_OVERRIDE_MAX_SESSIONS: 'true'
       SE_SESSION_REQUEST_TIMEOUT: 3600
       SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"120\",\"platformName\": \"linux\"}"
 
   chrome-node-2:
     image: selenium/node-chrome 
-    shm_size: 2gb   
+    shm_size: 1gb   
+    volumes:
+      - /dev/shm:/dev/shm
     depends_on:
       - selenium-hub
     environment:
@@ -34,85 +44,19 @@ services:
       SE_NODE_SESSION_TIMEOUT: 1000
       SE_EVENT_BUS_PUBLISH_PORT: 4442
       SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-      SE_NODE_MAX_SESSIONS: 2
+      SE_NODE_MAX_SESSIONS: 1
       SE_NODE_OVERRIDE_MAX_SESSIONS: 'true'
       SE_SESSION_REQUEST_TIMEOUT: 3600
       SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"120\",\"platformName\": \"linux\"}"
 
-  chrome-node-3:
-    image: selenium/node-chrome 
-    shm_size: 2gb   
-    depends_on:
-      - selenium-hub
-    environment:
-      SE_EVENT_BUS_HOST: selenium-hub
-      SE_NODE_SESSION_TIMEOUT: 1000
-      SE_EVENT_BUS_PUBLISH_PORT: 4442
-      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
-      SE_NODE_MAX_SESSIONS: 2
-      SE_NODE_OVERRIDE_MAX_SESSIONS: 'true'
-      SE_SESSION_REQUEST_TIMEOUT: 3600
-      SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"120\",\"platformName\": \"linux\"}"
-
-  worker-6:
+  worker-1:
     build: .
-    command: celery -A app.scheduler.m-10.tasks-1:app worker -l info -c 1
+    command: celery -A app.scheduler.m-10.tasks-1:app worker -l info -c 2
     depends_on:
-      - redis
-
-  worker-7:
-    build: .
-    command: celery -A app.scheduler.m-10.tasks-2:app worker -l info -c 1
-    depends_on:
-      - redis
-
-  worker-8:
-    build: .
-    command: celery -A app.scheduler.m-10.tasks-3:app worker -l info -c 1
-    depends_on:
-      - redis
-
-  worker-9:
-    build: .
-    command: celery -A app.scheduler.m-10.tasks-4:app worker -l info -c 1
-    depends_on:
-      - redis
-
-  worker-10:
-    build: .
-    command: celery -A app.scheduler.m-10.tasks-5:app worker -l info -c 1
-    depends_on:
-      - redis
-
-  beat-6:
-    build: .
-    command: celery -A app.scheduler.m-10.tasks-1:app beat -l info
-    depends_on:
-      - redis
-  
-  beat-7:
-    build: .
-    command: celery -A app.scheduler.m-10.tasks-2:app beat -l info
-    depends_on:
-      - redis
-  
-  beat-8:
-    build: .
-    command: celery -A app.scheduler.m-10.tasks-3:app beat -l info
-    depends_on:
-      - redis
-
-  beat-9:
-    build: .
-    command: celery -A app.scheduler.m-10.tasks-4:app beat -l info
-    depends_on:
-      - redis
-
-  beat-10:
-    build: .
-    command: celery -A app.scheduler.m-10.tasks-5:app beat -l info
-    depends_on:
-      - redis
+      selenium-hub:
+        condition: service_healthy
+      redis:
+        condition: service_started
 
   redis:
     image: "redis:alpine"
