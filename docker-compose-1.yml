@@ -49,6 +49,7 @@ services:
     command: celery -A app.scheduler.m-1.tasks-1:app worker -l info -c 1
     depends_on:
       - redis
+      - selenium-hub
 
   # worker-2:
   #   build: .
