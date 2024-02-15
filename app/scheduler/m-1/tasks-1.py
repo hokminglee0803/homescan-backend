@@ -304,4 +304,4 @@ def scrape_house_property_value(region, district):
 app.worker_main(['beat', '--loglevel=info'])
 
 # Schedule the task to run after 14 days
-app.send_task('app.scheduler.m-1.tasks-1:app.scrape_house_property_value', args=(1, 1), countdown=timedelta(days=14).total_seconds())
+app.send_task('app.scheduler.m-1.tasks-1.scrape_house_property_value', args=(1, 1), countdown=timedelta(days=14).total_seconds())
