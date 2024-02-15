@@ -48,8 +48,11 @@ services:
     build: .
     command: celery -A app.scheduler.m-1.tasks-1:app worker -l info -c 1
     depends_on:
-      - redis
-      - selenium-hub
+      selenium-hub:
+        condition: service_healthy
+        restart: true
+      redis:
+        condition: service_started
 
   # worker-2:
   #   build: .
