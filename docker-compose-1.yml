@@ -50,11 +50,11 @@ services:
     depends_on:
       - redis
 
-  worker-2:
-    build: .
-    command: celery -A app.scheduler.m-1.tasks-2:app worker -l info -c 1
-    depends_on:
-      - redis
+  # worker-2:
+  #   build: .
+  #   command: celery -A app.scheduler.m-1.tasks-2:app worker -l info -c 1
+  #   depends_on:
+  #     - redis
 
   # worker-3:
   #   build: .
@@ -74,17 +74,17 @@ services:
   #   depends_on:
   #     - redis
 
-  beat-1:
-    build: .
-    command: celery -A app.scheduler.m-1.tasks-1:app beat -l info
-    depends_on:
-      - redis
+  # beat-1:
+  #   build: .
+  #   command: celery -A app.scheduler.m-1.tasks-1:app beat -l info
+  #   depends_on:
+  #     - redis
   
-  beat-2:
-    build: .
-    command: celery -A app.scheduler.m-1.tasks-2:app beat -l info
-    depends_on:
-      - redis
+  # beat-2:
+  #   build: .
+  #   command: celery -A app.scheduler.m-1.tasks-2:app beat -l info
+  #   depends_on:
+  #     - redis
   
   # beat-3:
   #   build: .
