@@ -10,7 +10,6 @@ app = Celery(
     __name__, broker=f"{settings.redis_url}/0", backend=f"{settings.redis_url}/1"
 )
 
-
 @app.task(name='scrape_house_property_value')
 def scrape_house_property_value(region, district):
     s = TestScraper()
