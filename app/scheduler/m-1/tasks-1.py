@@ -301,4 +301,4 @@ def scrape_house_property_value(region, district):
     #         time.sleep(30)
 
 # Schedule the task to run after 14 days
-app.send_task('app.scrape_house_property_value', args=(1, 1))
+app.send_task(f'{__name__}.scrape_house_property_value', args=(1, 1))
