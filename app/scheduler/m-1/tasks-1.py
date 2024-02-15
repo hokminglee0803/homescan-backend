@@ -300,8 +300,5 @@ def scrape_house_property_value(region, district):
     #         retry += 1
     #         time.sleep(30)
 
-# Start Celery Beat immediately
-app.worker_main(['beat', '--loglevel=info'])
-
 # Schedule the task to run after 14 days
 app.send_task('app.scheduler.m-1.tasks-1.scrape_house_property_value', args=(1, 1), countdown=timedelta(days=14).total_seconds())
