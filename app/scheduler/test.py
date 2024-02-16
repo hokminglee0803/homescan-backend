@@ -175,7 +175,7 @@ class TestScraper:
                 print(len(self.estates))
                 self.estates.pop(0)
                 random.shuffle(self.estates)
-                logging.info(self.estates[0]._id)
+                logging.info(self.estates[0].id)
                 logging.info(self.estates)
                 for estate_idx, estate in enumerate(self.estates):
                         estate_selected = self.click_field(field_idx=estate_idx,id=3, browser=browser)
