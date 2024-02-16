@@ -168,6 +168,13 @@ class TestScraper:
                 retry += 1
                 time.sleep(10) 
 
+    def clear_browser_data(driver:webdriver.Chrome):
+        # Execute the desired browser-specific actions to clear data
+        # For example, to clear cookies and cache in Chrome:
+        driver.delete_all_cookies()
+        driver.execute_script("window.localStorage.clear();")
+        driver.execute_script("window.sessionStorage.clear();")
+
     def scrape(self, selected_region, selected_district):
         retry = 0
 
@@ -204,6 +211,9 @@ class TestScraper:
                                                 block_selected = self.click_field(
                                                             field_idx=block_idx, id=6, browser=browser)
                                                 self.valuation(browser=browser,region_selected=region_selected, district_selected=district_selected, estate_selected=estate_selected, building_selected=building_selected,floor_selected=floor_selected,block_selected=block_selected)
+                                                self.clear_browser_data(driver=browser)
+
+
                 retry = 10
             except Exception as e:
                 logger.warning(f"Something crash occurred. Error: {e}")
