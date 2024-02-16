@@ -200,7 +200,7 @@ class TestScraper:
                                                 self.valuation(browser=browser,region_selected=region_selected, district_selected=district_selected, estate_selected=estate_selected, building_selected=building_selected,floor_selected=floor_selected,block_selected=block_selected)
                 retry = 10
             except Exception as e:
-                logger.warning(f"Something crash occurred. Error: f{e}")
+                logger.warning(f"Something crash occurred. Error: {e}")
                 retry += 1
                 time.sleep(30)
                 logger.info('Closing Browser')
