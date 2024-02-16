@@ -173,7 +173,9 @@ class TestScraper:
 
                 self.scrape_estates(browser=browser)
                 estates_list = self.estates
+                logging.info(estates_list)
                 estates_list.pop(0)
+                logging.info(estates_list)
                 random.shuffle(estates_list)
                 logging.info(estates_list)
                 for estate_idx, estate in enumerate(estates_list):
