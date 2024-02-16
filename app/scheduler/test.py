@@ -168,12 +168,52 @@ class TestScraper:
                 retry += 1
                 time.sleep(10) 
 
-    def clear_browser_data(driver:webdriver.Chrome):
+    def clear_browser_data(self,driver:webdriver.Chrome):
         # Execute the desired browser-specific actions to clear data
         # For example, to clear cookies and cache in Chrome:
         driver.delete_all_cookies()
         driver.execute_script("window.localStorage.clear();")
         driver.execute_script("window.sessionStorage.clear();")
+
+    def restart_browser(self,browser:webdriver.Chrome):
+        browser.quit()
+        max_retries = 100
+        retries = 0
+        browser = None
+        while retries < max_retries:
+            try:
+                chrome_options = Options()
+                chrome_options.add_argument('--no-sandbox')
+                chrome_options.add_argument("--headless")  
+                chrome_options.add_argument('--disable-blink-features=AutomationControlled')
+                chrome_options.add_argument("--disable-gpu")
+                chrome_options.add_argument('--disable-dev-shm-usage')
+                chrome_options.add_argument("--window-size=1920,1080")
+                chrome_options.add_argument("--log-level=3")
+                chrome_options.add_argument("--disable-renderer-backgrounding")
+                chrome_options.add_argument("--disable-background-timer-throttling")
+                chrome_options.add_argument("--disable-backgrounding-occluded-windows")
+                chrome_options.add_argument("--disable-client-side-phishing-detection")
+                chrome_options.add_argument("--disable-crash-reporter")
+                chrome_options.add_argument("--disable-oopr-debug-crash-dump")
+                chrome_options.add_argument("--no-crash-upload")
+                chrome_options.add_argument("--disable-extensions")
+                chrome_options.add_argument("--disable-low-res-tiling")
+                chrome_options.add_argument("--silent")
+                browser = webdriver.Remote(
+                    command_executor='http://selenium-hub:4444/wd/hub',
+                    options=chrome_options
+                )
+                browser.get("https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/")
+                time.sleep(2)
+                return browser
+            except Exception as e:
+                browser.close()
+                browser.quit()
+                logger.warning(f"Something crash occurred. Retrying... ({retries+1}/{max_retries}), Error: f{e}")
+                retries += 1
+                time.sleep(random.uniform(10, 20))
+        raise Exception("Failed after multiple retries")
 
     def scrape(self, selected_region, selected_district):
         retry = 0
@@ -208,8 +248,13 @@ class TestScraper:
                                         random.shuffle(self.blocks)
                                         for block_idx, block in enumerate(self.blocks):
                                             if block_idx > 0:
-                                                block_selected = self.click_field(
-                                                            field_idx=block_idx, id=6, browser=browser)
+                                                browser = self.restart_browser(browser)
+                                                self.click_field(field_idx=selected_region, id=1,browser=browser)  
+                                                self.click_field(field_idx=selected_district, id=2,browser=browser) 
+                                                self.click_field(field_idx=random_idx,id=3, browser=browser)
+                                                self.click_field(field_idx=building_idx, id=4, browser=browser)
+                                                self.click_field(field_idx=floor_idx, id=5, browser=browser)
+                                                block_selected = self.click_field(field_idx=block_idx, id=6, browser=browser)
                                                 self.valuation(browser=browser,region_selected=region_selected, district_selected=district_selected, estate_selected=estate_selected, building_selected=building_selected,floor_selected=floor_selected,block_selected=block_selected)
                                                 self.clear_browser_data(driver=browser)
 
