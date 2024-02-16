@@ -172,6 +172,7 @@ class TestScraper:
                                 browser=browser)   
 
                 self.scrape_estates(browser=browser)
+                print(len(self.estates))
                 self.estates.pop(0)
                 random.shuffle(self.estates)
                 logging.info(self.estates)
