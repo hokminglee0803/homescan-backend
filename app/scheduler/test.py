@@ -65,6 +65,16 @@ class TestScraper:
                 chrome_options.add_argument('--disable-dev-shm-usage')
                 chrome_options.add_argument("--window-size=1920,1080")
                 chrome_options.add_argument("--log-level=3")
+                chrome_options.add_argument("--disable-renderer-backgrounding")
+                chrome_options.add_argument("--disable-background-timer-throttling")
+                chrome_options.add_argument("--disable-backgrounding-occluded-windows")
+                chrome_options.add_argument("--disable-client-side-phishing-detection")
+                chrome_options.add_argument("--disable-crash-reporter")
+                chrome_options.add_argument("--disable-oopr-debug-crash-dump")
+                chrome_options.add_argument("--no-crash-upload")
+                chrome_options.add_argument("--disable-extensions")
+                chrome_options.add_argument("--disable-low-res-tiling")
+                chrome_options.add_argument("--silent")
                 browser = webdriver.Remote(
                     command_executor='http://selenium-hub:4444/wd/hub',
                     options=chrome_options
