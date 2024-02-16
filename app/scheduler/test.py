@@ -90,12 +90,8 @@ class TestScraper:
             by=By.ID, value="tools_form_3_selectized")
         estates_select.click()
         time.sleep(0.5)
-        temp_estates = list(browser.find_element(
+        self.estates = list(browser.find_element(
             by=By.ID, value="tools_form_3_menu").find_elements(by=By.TAG_NAME, value="div"))
-        temp_estates.pop(0)
-        temp_estates.pop(1)
-        random.shuffle(temp_estates)
-        self.estates = temp_estates
         estates_select.click()
 
     def scrape_buldings(self,browser:webdriver.Chrome):
@@ -176,33 +172,27 @@ class TestScraper:
                                 browser=browser)   
 
                 self.scrape_estates(browser=browser)
-                print(len(self.estates))
                 for estate_idx, estate in enumerate(self.estates):
-                        estate_selected = self.click_field(field_idx=estate_idx,id=3, browser=browser)
-                        print(estate_selected)
+                        random_idx = random.randint(1, estate_idx)
+                        estate_selected = self.click_field(field_idx=random_idx,id=3, browser=browser)
                         self.scrape_buldings(browser=browser)
-                        print(len(self.buildings))
-                        self.buildings.pop(0)
-                        random.shuffle(self.buildings)
                         for building_idx, building in enumerate(self.buildings):
+                                random_idx = random.randint(1, building_idx)
                                 building_selected = self.click_field(
-                                        field_idx=building_idx, id=4, browser=browser)
+                                        field_idx=random_idx, id=4, browser=browser)
 
                                 self.scrape_floors(browser=browser)
-                                print(len(self.floors))
-                                self.floors.pop(0)
-                                random.shuffle(self.floors)
                                 for floor_idx, floor in enumerate(self.floors):
+                                        random_idx = random.randint(1, floor_idx)
                                         floor_selected = self.click_field(
-                                                field_idx=floor_idx, id=5, browser=browser)
+                                                field_idx=random_idx, id=5, browser=browser)
 
                                         self.scrape_blocks(browser=browser)
-                                        print(len(self.blocks))
-                                        self.blocks.pop(0)
                                         random.shuffle(self.blocks)
                                         for block_idx, block in enumerate(self.blocks):
+                                                random_idx = random.randint(1, block_idx)
                                                 block_selected = self.click_field(
-                                                            field_idx=block_idx, id=6, browser=browser)
+                                                            field_idx=random_idx, id=6, browser=browser)
                                                 self.valuation(browser=browser,region_selected=region_selected, district_selected=district_selected, estate_selected=estate_selected, building_selected=building_selected,floor_selected=floor_selected,block_selected=block_selected)
                 retry = 10
             except Exception as e:
