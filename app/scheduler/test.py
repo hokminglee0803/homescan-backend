@@ -175,16 +175,13 @@ class TestScraper:
                 print(len(self.estates))
                 self.estates.pop(0)
                 random.shuffle(self.estates)
-                logging.info(self.estates[0].text)
-                logging.info(self.estates[1].text)
                 for estate_idx, estate in enumerate(self.estates):
                         estate_selected = self.click_field(field_idx=estate_idx,id=3, browser=browser)
-
+                        print(estate_selected)
                         self.scrape_buldings(browser=browser)
                         print(len(self.buildings))
                         self.buildings.pop(0)
                         random.shuffle(self.buildings)
-                        logging.info(self.buildings)
                         for building_idx, building in enumerate(self.buildings):
                                 building_selected = self.click_field(
                                         field_idx=building_idx, id=4, browser=browser)
@@ -193,7 +190,6 @@ class TestScraper:
                                 print(len(self.floors))
                                 self.floors.pop(0)
                                 random.shuffle(self.floors)
-                                logging.info(self.floors)
                                 for floor_idx, floor in enumerate(self.floors):
                                         floor_selected = self.click_field(
                                                 field_idx=floor_idx, id=5, browser=browser)
@@ -202,7 +198,6 @@ class TestScraper:
                                         print(len(self.blocks))
                                         self.blocks.pop(0)
                                         random.shuffle(self.blocks)
-                                        logging.info(self.blocks)
                                         for block_idx, block in enumerate(self.blocks):
                                                 block_selected = self.click_field(
                                                             field_idx=block_idx, id=6, browser=browser)
