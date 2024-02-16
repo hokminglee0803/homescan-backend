@@ -162,7 +162,7 @@ class TestScraper:
         retry = 0
 
      
-        while retry<10:
+        while retry<100:
             browser = self.open_browser()
             try:
                 region_selected = self.click_field(field_idx=selected_region, id=1,
@@ -202,11 +202,10 @@ class TestScraper:
             except Exception as e:
                 logger.warning(f"Something crash occurred. Error: f{e}")
                 retry += 1
-                time.sleep(2)
-            finally:
-                retry = 10
+                time.sleep(30)
                 logger.info('Closing Browser')
                 browser.quit()
+
 
        
        
