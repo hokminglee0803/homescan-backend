@@ -174,7 +174,9 @@ class TestScraper:
                 self.scrape_estates(browser=browser)
                 for estate_idx, estate in enumerate(self.estates):
                         random_idx = random.randint(1, len(self.estates)-1)
+                        print(random_idx)
                         estate_selected = self.click_field(field_idx=random_idx,id=3, browser=browser)
+                        print(estate_selected)
                         self.scrape_buldings(browser=browser)
                         for building_idx, building in enumerate(self.buildings):
                                 building_selected = self.click_field(
