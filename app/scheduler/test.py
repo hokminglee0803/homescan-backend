@@ -93,6 +93,7 @@ class TestScraper:
         temp_estates = list(browser.find_element(
             by=By.ID, value="tools_form_3_menu").find_elements(by=By.TAG_NAME, value="div"))
         temp_estates.pop(0)
+        temp_estates.pop(1)
         random.shuffle(temp_estates)
         self.estates = temp_estates
         estates_select.click()
@@ -175,6 +176,7 @@ class TestScraper:
                                 browser=browser)   
 
                 self.scrape_estates(browser=browser)
+                print(len(self.estates))
                 for estate_idx, estate in enumerate(self.estates):
                         estate_selected = self.click_field(field_idx=estate_idx,id=3, browser=browser)
                         print(estate_selected)
