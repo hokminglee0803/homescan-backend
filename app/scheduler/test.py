@@ -172,39 +172,33 @@ class TestScraper:
                                 browser=browser)   
 
                 self.scrape_estates(browser=browser)
-                estates_list = self.estates
-                logging.info(estates_list)
-                estates_list.pop(0)
-                logging.info(estates_list)
-                random.shuffle(estates_list)
-                logging.info(estates_list)
-                for estate_idx, estate in enumerate(estates_list):
+                self.estates.pop(0)
+                random.shuffle(self.estates)
+                logging.info(self.estates)
+                for estate_idx, estate in enumerate(self.estates):
                         estate_selected = self.click_field(field_idx=estate_idx,id=3, browser=browser)
 
                         self.scrape_buldings(browser=browser)
-                        buildings_list = self.buildings
-                        buildings_list.pop(0)
-                        random.shuffle(buildings_list)
-                        logging.info(buildings_list)
-                        for building_idx, building in enumerate(buildings_list):
+                        self.buildings.pop(0)
+                        random.shuffle(self.buildings)
+                        logging.info(self.buildings)
+                        for building_idx, building in enumerate(self.buildings):
                                 building_selected = self.click_field(
                                         field_idx=building_idx, id=4, browser=browser)
 
                                 self.scrape_floors(browser=browser)
-                                floors_list = self.floors
-                                floors_list.pop(0)
-                                random.shuffle(floors_list)
-                                logging.info(floors_list)
-                                for floor_idx, floor in enumerate(floors_list):
+                                self.floors.pop(0)
+                                random.shuffle(self.floors)
+                                logging.info(self.floors)
+                                for floor_idx, floor in enumerate(self.floors):
                                         floor_selected = self.click_field(
                                                 field_idx=floor_idx, id=5, browser=browser)
 
                                         self.scrape_blocks(browser=browser)
-                                        blocks_list = self.blocks
-                                        blocks_list.pop(0)
-                                        random.shuffle(blocks_list)
-                                        logging.info(blocks_list)
-                                        for block_idx, block in enumerate(blocks_list):
+                                        self.blocks.pop(0)
+                                        random.shuffle(self.blocks)
+                                        logging.info(self.blocks)
+                                        for block_idx, block in enumerate(self.blocks):
                                                 block_selected = self.click_field(
                                                             field_idx=block_idx, id=6, browser=browser)
                                                 self.valuation(browser=browser,region_selected=region_selected, district_selected=district_selected, estate_selected=estate_selected, building_selected=building_selected,floor_selected=floor_selected,block_selected=block_selected)
