@@ -175,6 +175,10 @@ class TestScraper:
                 print(len(self.estates))
                 temp = self.estates
                 print(temp.pop(0))
+                a = [1,2,3,4]
+                a.pop(0)
+                random.shuffle(a)
+                print(a)
                 random.shuffle(temp)
                 for estate_idx, estate in enumerate(temp):
                         estate_selected = self.click_field(field_idx=estate_idx,id=3, browser=browser)
