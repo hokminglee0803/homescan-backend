@@ -90,8 +90,11 @@ class TestScraper:
             by=By.ID, value="tools_form_3_selectized")
         estates_select.click()
         time.sleep(0.5)
-        self.estates = list(browser.find_element(
+        temp_estates = list(browser.find_element(
             by=By.ID, value="tools_form_3_menu").find_elements(by=By.TAG_NAME, value="div"))
+        temp_estates.pop(0)
+        random.shuffle(temp_estates)
+        self.estates = temp_estates
         estates_select.click()
 
     def scrape_buldings(self,browser:webdriver.Chrome):
