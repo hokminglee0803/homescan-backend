@@ -180,6 +180,7 @@ class TestScraper:
                         estate_selected = self.click_field(field_idx=estate_idx,id=3, browser=browser)
 
                         self.scrape_buldings(browser=browser)
+                        print(len(self.buildings))
                         self.buildings.pop(0)
                         random.shuffle(self.buildings)
                         logging.info(self.buildings)
@@ -188,6 +189,7 @@ class TestScraper:
                                         field_idx=building_idx, id=4, browser=browser)
 
                                 self.scrape_floors(browser=browser)
+                                print(len(self.floors))
                                 self.floors.pop(0)
                                 random.shuffle(self.floors)
                                 logging.info(self.floors)
@@ -196,6 +198,7 @@ class TestScraper:
                                                 field_idx=floor_idx, id=5, browser=browser)
 
                                         self.scrape_blocks(browser=browser)
+                                        print(len(self.blocks))
                                         self.blocks.pop(0)
                                         random.shuffle(self.blocks)
                                         logging.info(self.blocks)
