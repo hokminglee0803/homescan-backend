@@ -251,7 +251,7 @@ class TestScraper:
                                         random.shuffle(self.blocks)
                                         for block_idx, block in enumerate(self.blocks):
                                             if block_idx > 0:
-                                                if time.time() - browser.start_time >= 60:
+                                                if time.time() - browser.start_time >= 1800:
                                                     browser = self.restart_browser(browser)
                                                     self.click_field(field_idx=selected_region, id=1,browser=browser)  
                                                     self.click_field(field_idx=selected_district, id=2,browser=browser) 
