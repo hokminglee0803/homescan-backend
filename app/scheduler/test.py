@@ -174,22 +174,23 @@ class TestScraper:
                 self.scrape_estates(browser=browser)
                 for estate_idx, estate in enumerate(self.estates):
                         random_idx = random.randint(1, len(self.estates)-1)
-                        print(random_idx)
                         estate_selected = self.click_field(field_idx=random_idx,id=3, browser=browser)
-                        print(estate_selected)
                         self.scrape_buldings(browser=browser)
                         for building_idx, building in enumerate(self.buildings):
+                            if building_idx > 0:
                                 building_selected = self.click_field(
                                         field_idx=building_idx, id=4, browser=browser)
 
                                 self.scrape_floors(browser=browser)
                                 for floor_idx, floor in enumerate(self.floors):
+                                    if floor_idx > 0:
                                         floor_selected = self.click_field(
                                                 field_idx=floor_idx, id=5, browser=browser)
 
                                         self.scrape_blocks(browser=browser)
                                         random.shuffle(self.blocks)
                                         for block_idx, block in enumerate(self.blocks):
+                                            if block_idx > 0:
                                                 block_selected = self.click_field(
                                                             field_idx=block_idx, id=6, browser=browser)
                                                 self.valuation(browser=browser,region_selected=region_selected, district_selected=district_selected, estate_selected=estate_selected, building_selected=building_selected,floor_selected=floor_selected,block_selected=block_selected)
