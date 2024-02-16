@@ -172,22 +172,25 @@ class TestScraper:
                                 browser=browser)   
 
                 self.scrape_estates(browser=browser)
-                estates_list = self.estates.pop(0)
+                estates_list = self.estates
+                estates_list.pop(0)
                 random.shuffle(estates_list)
                 logging.info(estates_list)
                 for estate_idx, estate in enumerate(estates_list):
                         estate_selected = self.click_field(field_idx=estate_idx,id=3, browser=browser)
 
                         self.scrape_buldings(browser=browser)
-                        buildingss_list = self.buildings.pop(0)
-                        random.shuffle(buildingss_list)
-                        logging.info(buildingss_list)
-                        for building_idx, building in enumerate(buildingss_list):
+                        buildings_list = self.buildings
+                        buildings_list.pop(0)
+                        random.shuffle(buildings_list)
+                        logging.info(buildings_list)
+                        for building_idx, building in enumerate(buildings_list):
                                 building_selected = self.click_field(
                                         field_idx=building_idx, id=4, browser=browser)
 
                                 self.scrape_floors(browser=browser)
-                                floors_list = self.floors.pop(0)
+                                floors_list = self.floors
+                                floors_list.pop(0)
                                 random.shuffle(floors_list)
                                 logging.info(floors_list)
                                 for floor_idx, floor in enumerate(floors_list):
@@ -195,7 +198,8 @@ class TestScraper:
                                                 field_idx=floor_idx, id=5, browser=browser)
 
                                         self.scrape_blocks(browser=browser)
-                                        blocks_list = self.blocks.pop(0)
+                                        blocks_list = self.blocks
+                                        blocks_list.pop(0)
                                         random.shuffle(blocks_list)
                                         logging.info(blocks_list)
                                         for block_idx, block in enumerate(blocks_list):
