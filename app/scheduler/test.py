@@ -79,6 +79,7 @@ class TestScraper:
                     command_executor='http://selenium-hub:4444/wd/hub',
                     options=chrome_options
                 )
+                browser.start_time = time.time() 
                 browser.get("https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/")
                 time.sleep(10)
                 logger.debug(browser.title)
@@ -205,7 +206,8 @@ class TestScraper:
                     options=chrome_options
                 )
                 browser.get("https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/")
-                time.sleep(2)
+                browser.start_time = time.time() 
+                time.sleep(10)
                 return browser
             except Exception as e:
                 browser.close()
@@ -214,6 +216,7 @@ class TestScraper:
                 retries += 1
                 time.sleep(random.uniform(10, 20))
         raise Exception("Failed after multiple retries")
+
 
     def scrape(self, selected_region, selected_district):
         retry = 0
@@ -248,12 +251,13 @@ class TestScraper:
                                         random.shuffle(self.blocks)
                                         for block_idx, block in enumerate(self.blocks):
                                             if block_idx > 0:
-                                                browser = self.restart_browser(browser)
-                                                self.click_field(field_idx=selected_region, id=1,browser=browser)  
-                                                self.click_field(field_idx=selected_district, id=2,browser=browser) 
-                                                self.click_field(field_idx=random_idx,id=3, browser=browser)
-                                                self.click_field(field_idx=building_idx, id=4, browser=browser)
-                                                self.click_field(field_idx=floor_idx, id=5, browser=browser)
+                                                if time.time() - browser.start_time >= 1800:
+                                                    browser = self.restart_browser(browser)
+                                                    self.click_field(field_idx=selected_region, id=1,browser=browser)  
+                                                    self.click_field(field_idx=selected_district, id=2,browser=browser) 
+                                                    self.click_field(field_idx=random_idx,id=3, browser=browser)
+                                                    self.click_field(field_idx=building_idx, id=4, browser=browser)
+                                                    self.click_field(field_idx=floor_idx, id=5, browser=browser)
                                                 block_selected = self.click_field(field_idx=block_idx, id=6, browser=browser)
                                                 self.valuation(browser=browser,region_selected=region_selected, district_selected=district_selected, estate_selected=estate_selected, building_selected=building_selected,floor_selected=floor_selected,block_selected=block_selected)
                                                 self.clear_browser_data(driver=browser)
