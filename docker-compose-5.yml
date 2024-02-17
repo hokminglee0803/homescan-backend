@@ -49,9 +49,26 @@ services:
       SE_SESSION_REQUEST_TIMEOUT: 3600
       SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"120\",\"platformName\": \"linux\"}"
 
+  chrome-node-3:
+    image: selenium/node-chrome 
+    shm_size: 1gb   
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - selenium-hub
+    environment:
+      SE_EVENT_BUS_HOST: selenium-hub
+      SE_NODE_SESSION_TIMEOUT: 1000
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+      SE_NODE_MAX_SESSIONS: 1
+      SE_NODE_OVERRIDE_MAX_SESSIONS: 'true'
+      SE_SESSION_REQUEST_TIMEOUT: 3600
+      SE_NODE_STEREOTYPE: "{\"browserName\":\"chrome\",\"browserVersion\":\"120\",\"platformName\": \"linux\"}"
+
   worker-1:
     build: .
-    command: celery -A app.scheduler.m-5.tasks-1:app worker -l info -c 2
+    command: celery -A app.scheduler.m-5.tasks-1:app worker -l info -c 3
     depends_on:
       selenium-hub:
         condition: service_healthy
