@@ -96,7 +96,7 @@ class TestScraper:
                 try:
                     browser.close()
                     browser.quit()
-                except error:
+                except Exception as error:
                     logger.debug('Browser Close')
                 logger.warning(f"Something crash occurred. Retrying... ({retries+1}/{max_retries}), Error: {e}")
                 retries += 1
