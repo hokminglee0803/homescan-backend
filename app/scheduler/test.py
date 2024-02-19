@@ -87,7 +87,7 @@ class TestScraper:
                 browser.start_time = time.time() 
                 browser.get("https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/")
                 time.sleep(10)
-                logger.info(browser.title)
+                logger.debug(browser.title)
 
                 connect_to_mongodb()
                 logger.info("Connected to the MongoDB database!")
@@ -232,17 +232,18 @@ class TestScraper:
     def scrape(self, selected_region, selected_district):
         retry = 0
 
+        print(selected_region)
+        print(selected_district)
      
         while retry < 100:
             browser = self.open_browser()
             try:
                 region_selected = self.click_field(field_idx=selected_region, id=1,
-                                browser=browser)  
-                print(region_selected)    
+                                browser=browser)      
                 time.sleep(2)
                 district_selected = self.click_field(field_idx=selected_district, id=2,
                                 browser=browser)   
-                print(district_selected) 
+
                 self.scrape_estates(browser=browser)
                 for estate_idx, estate in enumerate(self.estates):
                     if estate_idx > 0 and estate_idx >= self.current_estates_idx:
@@ -251,7 +252,6 @@ class TestScraper:
                         else:
                             self.current_estates_idx = estate_idx
                         estate_selected = self.click_field(field_idx=estate_idx,id=3, browser=browser)
-                        print(estate_selected) 
                         self.scrape_buldings(browser=browser)
                         for building_idx, building in enumerate(self.buildings):
                             if building_idx > 0 and building_idx >= self.current_buildings_idx:
@@ -261,7 +261,7 @@ class TestScraper:
                                     self.current_buildings_idx = building_idx
                                 building_selected = self.click_field(
                                         field_idx=building_idx, id=4, browser=browser)
-                                print(building_selected) 
+                                
                                 self.scrape_floors(browser=browser)
                                 for floor_idx, floor in enumerate(self.floors):
                                     if floor_idx > 0 and floor_idx >= self.current_floor_idx:
@@ -271,7 +271,7 @@ class TestScraper:
                                             self.current_floor_idx = floor_idx
                                         floor_selected = self.click_field(
                                                 field_idx=floor_idx, id=5, browser=browser)
-                                        print(floor_selected) 
+
                                         self.scrape_blocks(browser=browser)
                                         for block_idx, block in enumerate(self.blocks):
                                             if block_idx > 0 and block_idx >= self.current_blocks_idx:
@@ -279,8 +279,6 @@ class TestScraper:
                                                     self.current_blocks_idx = 1
                                                 else:
                                                     self.current_blocks_idx = block_idx
-                                                print(browser.start_time)
-                                                print(time.time())
                                                 if time.time() - browser.start_time >= 1800: 
                                                     browser = self.restart_browser(browser)
                                                     self.click_field(field_idx=selected_region, id=1,browser=browser)  
@@ -289,7 +287,6 @@ class TestScraper:
                                                     self.click_field(field_idx=building_idx, id=4, browser=browser)
                                                     self.click_field(field_idx=floor_idx, id=5, browser=browser)
                                                 block_selected = self.click_field(field_idx=block_idx, id=6, browser=browser)
-                                                print(block_selected)
                                                 self.valuation(browser=browser,region_selected=region_selected, district_selected=district_selected, estate_selected=estate_selected, building_selected=building_selected,floor_selected=floor_selected,block_selected=block_selected)
                                                 self.clear_browser_data(driver=browser)
 
