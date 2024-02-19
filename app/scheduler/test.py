@@ -221,7 +221,7 @@ class TestScraper:
                 try:
                     browser.close()
                     browser.quit()
-                except error:
+                except Exception as error:
                     logger.debug('Browser Close')
                 logger.warning(f"Something crash occurred. Retrying... ({retries+1}/{max_retries}), Error: f{e}")
                 retries += 1
@@ -270,7 +270,7 @@ class TestScraper:
                                                     browser = self.restart_browser(browser)
                                                     self.click_field(field_idx=selected_region, id=1,browser=browser)  
                                                     self.click_field(field_idx=selected_district, id=2,browser=browser) 
-                                                    self.click_field(field_idx=random_idx,id=3, browser=browser)
+                                                    self.click_field(field_idx=estate_idx,id=3, browser=browser)
                                                     self.click_field(field_idx=building_idx, id=4, browser=browser)
                                                     self.click_field(field_idx=floor_idx, id=5, browser=browser)
                                                 block_selected = self.click_field(field_idx=block_idx, id=6, browser=browser)
