@@ -245,28 +245,39 @@ class TestScraper:
                 self.scrape_estates(browser=browser)
                 for estate_idx, estate in enumerate(self.estates):
                     if estate_idx > 0 and estate_idx >= self.current_estates_idx:
-                        self.current_estates_idx = estate_idx
+                        if len(self.estates) == estate_idx-1:
+                            self.current_estates_idx = 1
+                        else:
+                            self.current_estates_idx = estate_idx
                         estate_selected = self.click_field(field_idx=estate_idx,id=3, browser=browser)
                         self.scrape_buldings(browser=browser)
                         for building_idx, building in enumerate(self.buildings):
                             if building_idx > 0 and building_idx >= self.current_buildings_idx:
-                                self.current_buildings_idx = building_idx
+                                if len(self.buildings) == building_idx-1:
+                                    self.current_buildings_idx = 1
+                                else:
+                                    self.current_buildings_idx = building_idx
                                 building_selected = self.click_field(
                                         field_idx=building_idx, id=4, browser=browser)
                                 
                                 self.scrape_floors(browser=browser)
                                 for floor_idx, floor in enumerate(self.floors):
                                     if floor_idx > 0 and floor_idx >= self.current_floor_idx:
-                                        self.current_floor_idx = floor_idx
+                                        if len(self.floors) == floor_idx-1:
+                                            self.current_floor_idx = 1
+                                        else:
+                                            self.current_floor_idx = floor_idx
                                         floor_selected = self.click_field(
                                                 field_idx=floor_idx, id=5, browser=browser)
 
                                         self.scrape_blocks(browser=browser)
-                                        random.shuffle(self.blocks)
                                         for block_idx, block in enumerate(self.blocks):
                                             if block_idx > 0 and block_idx >= self.current_blocks_idx:
-                                                self.current_blocks_idx = block_idx
-                                                if time.time() - browser.start_time >= 1800: #1800
+                                                if len(self.blocks) == block_idx-1:
+                                                    self.current_blocks_idx = 1
+                                                else:
+                                                    self.current_blocks_idx = block_idx
+                                                if time.time() - browser.start_time >= 1800: 
                                                     browser = self.restart_browser(browser)
                                                     self.click_field(field_idx=selected_region, id=1,browser=browser)  
                                                     self.click_field(field_idx=selected_district, id=2,browser=browser) 
