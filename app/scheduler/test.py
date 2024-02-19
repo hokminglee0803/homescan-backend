@@ -245,7 +245,7 @@ class TestScraper:
                 self.scrape_estates(browser=browser)
                 for estate_idx, estate in enumerate(self.estates):
                     if estate_idx > 0 and estate_idx >= self.current_estates_idx:
-                        if len(self.estates) == estate_idx-1:
+                        if len(self.estates) == estate_idx:
                             self.current_estates_idx = 1
                         else:
                             self.current_estates_idx = estate_idx
@@ -253,7 +253,7 @@ class TestScraper:
                         self.scrape_buldings(browser=browser)
                         for building_idx, building in enumerate(self.buildings):
                             if building_idx > 0 and building_idx >= self.current_buildings_idx:
-                                if len(self.buildings) == building_idx-1:
+                                if len(self.buildings) == building_idx:
                                     self.current_buildings_idx = 1
                                 else:
                                     self.current_buildings_idx = building_idx
@@ -263,7 +263,7 @@ class TestScraper:
                                 self.scrape_floors(browser=browser)
                                 for floor_idx, floor in enumerate(self.floors):
                                     if floor_idx > 0 and floor_idx >= self.current_floor_idx:
-                                        if len(self.floors) == floor_idx-1:
+                                        if len(self.floors) == floor_idx:
                                             self.current_floor_idx = 1
                                         else:
                                             self.current_floor_idx = floor_idx
@@ -273,10 +273,7 @@ class TestScraper:
                                         self.scrape_blocks(browser=browser)
                                         for block_idx, block in enumerate(self.blocks):
                                             if block_idx > 0 and block_idx >= self.current_blocks_idx:
-                                                print(len(self.blocks))
-                                                print(block_idx)
-                                                print(self.current_blocks_idx)
-                                                if len(self.blocks) == block_idx-1:
+                                                if len(self.blocks) == block_idx:
                                                     self.current_blocks_idx = 1
                                                 else:
                                                     self.current_blocks_idx = block_idx
