@@ -289,6 +289,8 @@ class TestScraper:
 
 
                 retry = 100
+                browser.close()
+                browser.quit()
             except Exception as e:
                 logger.warning(f"Something crash occurred. Error: {e}")
                 retry += 1
