@@ -87,7 +87,7 @@ class TestScraper:
                 browser.start_time = time.time() 
                 browser.get("https://www.hsbc.com.hk/zh-hk/mortgages/tools/property-valuation/")
                 time.sleep(10)
-                logger.debug(browser.title)
+                logger.info(browser.title)
 
                 connect_to_mongodb()
                 logger.info("Connected to the MongoDB database!")
@@ -237,7 +237,8 @@ class TestScraper:
             browser = self.open_browser()
             try:
                 region_selected = self.click_field(field_idx=selected_region, id=1,
-                                browser=browser)      
+                                browser=browser)  
+                print(region_selected)    
                 time.sleep(2)
                 district_selected = self.click_field(field_idx=selected_district, id=2,
                                 browser=browser)   
