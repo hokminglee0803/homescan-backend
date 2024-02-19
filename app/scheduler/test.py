@@ -278,6 +278,8 @@ class TestScraper:
                                                     self.current_blocks_idx = 1
                                                 else:
                                                     self.current_blocks_idx = block_idx
+                                                print(browser.start_time)
+                                                print(time.time())
                                                 if time.time() - browser.start_time >= 1800: 
                                                     browser = self.restart_browser(browser)
                                                     self.click_field(field_idx=selected_region, id=1,browser=browser)  
@@ -286,6 +288,7 @@ class TestScraper:
                                                     self.click_field(field_idx=building_idx, id=4, browser=browser)
                                                     self.click_field(field_idx=floor_idx, id=5, browser=browser)
                                                 block_selected = self.click_field(field_idx=block_idx, id=6, browser=browser)
+                                                print(block_selected)
                                                 self.valuation(browser=browser,region_selected=region_selected, district_selected=district_selected, estate_selected=estate_selected, building_selected=building_selected,floor_selected=floor_selected,block_selected=block_selected)
                                                 self.clear_browser_data(driver=browser)
 
