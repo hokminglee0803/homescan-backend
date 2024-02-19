@@ -266,7 +266,7 @@ class TestScraper:
                                         for block_idx, block in enumerate(self.blocks):
                                             if block_idx > 0 and block_idx >= self.current_blocks_idx:
                                                 self.current_blocks_idx = block_idx
-                                                if time.time() - browser.start_time >= 1: #1800
+                                                if time.time() - browser.start_time >= 1800: #1800
                                                     browser = self.restart_browser(browser)
                                                     self.click_field(field_idx=selected_region, id=1,browser=browser)  
                                                     self.click_field(field_idx=selected_district, id=2,browser=browser) 
