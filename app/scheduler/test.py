@@ -147,7 +147,7 @@ class TestScraper:
             try:
                 submit_button = browser.find_element(By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[1]/div/div[7]/a')
                 submit_button.click()
-                time.sleep(2)
+                time.sleep(5)
                 valuation = browser.find_element(By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[2]/div[2]/span').text
                 if valuation == "":
                     raise Exception
@@ -236,24 +236,19 @@ class TestScraper:
             browser = self.open_browser()
             try:
                 region_selected = self.click_field(field_idx=selected_region, id=1,
-                                browser=browser)    
-                print(region_selected)  
-                time.sleep(5)
+                                browser=browser)      
+                time.sleep(2)
                 district_selected = self.click_field(field_idx=selected_district, id=2,
                                 browser=browser)   
-                print(district_selected)
+
                 self.scrape_estates(browser=browser)
-                print(self.estates)
                 for estate_idx, estate in enumerate(self.estates):
-                    print(estate_idx)
-                    print(self.current_estates_idx)
                     if estate_idx > 0 and estate_idx >= self.current_estates_idx:
                         if len(self.estates) == estate_idx + 1:
                             self.current_estates_idx = 1
                         else:
                             self.current_estates_idx = estate_idx
                         estate_selected = self.click_field(field_idx=estate_idx,id=3, browser=browser)
-                        print(estate_selected)
                         self.scrape_buldings(browser=browser)
                         for building_idx, building in enumerate(self.buildings):
                             if building_idx > 0 and building_idx >= self.current_buildings_idx:
@@ -263,7 +258,7 @@ class TestScraper:
                                     self.current_buildings_idx = building_idx
                                 building_selected = self.click_field(
                                         field_idx=building_idx, id=4, browser=browser)
-                                print(building_selected)
+                                
                                 self.scrape_floors(browser=browser)
                                 for floor_idx, floor in enumerate(self.floors):
                                     if floor_idx > 0 and floor_idx >= self.current_floor_idx:
@@ -273,7 +268,7 @@ class TestScraper:
                                             self.current_floor_idx = floor_idx
                                         floor_selected = self.click_field(
                                                 field_idx=floor_idx, id=5, browser=browser)
-                                        print(floor_selected)
+
                                         self.scrape_blocks(browser=browser)
                                         for block_idx, block in enumerate(self.blocks):
                                             if block_idx > 0 and block_idx >= self.current_blocks_idx:
@@ -289,12 +284,11 @@ class TestScraper:
                                                     self.click_field(field_idx=building_idx, id=4, browser=browser)
                                                     self.click_field(field_idx=floor_idx, id=5, browser=browser)
                                                 block_selected = self.click_field(field_idx=block_idx, id=6, browser=browser)
-                                                print(block_selected)
                                                 self.valuation(browser=browser,region_selected=region_selected, district_selected=district_selected, estate_selected=estate_selected, building_selected=building_selected,floor_selected=floor_selected,block_selected=block_selected)
                                                 self.clear_browser_data(driver=browser)
 
 
-                retry = 10
+                retry = 100
             except Exception as e:
                 logger.warning(f"Something crash occurred. Error: {e}")
                 retry += 1
