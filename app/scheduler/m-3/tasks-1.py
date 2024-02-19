@@ -15,12 +15,12 @@ def scrape_house_property_value(region, district):
     s.scrape(selected_region=region,selected_district=district)
     del s
 
-app.send_task('scrape_house_property_value', args=(1, 11)) # 香港 － 薄扶林
+app.send_task('scrape_house_property_value', args=(1, 10)) # 香港 － 薄扶林
 
-app.send_task('scrape_house_property_value', args=(1, 12)) # 香港 － 鰂魚涌
+app.send_task('scrape_house_property_value', args=(1, 11)) # 香港 － 鰂魚涌
 
-app.send_task('scrape_house_property_value', args=(1, 13)) # 香港 － 西灣河
+app.send_task('scrape_house_property_value', args=(1, 12)) # 香港 － 西灣河
 
-app.send_task('scrape_house_property_value', args=(1, 14)) # 香港 － 筲箕灣
+app.send_task('scrape_house_property_value', args=(1, 13)) # 香港 － 筲箕灣
 
-app.send_task('scrape_house_property_value', args=(1, 15)) # 香港 － 大坑/渣甸山   
+app.send_task('scrape_house_property_value', args=(1, 14)) # 香港 － 大坑/渣甸山   

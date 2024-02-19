@@ -18,10 +18,8 @@ def scrape_house_property_value(region, district):
 
 app.send_task('scrape_house_property_value', args=(1, 1)) # 香港 － 香港仔/鴨脷洲
 
-app.send_task('scrape_house_property_value', args=(1, 2)) # 香港 － 香港仔
+app.send_task('scrape_house_property_value', args=(1, 2)) # 香港 － 銅鑼灣
 
-app.send_task('scrape_house_property_value', args=(1, 3)) # 香港 － 銅鑼灣
+app.send_task('scrape_house_property_value', args=(1, 3)) # 香港 － 中環/上環
 
-app.send_task('scrape_house_property_value', args=(1, 4)) # 香港 － 中環/上環
-
-app.send_task('scrape_house_property_value', args=(1, 5)) # 香港 － 柴灣
+app.send_task('scrape_house_property_value', args=(1, 4)) # 香港 － 柴灣
