@@ -289,6 +289,7 @@ class TestScraper:
 
 
                 retry = 100
+                logger.info('Closing Browser')
                 browser.close()
                 browser.quit()
             except Exception as e:
