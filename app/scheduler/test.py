@@ -243,7 +243,10 @@ class TestScraper:
                                 browser=browser)   
                 print(district_selected)
                 self.scrape_estates(browser=browser)
+                print(self.estates)
                 for estate_idx, estate in enumerate(self.estates):
+                    print(estate_idx)
+                    print(self.current_estates_idx)
                     if estate_idx > 0 and estate_idx >= self.current_estates_idx:
                         if len(self.estates) == estate_idx + 1:
                             self.current_estates_idx = 1
@@ -285,8 +288,8 @@ class TestScraper:
                                                     self.click_field(field_idx=estate_idx,id=3, browser=browser)
                                                     self.click_field(field_idx=building_idx, id=4, browser=browser)
                                                     self.click_field(field_idx=floor_idx, id=5, browser=browser)
-                                                print(block_selected)
                                                 block_selected = self.click_field(field_idx=block_idx, id=6, browser=browser)
+                                                print(block_selected)
                                                 self.valuation(browser=browser,region_selected=region_selected, district_selected=district_selected, estate_selected=estate_selected, building_selected=building_selected,floor_selected=floor_selected,block_selected=block_selected)
                                                 self.clear_browser_data(driver=browser)
 
