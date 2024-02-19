@@ -93,8 +93,9 @@ class TestScraper:
                 logger.info("Connected to the MongoDB database!")
                 return browser
             except Exception as e:
-                browser.close()
-                browser.quit()
+                try:
+                    browser.close()
+                    browser.quit()
                 logger.warning(f"Something crash occurred. Retrying... ({retries+1}/{max_retries}), Error: f{e}")
                 retries += 1
                 time.sleep(random.uniform(10, 20))
