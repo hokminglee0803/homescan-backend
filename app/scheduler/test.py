@@ -273,6 +273,9 @@ class TestScraper:
                                         self.scrape_blocks(browser=browser)
                                         for block_idx, block in enumerate(self.blocks):
                                             if block_idx > 0 and block_idx >= self.current_blocks_idx:
+                                                print(len(self.blocks))
+                                                print(block_idx)
+                                                print(self.current_blocks_idx)
                                                 if len(self.blocks) == block_idx-1:
                                                     self.current_blocks_idx = 1
                                                 else:
