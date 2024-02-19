@@ -147,7 +147,7 @@ class TestScraper:
             try:
                 submit_button = browser.find_element(By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[1]/div/div[7]/a')
                 submit_button.click()
-                time.sleep(4)
+                time.sleep(2)
                 valuation = browser.find_element(By.XPATH, value='//*[@id="property-valuation-search"]/div[2]/form/div/div[2]/div[2]/div/div[2]/div[2]/div[2]/span').text
                 if valuation == "":
                     raise Exception
@@ -236,11 +236,12 @@ class TestScraper:
             browser = self.open_browser()
             try:
                 region_selected = self.click_field(field_idx=selected_region, id=1,
-                                browser=browser)      
+                                browser=browser)    
+                print(region_selected)  
                 time.sleep(5)
                 district_selected = self.click_field(field_idx=selected_district, id=2,
                                 browser=browser)   
-
+                print(district_selected)
                 self.scrape_estates(browser=browser)
                 for estate_idx, estate in enumerate(self.estates):
                     if estate_idx > 0 and estate_idx >= self.current_estates_idx:
