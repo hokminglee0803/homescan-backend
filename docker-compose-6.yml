@@ -51,7 +51,7 @@ services:
       
   worker-1:
     build: .
-    command: celery -A app.scheduler.m-6.tasks-1:app worker -l info -c 2
+    command: celery -A app.scheduler.m-6.tasks-1:app worker -l info -c 1
     depends_on:
       selenium-hub:
         condition: service_healthy
