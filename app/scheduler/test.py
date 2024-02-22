@@ -247,6 +247,7 @@ class TestScraper:
                                         browser=browser)   
 
                         self.scrape_estates(browser=browser)
+                        thread = self.thread_service.get_threads(thread_idx)
                         for estate_idx, estate in enumerate(self.estates):
                             current_estates_idx = thread.estate_idx
                             if estate_idx > 0 and estate_idx >= current_estates_idx:
@@ -274,6 +275,7 @@ class TestScraper:
                                             })
                                 estate_selected = self.click_field(field_idx=estate_idx,id=3, browser=browser)
                                 self.scrape_buldings(browser=browser)
+                                thread = self.thread_service.get_threads(thread_idx)
                                 for building_idx, building in enumerate(self.buildings):
                                     current_buildings_idx = thread.building_idx
                                     if building_idx > 0 and building_idx >= current_buildings_idx:
@@ -303,6 +305,7 @@ class TestScraper:
                                                 field_idx=building_idx, id=4, browser=browser)
                                         
                                         self.scrape_floors(browser=browser)
+                                        thread = self.thread_service.get_threads(thread_idx)
                                         for floor_idx, floor in enumerate(self.floors):
                                             current_floor_idx = thread.floor_idx
                                             if floor_idx > 0 and floor_idx >= current_floor_idx:
@@ -332,6 +335,7 @@ class TestScraper:
                                                         field_idx=floor_idx, id=5, browser=browser)
 
                                                 self.scrape_blocks(browser=browser)
+                                                thread = self.thread_service.get_threads(thread_idx)
                                                 for block_idx, block in enumerate(self.blocks):
                                                     current_blocks_idx = thread.block_idx
                                                     if block_idx > 0 and block_idx >= current_blocks_idx:
