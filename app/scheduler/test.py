@@ -237,6 +237,7 @@ class TestScraper:
             if thread.district_idx == selected_district:
                 retry = 0
                 while retry < 100:
+                    thread = self.thread_service.get_threads(thread_idx)
                     browser = self.open_browser()
                     try:
                         region_selected = self.click_field(field_idx=selected_region, id=1,
