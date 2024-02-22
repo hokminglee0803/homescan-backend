@@ -343,8 +343,6 @@ class TestScraper:
                                                             current_blocks_idx = 1
                                                         else:
                                                             current_blocks_idx = block_idx
-                                                        print(current_blocks_idx)
-                                                        print(block_idx)
                                                         self.thread_service.update_thread({
                                                             "thread_idx": thread_idx,
                                                             "region_idx": selected_region,
