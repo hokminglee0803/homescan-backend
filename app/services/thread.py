@@ -17,16 +17,47 @@ class ThreadService():
         })
         return ThreadModel(**thread)
 
-    def update_thread(self, value: ThreadCreateSchema):
+    def update_thread_district(self, value: ThreadCreateSchema):
         get_collection().update_one({
             "thread_idx":value['thread_idx']
         }, {
             "$set": {
-                "region_idx": value['region_idx'],
                 "district_idx": value['district_idx'],
+            }
+        }, upsert=True)
+
+    def update_thread_estate(self, value: ThreadCreateSchema):
+        get_collection().update_one({
+            "thread_idx":value['thread_idx']
+        }, {
+            "$set": {
                 "estate_idx": value['estate_idx'],
+            }
+        }, upsert=True)
+    
+    def update_thread_building(self, value: ThreadCreateSchema):
+        get_collection().update_one({
+            "thread_idx":value['thread_idx']
+        }, {
+            "$set": {
                 "building_idx": value['building_idx'],
+            }
+        }, upsert=True)
+    
+    def update_thread_floor(self, value: ThreadCreateSchema):
+        get_collection().update_one({
+            "thread_idx":value['thread_idx']
+        }, {
+            "$set": {
                 "floor_idx": value['floor_idx'],
+            }
+        }, upsert=True)
+    
+    def update_thread_block(self, value: ThreadCreateSchema):
+        get_collection().update_one({
+            "thread_idx":value['thread_idx']
+        }, {
+            "$set": {
                 "block_idx": value['block_idx'],
             }
         }, upsert=True)

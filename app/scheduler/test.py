@@ -254,14 +254,9 @@ class TestScraper:
                                     current_estates_idx = 1
                                 else:
                                     current_estates_idx = estate_idx
-                                self.thread_service.update_thread({
+                                self.thread_service.update_thread_estate({
                                                 "thread_idx": thread_idx,
-                                                "region_idx": selected_region,
-                                                "district_idx": selected_district,
                                                 "estate_idx": current_estates_idx,
-                                                "building_idx": 1,
-                                                "floor_idx": 1,
-                                                "block_idx": 1
                                             })
                                 thread = self.thread_service.get_threads(thread_idx)
                                 estate_selected = self.click_field(field_idx=estate_idx,id=3, browser=browser)
@@ -274,14 +269,9 @@ class TestScraper:
                                             self.current_buildings_idx = 1
                                         else:
                                             current_buildings_idx = building_idx
-                                        self.thread_service.update_thread({
+                                        self.thread_service.update_thread_building({
                                                 "thread_idx": thread_idx,
-                                                "region_idx": selected_region,
-                                                "district_idx": selected_district,
-                                                "estate_idx": current_estates_idx,
                                                 "building_idx": current_buildings_idx,
-                                                "floor_idx": 1,
-                                                "block_idx": 1
                                             })
                                         thread = self.thread_service.get_threads(thread_idx)
                                         building_selected = self.click_field(
@@ -295,14 +285,9 @@ class TestScraper:
                                                     current_floor_idx = 1
                                                 else:
                                                     current_floor_idx = floor_idx
-                                                self.thread_service.update_thread({
+                                                self.thread_service.update_thread_floor({
                                                         "thread_idx": thread_idx,
-                                                        "region_idx": selected_region,
-                                                        "district_idx": selected_district,
-                                                        "estate_idx": current_estates_idx,
-                                                        "building_idx": current_buildings_idx,
                                                         "floor_idx": current_floor_idx,
-                                                        "block_idx": 1
                                                     })
                                                 thread = self.thread_service.get_threads(thread_idx)
                                                 floor_selected = self.click_field(
@@ -316,13 +301,8 @@ class TestScraper:
                                                             current_blocks_idx = 1
                                                         else:
                                                             current_blocks_idx = block_idx
-                                                        self.thread_service.update_thread({
+                                                        self.thread_service.update_thread_block({
                                                             "thread_idx": thread_idx,
-                                                            "region_idx": selected_region,
-                                                            "district_idx": selected_district,
-                                                            "estate_idx": current_estates_idx,
-                                                            "building_idx": current_buildings_idx,
-                                                            "floor_idx": current_floor_idx,
                                                             "block_idx": current_blocks_idx
                                                         })
                                                         thread = self.thread_service.get_threads(thread_idx)
@@ -349,14 +329,9 @@ class TestScraper:
                         time.sleep(30)
                         logger.info('Closing Browser')
                         browser.quit()
-            self.thread_service.update_thread({
+            self.thread_service.update_thread_district({
                 "thread_idx": thread_idx,
-                "region_idx": selected_region,
                 "district_idx": selected_district+1,
-                "estate_idx": 1,
-                "building_idx": 1,
-                "floor_idx": 1,
-                "block_idx": 1
             })
 
 
