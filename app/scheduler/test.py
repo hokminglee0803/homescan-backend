@@ -24,7 +24,7 @@ class TestScraper:
     floors = []
     blocks = []
 
-    current_estates_idx = 20
+    current_estates_idx = 17
     current_buildings_idx = 1
     current_floor_idx = 1
     current_blocks_idx = 1
