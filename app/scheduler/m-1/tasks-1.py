@@ -13,7 +13,7 @@ app = Celery(
 @app.task(name='scrape_house_property_value')
 def scrape_house_property_value(thread,region, district):
     s = TestScraper()
-    s.scrape(thread_idx=thread,selected_region=region,selected_district=district)
+    s.scrape(thread_idx=thread,selected_region=region,selected_districts=district)
     del s
 
 app.send_task('scrape_house_property_value', args=(1,1, [1,2,3,4,5,6])) # 香港 － 香港仔/鴨脷洲
