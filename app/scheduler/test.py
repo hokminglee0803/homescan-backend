@@ -339,6 +339,8 @@ class TestScraper:
                                                             current_blocks_idx = 1
                                                         else:
                                                             current_blocks_idx = block_idx
+                                                        print(current_blocks_idx)
+                                                        print(block_idx)
                                                         self.thread_service.update_thread({
                                                             "thread_idx": thread_idx,
                                                             "region_idx": selected_region,
@@ -348,6 +350,7 @@ class TestScraper:
                                                             "floor_idx": current_floor_idx,
                                                             "block_idx": current_blocks_idx
                                                         })
+                                          
                                                         if time.time() - browser.start_time >= 1800: 
                                                             browser = self.restart_browser(browser)
                                                             self.click_field(field_idx=selected_region, id=1,browser=browser)  
