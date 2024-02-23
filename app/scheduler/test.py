@@ -316,6 +316,22 @@ class TestScraper:
                                                             block_selected = self.click_field(field_idx=block_idx, id=6, browser=browser)
                                                             self.valuation(browser=browser,region_selected=region_selected, district_selected=district_selected, estate_selected=estate_selected, building_selected=building_selected,floor_selected=floor_selected,block_selected=block_selected)
                                                             self.clear_browser_data(driver=browser)
+                                                    self.thread_service.update_thread_block({
+                                                        "thread_idx": thread_idx,
+                                                        "block_idx": 1,
+                                                    })
+                                            self.thread_service.update_thread_floor({
+                                                        "thread_idx": thread_idx,
+                                                        "block_idx": 1,
+                                            })
+                                    self.thread_service.update_thread_building({
+                                                    "thread_idx": thread_idx,
+                                                    "building_idx": 1,
+                                    })
+                            self.thread_service.update_thread_estate({
+                                "thread_idx": thread_idx,
+                                "estate_idx": 1,
+                            })
                             self.thread_service.update_thread_district({
                                 "thread_idx": thread_idx,
                                 "district_idx": selected_district+1,
