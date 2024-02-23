@@ -316,17 +316,17 @@ class TestScraper:
                                                             block_selected = self.click_field(field_idx=block_idx, id=6, browser=browser)
                                                             self.valuation(browser=browser,region_selected=region_selected, district_selected=district_selected, estate_selected=estate_selected, building_selected=building_selected,floor_selected=floor_selected,block_selected=block_selected)
                                                             self.clear_browser_data(driver=browser)
-
+                            self.thread_service.update_thread_district({
+                                "thread_idx": thread_idx,
+                                "district_idx": selected_district+1,
+                            })
                         except Exception as e:
                             logger.warning(f"Something crash occurred. Error: {e}")
                             retry += 1
                             time.sleep(30)
                             logger.info('Closing Browser')
                             browser.quit()
-                self.thread_service.update_thread_district({
-                    "thread_idx": thread_idx,
-                    "district_idx": selected_district+1,
-                })
+
             retry = 100
             logger.info('Closing Browser')
             browser.close()
