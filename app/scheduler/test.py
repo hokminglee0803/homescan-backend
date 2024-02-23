@@ -234,114 +234,114 @@ class TestScraper:
     def scrape(self,thread_idx, selected_region, selected_districts):
         retry = 0
         while retry < 100:
-            thread = self.thread_service.get_threads(thread_idx)
-            browser = self.open_browser()
-            for selected_district in selected_districts:
-                if thread.district_idx == selected_district:
-                        try:
-                            region_selected = self.click_field(field_idx=selected_region, id=1,
-                                            browser=browser)      
-                            time.sleep(2)
-                            district_selected = self.click_field(field_idx=selected_district, id=2,
-                                            browser=browser)   
+            try:
+                thread = self.thread_service.get_threads(thread_idx)
+                browser = self.open_browser()
+                for selected_district in selected_districts:
+                    if thread.district_idx == selected_district:
+                                region_selected = self.click_field(field_idx=selected_region, id=1,
+                                                browser=browser)      
+                                time.sleep(2)
+                                district_selected = self.click_field(field_idx=selected_district, id=2,
+                                                browser=browser)   
 
-                            self.scrape_estates(browser=browser)
-                            for estate_idx, estate in enumerate(self.estates):
-                                current_estates_idx = thread.estate_idx
-                                if estate_idx > 0 and estate_idx >= current_estates_idx:
-                                    if len(self.estates) == estate_idx + 1:
-                                        current_estates_idx = 1
-                                    else:
-                                        current_estates_idx = estate_idx
-                                    self.thread_service.update_thread_estate({
-                                                    "thread_idx": thread_idx,
-                                                    "estate_idx": current_estates_idx,
-                                                })
-                                    thread = self.thread_service.get_threads(thread_idx)
-                                    estate_selected = self.click_field(field_idx=estate_idx,id=3, browser=browser)
-                                    self.scrape_buldings(browser=browser)
-                                    
-                                    for building_idx, building in enumerate(self.buildings):
-                                        current_buildings_idx = thread.building_idx
-                                        if building_idx > 0 and building_idx >= current_buildings_idx:
-                                            if len(self.buildings) == building_idx + 1:
-                                                self.current_buildings_idx = 1
-                                            else:
-                                                current_buildings_idx = building_idx
-                                            self.thread_service.update_thread_building({
-                                                    "thread_idx": thread_idx,
-                                                    "building_idx": current_buildings_idx,
-                                                })
-                                            thread = self.thread_service.get_threads(thread_idx)
-                                            building_selected = self.click_field(
-                                                    field_idx=building_idx, id=4, browser=browser)
-                                            
-                                            self.scrape_floors(browser=browser)
-                                            for floor_idx, floor in enumerate(self.floors):
-                                                current_floor_idx = thread.floor_idx
-                                                if floor_idx > 0 and floor_idx >= current_floor_idx:
-                                                    if len(self.floors) == floor_idx + 1:
-                                                        current_floor_idx = 1
-                                                    else:
-                                                        current_floor_idx = floor_idx
-                                                    self.thread_service.update_thread_floor({
-                                                            "thread_idx": thread_idx,
-                                                            "floor_idx": current_floor_idx,
-                                                        })
-                                                    thread = self.thread_service.get_threads(thread_idx)
-                                                    floor_selected = self.click_field(
-                                                            field_idx=floor_idx, id=5, browser=browser)
-
-                                                    self.scrape_blocks(browser=browser)
-                                                    for block_idx, block in enumerate(self.blocks):
-                                                        current_blocks_idx = thread.block_idx
-                                                        if block_idx > 0 and block_idx >= current_blocks_idx:
-                                                            if len(self.blocks) == block_idx + 1:
-                                                                current_blocks_idx = 1
-                                                            else:
-                                                                current_blocks_idx = block_idx
-                                                            self.thread_service.update_thread_block({
-                                                                "thread_idx": thread_idx,
-                                                                "block_idx": current_blocks_idx
-                                                            })
-                                                            thread = self.thread_service.get_threads(thread_idx)
-                                            
-                                                            if time.time() - browser.start_time >= 1800: 
-                                                                browser = self.restart_browser(browser)
-                                                                self.click_field(field_idx=selected_region, id=1,browser=browser)  
-                                                                self.click_field(field_idx=selected_district, id=2,browser=browser) 
-                                                                self.click_field(field_idx=estate_idx,id=3, browser=browser)
-                                                                self.click_field(field_idx=building_idx, id=4, browser=browser)
-                                                                self.click_field(field_idx=floor_idx, id=5, browser=browser)
-                                                            block_selected = self.click_field(field_idx=block_idx, id=6, browser=browser)
-                                                            self.valuation(browser=browser,region_selected=region_selected, district_selected=district_selected, estate_selected=estate_selected, building_selected=building_selected,floor_selected=floor_selected,block_selected=block_selected)
-                                                            self.clear_browser_data(driver=browser)
-                                                    self.thread_service.update_thread_block({
+                                self.scrape_estates(browser=browser)
+                                for estate_idx, estate in enumerate(self.estates):
+                                    current_estates_idx = thread.estate_idx
+                                    if estate_idx > 0 and estate_idx >= current_estates_idx:
+                                        if len(self.estates) == estate_idx + 1:
+                                            current_estates_idx = 1
+                                        else:
+                                            current_estates_idx = estate_idx
+                                        self.thread_service.update_thread_estate({
                                                         "thread_idx": thread_idx,
-                                                        "block_idx": 1,
+                                                        "estate_idx": current_estates_idx,
                                                     })
-                                            self.thread_service.update_thread_floor({
+                                        thread = self.thread_service.get_threads(thread_idx)
+                                        estate_selected = self.click_field(field_idx=estate_idx,id=3, browser=browser)
+                                        self.scrape_buldings(browser=browser)
+                                        
+                                        for building_idx, building in enumerate(self.buildings):
+                                            current_buildings_idx = thread.building_idx
+                                            if building_idx > 0 and building_idx >= current_buildings_idx:
+                                                if len(self.buildings) == building_idx + 1:
+                                                    self.current_buildings_idx = 1
+                                                else:
+                                                    current_buildings_idx = building_idx
+                                                self.thread_service.update_thread_building({
                                                         "thread_idx": thread_idx,
-                                                        "block_idx": 1,
-                                            })
-                                    self.thread_service.update_thread_building({
-                                                    "thread_idx": thread_idx,
-                                                    "building_idx": 1,
-                                    })
-                            self.thread_service.update_thread_estate({
-                                "thread_idx": thread_idx,
-                                "estate_idx": 1,
-                            })
-                            self.thread_service.update_thread_district({
-                                "thread_idx": thread_idx,
-                                "district_idx": selected_district+1,
-                            })
-                        except Exception as e:
-                            logger.warning(f"Something crash occurred. Error: {e}")
-                            retry += 1
-                            time.sleep(30)
-                            logger.info('Closing Browser')
-                            browser.quit()
+                                                        "building_idx": current_buildings_idx,
+                                                    })
+                                                thread = self.thread_service.get_threads(thread_idx)
+                                                building_selected = self.click_field(
+                                                        field_idx=building_idx, id=4, browser=browser)
+                                                
+                                                self.scrape_floors(browser=browser)
+                                                for floor_idx, floor in enumerate(self.floors):
+                                                    current_floor_idx = thread.floor_idx
+                                                    if floor_idx > 0 and floor_idx >= current_floor_idx:
+                                                        if len(self.floors) == floor_idx + 1:
+                                                            current_floor_idx = 1
+                                                        else:
+                                                            current_floor_idx = floor_idx
+                                                        self.thread_service.update_thread_floor({
+                                                                "thread_idx": thread_idx,
+                                                                "floor_idx": current_floor_idx,
+                                                            })
+                                                        thread = self.thread_service.get_threads(thread_idx)
+                                                        floor_selected = self.click_field(
+                                                                field_idx=floor_idx, id=5, browser=browser)
+
+                                                        self.scrape_blocks(browser=browser)
+                                                        for block_idx, block in enumerate(self.blocks):
+                                                            current_blocks_idx = thread.block_idx
+                                                            if block_idx > 0 and block_idx >= current_blocks_idx:
+                                                                if len(self.blocks) == block_idx + 1:
+                                                                    current_blocks_idx = 1
+                                                                else:
+                                                                    current_blocks_idx = block_idx
+                                                                self.thread_service.update_thread_block({
+                                                                    "thread_idx": thread_idx,
+                                                                    "block_idx": current_blocks_idx
+                                                                })
+                                                                thread = self.thread_service.get_threads(thread_idx)
+                                                
+                                                                if time.time() - browser.start_time >= 1800: 
+                                                                    browser = self.restart_browser(browser)
+                                                                    self.click_field(field_idx=selected_region, id=1,browser=browser)  
+                                                                    self.click_field(field_idx=selected_district, id=2,browser=browser) 
+                                                                    self.click_field(field_idx=estate_idx,id=3, browser=browser)
+                                                                    self.click_field(field_idx=building_idx, id=4, browser=browser)
+                                                                    self.click_field(field_idx=floor_idx, id=5, browser=browser)
+                                                                block_selected = self.click_field(field_idx=block_idx, id=6, browser=browser)
+                                                                self.valuation(browser=browser,region_selected=region_selected, district_selected=district_selected, estate_selected=estate_selected, building_selected=building_selected,floor_selected=floor_selected,block_selected=block_selected)
+                                                                self.clear_browser_data(driver=browser)
+                                                        self.thread_service.update_thread_block({
+                                                            "thread_idx": thread_idx,
+                                                            "block_idx": 1,
+                                                        })
+                                                self.thread_service.update_thread_floor({
+                                                            "thread_idx": thread_idx,
+                                                            "block_idx": 1,
+                                                })
+                                        self.thread_service.update_thread_building({
+                                                        "thread_idx": thread_idx,
+                                                        "building_idx": 1,
+                                        })
+                                self.thread_service.update_thread_estate({
+                                    "thread_idx": thread_idx,
+                                    "estate_idx": 1,
+                                })
+                                self.thread_service.update_thread_district({
+                                    "thread_idx": thread_idx,
+                                    "district_idx": selected_district+1,
+                                })
+            except Exception as e:
+                logger.warning(f"Something crash occurred. Error: {e}")
+                retry += 1
+                time.sleep(30)
+                logger.info('Closing Browser')
+                browser.quit()
 
             retry = 100
             logger.info('Closing Browser')
