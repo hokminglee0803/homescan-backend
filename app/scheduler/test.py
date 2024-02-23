@@ -322,7 +322,7 @@ class TestScraper:
                                                         })
                                                 self.thread_service.update_thread_floor({
                                                             "thread_idx": thread_idx,
-                                                            "block_idx": 1,
+                                                            "floor_idx": 1,
                                                 })
                                         self.thread_service.update_thread_building({
                                                         "thread_idx": thread_idx,
