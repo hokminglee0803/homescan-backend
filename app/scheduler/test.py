@@ -336,6 +336,10 @@ class TestScraper:
                                     "thread_idx": thread_idx,
                                     "district_idx": selected_district+1,
                                 })
+                retry = 100
+                logger.info('Closing Browser')
+                browser.close()
+                browser.quit()
             except Exception as e:
                 logger.warning(f"Something crash occurred. Error: {e}")
                 retry += 1
@@ -343,10 +347,6 @@ class TestScraper:
                 logger.info('Closing Browser')
                 browser.quit()
 
-            retry = 100
-            logger.info('Closing Browser')
-            browser.close()
-            browser.quit()
 
 
        
