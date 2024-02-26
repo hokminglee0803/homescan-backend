@@ -238,6 +238,7 @@ class TestScraper:
                 thread = self.thread_service.get_threads(thread_idx)
                 browser = self.open_browser()
                 for selected_district in selected_districts:
+                    thread = self.thread_service.get_threads(thread_idx)
                     if thread.district_idx == selected_district:
                                 region_selected = self.click_field(field_idx=selected_region, id=1,
                                                 browser=browser)      
