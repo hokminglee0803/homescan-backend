@@ -233,7 +233,7 @@ class TestScraper:
 
     def scrape(self,thread_idx, selected_region, selected_districts):
         retry = 0
-        while retry < 100:
+        while retry < 1000000:
             try:
                 thread = self.thread_service.get_threads(thread_idx)
                 browser = self.open_browser()
@@ -336,12 +336,12 @@ class TestScraper:
                                     "thread_idx": thread_idx,
                                     "district_idx": selected_district+1,
                                 })
-                retry = 100
+                retry = 1000000
                 logger.info('Closing Browser')
                 browser.close()
                 browser.quit()
             except Exception as e:
-                logger.warning(f"Something crash occurred. Error: {e}")
+                logger.warning(f"Something crash occurred. Error: {e}, retry count {retry}")
                 retry += 1
                 time.sleep(30)
                 logger.info('Closing Browser')
