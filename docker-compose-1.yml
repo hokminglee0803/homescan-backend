@@ -61,5 +61,5 @@ services:
   restarter-3:
     image: docker
     volumes: ["/var/run/docker.sock:/var/run/docker.sock"]
-    command: ["/bin/sh", "-c", "while true; do sleep 60; docker restart worker-1; done"]
+    command: ["/bin/sh", "-c", "while true; do sleep 60; docker restart homescan-backend_worker-1_1; done"]
     restart: unless-stopped
