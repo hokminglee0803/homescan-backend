@@ -45,3 +45,21 @@ services:
 
   redis:
     image: "redis:alpine"
+
+  restarter-1:
+    image: docker:cli
+    volumes: ["/var/run/docker.sock:/var/run/docker.sock"]
+    command: ["/bin/sh", "-c", "while true; do sleep 60; docker compose -p worker-1 restart worker-1; done"]
+    restart: unless-stopped
+
+  restarter-2:
+    image: docker:cli
+    volumes: ["/var/run/docker.sock:/var/run/docker.sock"]
+    command: ["/bin/sh", "-c", "while true; do sleep 60; docker compose -p chrome-node-1 restart chrome-node-1; done"]
+    restart: unless-stopped
+
+  restarter-3:
+    image: docker:cli
+    volumes: ["/var/run/docker.sock:/var/run/docker.sock"]
+    command: ["/bin/sh", "-c", "while true; do sleep 60; docker compose -p selenium-hub restart selenium-hub; done"]
+    restart: unless-stopped

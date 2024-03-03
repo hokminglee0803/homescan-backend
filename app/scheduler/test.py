@@ -334,8 +334,8 @@ class TestScraper:
                                     "estate_idx": 1,
                                 })
                                 self.thread_service.update_thread_district({
-                                    "thread_idx": thread_idx,
-                                    "district_idx": selected_district+1,
+                                            "thread_idx": thread_idx,
+                                            "district_idx": selected_district+1,
                                 })
                 retry = 1000000
                 logger.info('Closing Browser')
