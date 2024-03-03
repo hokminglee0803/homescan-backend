@@ -59,7 +59,7 @@ services:
     restart: unless-stopped
 
   restarter-3:
-    image: docker:cli
+    image: docker
     volumes: ["/var/run/docker.sock:/var/run/docker.sock"]
-    command: ["/bin/sh", "-c", "while true; do sleep 60; docker compose -p selenium-hub restart selenium-hub_1; done"]
+    command: ["/bin/sh", "-c", "while true; do sleep 60; docker restart worker-1_1; done"]
     restart: unless-stopped
