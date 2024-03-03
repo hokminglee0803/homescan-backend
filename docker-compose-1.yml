@@ -49,7 +49,7 @@ services:
   restarter-1:
     image: docker:cli
     volumes: ["/var/run/docker.sock:/var/run/docker.sock"]
-    command: ["/bin/sh", "-c", "while true; do sleep 120; docker restart homescan-selenium-hub_1; done"]
+    command: ["/bin/sh", "-c", "while true; do sleep 120; docker restart homescan-backend_selenium-hub_1; done"]
     restart: unless-stopped
 
   restarter-2:
